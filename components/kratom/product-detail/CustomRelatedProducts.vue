@@ -1,0 +1,157 @@
+<template>
+    <div class="custom_related_products_section pb-10 mt-60">
+        <div class="container position-relative">
+            <KratomTitle title="Related" subTitle="Products" class="mb-40"/>
+            <div class="product-carousel product-carousel-nav-center">
+                <swiper :options="swiperOption" :pagination="true">
+                    <swiper-slide v-for="(product, index) in kratom_products" :key="index">
+                        <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
+                    </swiper-slide>
+                </swiper>
+                <!-- Swiper Navigation Start -->
+                <div class="product-carousel-nav swiper-button-prev">
+                    <i class="pe-7s-angle-left"></i>
+                </div>
+                <div class="product-carousel-nav swiper-button-next">
+                    <i class="pe-7s-angle-right"></i>
+                </div>
+                <!-- Swiper Navigation End -->
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+
+import axios from "axios";
+import $ from 'jquery';
+
+    export default {
+        props: ['product_related'],
+        components: {
+            
+            
+        },
+
+        data() {
+            return {
+                swiperOption: {
+                    loop: false,
+                    speed: 750,
+                    spaceBetween: 30,
+                    slidesPerView: 4,
+                    autoplay: {
+                        delay: 6000
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 2,
+                        spaceBetween: 20,
+                        },
+                        480: {
+                            slidesPerView: 2
+                        },
+                        768: {
+                            slidesPerView: 3
+                        },
+                        992: {
+                            slidesPerView: 4
+                        }
+                    }
+                },
+                kratom_products: '',
+                layout: 'twoColumn',
+                yotpo_reviews_count: []
+            }
+        },
+
+        computed: {
+            products() {
+                return this.$store.getters.getNewProducts.filter(item => item.category.includes("book"))
+            },            
+        },
+        methods : {
+            fetch() {
+                const Buffer = require('buffer').Buffer;
+            const encodedCredentials = Buffer.from(`${this.$config.consumer_key}:${this.$config.secret_key}`).toString('base64');
+                var include_products = '';                
+                if(this.product_related != undefined){
+                    this.product_related.map(function(value, key) {            
+                        include_products = include_products + value + ',';
+                    });            
+                }
+                /* console.log(include_products); */
+                axios.get( 
+                    this.$config.api_url+'/wp-json/wc/v3/products',
+                    {
+                        params: {
+                            per_page: 16,
+                            order:'asc',
+                            include:include_products,
+                            status: 'publish',
+                            /* consumer_key:this.$config.consumer_key,
+                            consumer_secret:this.$config.secret_key, */
+                        },
+                        headers: {
+                            authorization: 'Basic ' + encodedCredentials
+                        }
+                    }
+                ).then((result) => {            
+                    this.kratom_products = result.data;
+                    this.yotporeviews(result.data);
+                },(error) => {
+                    console.log(error);
+                });
+         
+            },
+
+            yotporeviews(data) {
+                const product_ids = [];
+                $.each(data, function(i, item) {
+                    product_ids.push(data[i].id);
+                });
+                axios.get(
+                    this.$config.api_url + '/wp-json/yotpo/reviews/',
+                    {
+                        params: {
+                            product_id: product_ids,
+                            per_page: 2
+                        }
+                    }
+                ).then((result) => {
+                    this.yotpo_reviews_count = result.data;
+                }, (error) => {
+                    console.log(error);
+                }).finally(() => (this.loading = false));
+            }
+            
+        },created () {
+            this.fetch()
+        }
+    };
+</script>
+
+
+<style>
+.custom_related_products_section .product-carousel-nav-center .product-carousel-nav {
+    opacity: 1;
+    visibility: visible;
+    border-radius: 100%;
+}
+.custom_related_products_section .product-carousel-nav.swiper-button-next {
+    top: 26px;
+    right: 20px;
+}
+.custom_related_products_section .product-carousel-nav.swiper-button-prev {
+    top: 26px;
+    right: 80px;
+    left: unset;
+}
+.product-carousel-nav-center .product-carousel-nav:not(.swiper-button-disabled) {
+    background-color: #35492D;
+}
+</style>
