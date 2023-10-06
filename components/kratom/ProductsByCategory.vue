@@ -3,7 +3,7 @@
         <div class="product-area pt-55 pb-95 pt-sm-35 pb-sm-40">
             
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="30" height="30"
-                                :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"/></div>
+                                :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"/></div>
                         <div class="" :class="loading == true ? 'hidden' : ''">
                             <div class="row">
                                 <div class="product_single_item col-xl-4 col-lg-6 col-md-4 col-6 mb-30" v-for="(product, index) in kratom_products_red" :key="index">
@@ -46,9 +46,9 @@ export default {
     methods: {        
         fetch() {
             const Buffer = require('buffer').Buffer;
-            const encodedCredentials = Buffer.from(`${this.$config.consumer_key}:${this.$config.secret_key}`).toString('base64');
+            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
             axios.get(
-                this.$config.api_url + '/wp-json/wc/v3/products',
+                useRuntimeConfig().public.api_url + '/wp-json/wc/v3/products',
                 {
                     params: {
                         per_page: 3,
@@ -74,7 +74,7 @@ export default {
             });
             
             axios.get(
-                this.$config.api_url + '/wp-json/yotpo/reviews/',
+                useRuntimeConfig().public.api_url + '/wp-json/yotpo/reviews/',
                 {
                     params: {
                         product_id: product_ids,

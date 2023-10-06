@@ -17,7 +17,7 @@
  data-autoplay-speed="3000" 
  data-show-navigation="1" 
  :data-product-id="product_id">&nbsp;</div>
-        <img :src="`${this.$config.site_url}/img/kratom/reviews_demo.jpg`" class="d-none"/> -->
+        <img :src="`${useRuntimeConfig().public.site_url}/img/kratom/reviews_demo.jpg`" class="d-none"/> -->
     </div>
 </template>
 

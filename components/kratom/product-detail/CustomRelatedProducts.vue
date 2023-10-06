@@ -77,7 +77,7 @@ import $ from 'jquery';
         methods : {
             fetch() {
                 const Buffer = require('buffer').Buffer;
-            const encodedCredentials = Buffer.from(`${this.$config.consumer_key}:${this.$config.secret_key}`).toString('base64');
+            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 var include_products = '';                
                 if(this.product_related != undefined){
                     this.product_related.map(function(value, key) {            
@@ -86,15 +86,15 @@ import $ from 'jquery';
                 }
                 /* console.log(include_products); */
                 axios.get( 
-                    this.$config.api_url+'/wp-json/wc/v3/products',
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
                     {
                         params: {
                             per_page: 16,
                             order:'asc',
                             include:include_products,
                             status: 'publish',
-                            /* consumer_key:this.$config.consumer_key,
-                            consumer_secret:this.$config.secret_key, */
+                            /* consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key, */
                         },
                         headers: {
                             authorization: 'Basic ' + encodedCredentials
@@ -115,7 +115,7 @@ import $ from 'jquery';
                     product_ids.push(data[i].id);
                 });
                 axios.get(
-                    this.$config.api_url + '/wp-json/yotpo/reviews/',
+                    useRuntimeConfig().public.api_url + '/wp-json/yotpo/reviews/',
                     {
                         params: {
                             product_id: product_ids,

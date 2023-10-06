@@ -259,7 +259,7 @@ export default {
     methods: {
         /* fatch() {
             axios.get(
-                this.$config.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
+                useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
                     this.kratom_header_data = result.data;
                 }, (error) => {
                     console.log(error);

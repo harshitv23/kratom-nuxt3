@@ -19,7 +19,6 @@
 import axios from "axios";
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import YotpoReviewTotals from "./YotpoReviewTotals.vue";
-console.log('----------');
 export default {
     components: {
         Swiper,

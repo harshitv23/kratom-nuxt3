@@ -3,7 +3,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 col-md-12 col-sm-4 pr-40 pr-sm-20">
-                    <NuxtImg width="208" height="205"  loading="lazy"  :src="`${this.$config.site_url}/img/kratom/kratom_logo.png`" class="footer_logo" alt="Kratom Spot"/>
+                    <img width="208" height="205"  loading="lazy"  :src="`${useRuntimeConfig().public.site_url}/img/kratom/kratom_logo.png`" class="footer_logo" alt="Kratom Spot"/>
                     <h3 class="mt-sm-10 mb-sm-20">Kratom Spot</h3>
                     <div class="footer_contact_item">
                         <i class="fa fa-phone" aria-hidden="true"></i>
@@ -73,7 +73,7 @@
                          <div
                             class="col-lg-4 col-md-12 pl-60 pl-sm-15 d-lg-none text-md-start mt-md-30 mb-md-30 px-md-3">
                             <div class="footer_privacy_mobile_menu d-lg-block pt-sm-30 pb-sm-30 mt-sm-30">
-                                <NuxtImg format="webp"  loading="lazy"  width="600" height="94" class="w-200 payment-icon" style="" src="https://res.cloudinary.com/dv8z5nr6r/images/v1676547918/payment-icons-1_217755f7e10/payment-icons-1_217755f7e10.png?_i=AA" alt="Payments Accepted"/>
+                                <img format="webp"  loading="lazy"  width="600" height="94" class="w-200 payment-icon" style="" src="https://res.cloudinary.com/dv8z5nr6r/images/v1676547918/payment-icons-1_217755f7e10/payment-icons-1_217755f7e10.png?_i=AA" alt="Payments Accepted"/>
                             </div>
                         </div> 
                     </div>
@@ -94,9 +94,9 @@
                         <!-- <Newsletter/> -->
                     </div>
                     <div class="footer_privacy_section align-items-center mt-20 mt-sm-40 pt-sm-30">
-                        <a href="https://www.americankratom.org/" target="_blank" aria-label="American Kratom"><NuxtImg format="webp" loading="lazy"  width="126" height="52" :src="`${this.$config.site_url}/img/kratom/american_kratom_asociation.png`" alt="Americal Kratom Asociation"/></a>
-                        <a href="https://www.authorize.net/" target="_blank" aria-label="Authorize Net"><NuxtImg format="webp" loading="lazy"  width="126" height="52"  :src="`${this.$config.site_url}/img/kratom/authorize_net.png`" alt="Authorize net"/></a>
-                        <NuxtImg format="webp" loading="lazy"  width="200" height="31"  src="https://res.cloudinary.com/dv8z5nr6r/images/v1676547918/payment-icons-1_217755f7e10/payment-icons-1_217755f7e10.png?_i=AA" class="mobile-pay-dis" style="max-width:200px;" alt="payment"/>
+                        <a href="https://www.americankratom.org/" target="_blank" aria-label="American Kratom"><img format="webp" loading="lazy"  width="126" height="52" :src="`${useRuntimeConfig().public.site_url}/img/kratom/american_kratom_asociation.png`" alt="Americal Kratom Asociation"/></a>
+                        <a href="https://www.authorize.net/" target="_blank" aria-label="Authorize Net"><img format="webp" loading="lazy"  width="126" height="52"  :src="`${useRuntimeConfig().public.site_url}/img/kratom/authorize_net.png`" alt="Authorize net"/></a>
+                        <img format="webp" loading="lazy"  width="200" height="31"  src="https://res.cloudinary.com/dv8z5nr6r/images/v1676547918/payment-icons-1_217755f7e10/payment-icons-1_217755f7e10.png?_i=AA" class="mobile-pay-dis" style="max-width:200px;" alt="payment"/>
                     </div>
                 </div>
             </div>
@@ -342,7 +342,7 @@ export default {
     },
     async fetch() {
         await axios.get(
-                this.$config.api_url + '/wp-json/acf/v3/header?data_type=footer').then((result) => {
+                useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=footer').then((result) => {
                     this.kratom_header_data = result.data;
                 }, (error) => {
                     console.log(error);

@@ -79,7 +79,7 @@ import $ from 'jquery';
                 });
                 
                 axios.get(
-                    this.$config.api_url + '/wp-json/yotpo/reviews/',
+                    useRuntimeConfig().public.api_url + '/wp-json/yotpo/reviews/',
                     {
                         params: {
                             product_id: product_ids,
@@ -101,14 +101,14 @@ import $ from 'jquery';
                 }
                 console.log(include_products);
                 axios.get( 
-                    this.$config.api_url+'/wp-json/wc/v3/products',
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
                     {
                         params: {
                             per_page: 16,
                             order:'asc',
                             include:include_products,
-                            consumer_key:this.$config.consumer_key,
-                            consumer_secret:this.$config.secret_key,
+                            consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key,
                         }
                     }
                 ).then((result) => {            

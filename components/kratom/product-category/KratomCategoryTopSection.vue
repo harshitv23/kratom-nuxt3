@@ -21,7 +21,7 @@
 					<p>At Kratom Spot, we stock what can only be called the worlds best kratom. We source all of our strains from the most experienced and sustainable fair-trade farms. </p>
 				</div>
 				<div class="col-lg-7 col-md-12 col-sm-12 ms-auto mt-sm-20 mt-md-30">
-					<img :src="`${this.$config.site_url}/img/kratom/category1.png`" alt="listpage-2" class="w-100"/>
+					<img :src="`${useRuntimeConfig().public.site_url}/img/kratom/category1.png`" alt="listpage-2" class="w-100"/>
 				</div>
 	  		</div>
 	  	</div> -->

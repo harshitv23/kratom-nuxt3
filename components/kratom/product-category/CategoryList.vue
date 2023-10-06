@@ -51,14 +51,14 @@
     },
     /* async fetch() {
         await axios.get( 
-            this.$config.api_url+'/wp-json/wc/v3/products',
+            useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
                     {
                         params: {
                             per_page: 100,
                             order:'asc',
                             category:47,                            
-                            consumer_key:this.$config.consumer_key,
-                            consumer_secret:this.$config.secret_key,
+                            consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key,
                         }
                     }
                 ).then((result) => {            
@@ -72,13 +72,13 @@
                 console.log(this.slug);
                 console.log(this.$route.params);
                 await axios.get( 
-                    this.$config.api_url+'/wp-json/wc/v3/products/categories',
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products/categories',
                     {
                         params: {
                             per_page: 1,                            
                             slug:this.slug,
-                            consumer_key:this.$config.consumer_key,
-                            consumer_secret:this.$config.secret_key,
+                            consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key,
                         }
                     }
                 ).then((result) => {
@@ -91,14 +91,14 @@
 
                 if(this.category_id != ''){
                     await axios.get( 
-                    this.$config.api_url+'/wp-json/wc/v3/products',
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
                     {
                         params: {
                             per_page: 100,
                             order:'asc',
                             category:this.category_id,                            
-                            consumer_key:this.$config.consumer_key,
-                            consumer_secret:this.$config.secret_key,
+                            consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key,
                         }
                     }
                 ).then((result) => {            

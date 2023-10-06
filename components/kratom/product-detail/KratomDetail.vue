@@ -42,17 +42,17 @@
                     <!-- <div class="mb-30 d-inline-block">
                             <div class="text-black green_vein_item mb-10">
                                 <NuxtImg format="webp" loading="lazy" class="w-10" height="45" width="45"
-                                    :src="`${this.$config.site_url}/img/kratom/icons/green_vein_1.png`" alt="image_2.png" />
+                                    :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_1.png`" alt="image_2.png" />
                                 <span> {{ product.ACF.first_icon_text }} </span>
                             </div>
                             <div class="text-black green_vein_item mb-10">
                                 <NuxtImg format="webp" loading="lazy" class="w-10" height="45" width="45"
-                                    :src="`${this.$config.site_url}/img/kratom/icons/green_vein_2.png`" alt="image_2.png" />
+                                    :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_2.png`" alt="image_2.png" />
                                 <span> {{ product.ACF.second_icon_text }} </span>
                             </div>
                             <div class="text-black green_vein_item mb-10">
                                 <NuxtImg format="webp" loading="lazy" class="w-10" height="45" width="45"
-                                    :src="`${this.$config.site_url}/img/kratom/icons/green_vein_3.png`" alt="image_2.png" />
+                                    :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_3.png`" alt="image_2.png" />
                                 <span> {{ product.ACF.third_icon_text }} </span>
                             </div>
                         </div>
@@ -207,7 +207,7 @@
                             <div class="yotpo QABottomLine yotpo-small"
                                 data-appkey="qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57" :data-product-id="product.id"
                                 data-yotpo-element-id="3"></div>
-                            <!-- <img class="w-50" :src="`${this.$config.site_url}/img/kratom/Screenshot_41.png`" alt="image_1.png" /> -->
+                            <!-- <img class="w-50" :src="`${useRuntimeConfig().public.site_url}/img/kratom/Screenshot_41.png`" alt="image_1.png" /> -->
                         </div>
                         <div class="text-black mb-30"><span class="kratom-product-price" v-html="price_html2"></span>
                         </div>
@@ -227,7 +227,7 @@
                             <label>
                                 <span class="d-none">qty</span>
                                 <!-- <input type="number" class="product_detail_qty" value="1" min="1" v-model="product_qty"> -->
-                                <select id="qty_no" class="product_detail_qty" v-model="product_qty">
+                                <select id="qty_no" class="product_detail_qty" v-bind:value="product_qty">
                                     <option value="1" selected="selected">1</option>
                                     <option v-for="q_no in qty_no" :value="`${q_no}`" :selected="(q_no == 1 || q_no == '1')?'selected':''">{{ q_no }}</option>
                                 </select>
@@ -237,9 +237,9 @@
                                 CART</button>
                             <button type="button" class="btn product_detail_addtocart_btn text-white" v-else disabled>ADD TO
                                 CART</button>
-                            <input type="hidden" id="selected_product_variation" v-model="variation_id">
-                            <input type="hidden" id="selected_product_id" v-model="product_id" />
-                            <input type="hidden" id="selected_product_type" v-model="product.type" />
+                            <input type="hidden" id="selected_product_variation" v-bind:value="variation_id">
+                            <input type="hidden" id="selected_product_id" v-bind:value="product_id" />
+                            <input type="hidden" id="selected_product_type" v-bind:value="product.type" />
                         </div>
                         <!-- <div class="yith_product mt-20" v-html="yith.product_points" v-if="yith.product_points"></div> -->
                         <div class="row product-price-box-logo align-items-center">
@@ -567,7 +567,7 @@ export default {
                 };
             }
             if (this.$cookies.isKey("kratom_token")) {
-                var url = this.$config.api_url + "/wp-json/wc/store/v1/cart/add-item";
+                var url = useRuntimeConfig().public.api_url + "/wp-json/wc/store/v1/cart/add-item";
                 if (ptype == "variable") {
                     var data = { "id": "" + this.variation_id, "quantity": "" + this.product_qty };
                 }
@@ -575,7 +575,7 @@ export default {
                     var data = { "id": "" + this.product_id, "quantity": "" + this.product_qty };
                 }
             } /* else if (this.$cookies.isKey('cart_key') && this.$cookies.get('cart_key') != "") {
-                var url = this.$config.api_url+'/wp-json/cocart/v2/cart/add-item';
+                var url = useRuntimeConfig().public.api_url+'/wp-json/cocart/v2/cart/add-item';
                 var cart_key = this.$cookies.get('cart_key');
                 if (ptype == 'variable') {
                     var data = { "id": '' + this.variation_id, "quantity": '' + this.product_qty, "cart_key": cart_key };
@@ -584,8 +584,8 @@ export default {
                 }
             } */
             else {
-                //var url = this.$config.api_url+'/wp-json/cocart/v2/cart/add-item';
-                var url = this.$config.api_url + "/wp-json/wc/store/v1/cart/add-item";
+                //var url = useRuntimeConfig().public.api_url+'/wp-json/cocart/v2/cart/add-item';
+                var url = useRuntimeConfig().public.api_url + "/wp-json/wc/store/v1/cart/add-item";
                 if (ptype == "variable") {
                     var data = { "id": "" + this.variation_id, "quantity": "" + this.product_qty };
                 }
@@ -595,7 +595,7 @@ export default {
             }
             /*  var config = {
                  method: 'post',
-                 //url: this.$config.api_url+'/wp-json/wc/store/v1/cart/add-item',
+                 //url: useRuntimeConfig().public.api_url+'/wp-json/wc/store/v1/cart/add-item',
                  url: url,
                  headers: headers,
                  credentials: 'include',
@@ -700,12 +700,12 @@ export default {
         },
         fetch() {
             const Buffer = require('buffer').Buffer;
-            const encodedCredentials = Buffer.from(`${this.$config.consumer_key}:${this.$config.secret_key}`).toString('base64');
-            //axios.get(this.$config.api_url+"/wp-json/wc/v3/products/" + this.product_id + "/variations/", {
-            axios.get(this.$config.api_url + "/wp-json/wc/v3/products/" + this.product_id + "/variations/", {
+            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
+            //axios.get(useRuntimeConfig().public.api_url+"/wp-json/wc/v3/products/" + this.product_id + "/variations/", {
+            axios.get(useRuntimeConfig().public.api_url + "/wp-json/wc/v3/products/" + this.product_id + "/variations/", {
                 params: {
-                    /* consumer_key: this.$config.consumer_key,
-                    consumer_secret: this.$config.secret_key, */
+                    /* consumer_key: useRuntimeConfig().public.consumer_key,
+                    consumer_secret: useRuntimeConfig().public.secret_key, */
                     in_stock: true,
                     status: 'publish',
                 },
@@ -722,8 +722,8 @@ export default {
             });
         },
         fetch_yith() {
-            //axios.get(this.$config.api_url+"/wp-json/wc/v3/products/" + this.product_id + "/variations/", {
-            axios.get(this.$config.api_url + "/wp-json/yith/v3/data/", {
+            //axios.get(useRuntimeConfig().public.api_url+"/wp-json/wc/v3/products/" + this.product_id + "/variations/", {
+            axios.get(useRuntimeConfig().public.api_url + "/wp-json/yith/v3/data/", {
                 params: {
                     product_id: this.product_id
                 }
@@ -744,7 +744,7 @@ export default {
                     "Authorization": "Bearer " + kratom_token
                 };
                 /* axios.get(
-                    this.$config.api_url+'/wp-json/wc/store/v1/cart',
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/store/v1/cart',
                     {
                         headers: headers,
                         withCredentials: true
@@ -767,7 +767,7 @@ export default {
                     
                     var config = {
                         method: 'get',
-                        url: this.$config.api_url+'/wp-json/cocart/v2/cart',
+                        url: useRuntimeConfig().public.api_url+'/wp-json/cocart/v2/cart',
                         headers: headers,
                         params : data,
                         withCredentials: true
@@ -792,7 +792,7 @@ export default {
                     "Content-Type": "application/json",
                 };
             }
-            var url = this.$config.api_url + "/wp-json/wc/store/v1/cart";
+            var url = useRuntimeConfig().public.api_url + "/wp-json/wc/store/v1/cart";
             var config = {
                 method: "get",
                 url: url,

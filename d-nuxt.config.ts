@@ -1,9 +1,15 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+//import { nacelleYotpoNuxtModule } from '@nacelle/nacelle-yotpo-nuxt-module';
+//import { nacelle } from '@nacelle/nacelle-nuxt';
+
 export default defineNuxtConfig({
   modules: [
     /* '@nuxt/image', */
-    /* '@nacelle/nacelle-yotpo-nuxt-module' */
+    '@nacelle/nacelle-yotpo-nuxt-module'
   ],
+  nacelle: {
+    yotpoAPIKey: process.env.YOTPO_API_KEY,
+  },
   devtools: {
     enabled: true,
 

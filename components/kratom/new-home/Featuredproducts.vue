@@ -7,11 +7,11 @@
             <div class="tab-content mt-sm-30 mt-55">
                 <div class="tab-pane fade show active" id="new-product" role="tabpanel">
                     <div v-if="loading == true" class="pt-30 pb-30 text-center ">
-                        <img width="120" height="120" :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"/>
+                        <img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"/>
                     </div>
                     <div class="" :class="loading == true ? 'hidden' : ''">
                         <div class="product-carousel product-carousel-nav-center position-relative">
-                            <swiper :options="[swiperOption]" :pagination="true"     :loop="false" :slides-per-view="4" spaceBetween="30">
+                            <swiper :options="swiperOption" :pagination="true" :loop="false" :slides-per-view="4" spaceBetween="30">
                                 <SwiperSlide v-for="(product, index) in kratom_products_red" :key="index">
                                     <ProductGridItem :yotpoonce="index" :product="product" :layout="layout" :yotpo_reviews_count="yotpo_reviews_count" />
                                 </SwiperSlide>

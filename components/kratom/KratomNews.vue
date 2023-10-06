@@ -11,7 +11,7 @@
                                 :alt="blogs[0].title.rendered" />
                             <div class="news_date">
                                 <img format="webp" width="30" height="30" loading="lazy"
-                                    :src="`${this.$config.site_url}/img/kratom/icons/calendar-icon.png`" alt="icon" /> <span
+                                    :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/calendar-icon.png`" alt="icon" /> <span
                                     v-html="blogs[0].display_date" v-if="blogs[0].display_date"></span>
                             </div>
                             <div class="first_blog_content">
@@ -33,7 +33,7 @@
                                 <div class="col-md-8">
                                     <div class="news_date">
                                         <img format="webp" width="30" height="30" loading="lazy"
-                                            :src="`${this.$config.site_url}/img/kratom/icons/calendar-icon.png`"
+                                            :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/calendar-icon.png`"
                                             alt="icon" /> <span v-html="blogs[1].display_date"
                                             v-if="blogs[1].display_date"></span>
                                     </div>
@@ -52,7 +52,7 @@
                                 <div class="col-md-8">
                                     <div class="news_date">
                                         <img format="webp" width="30" height="30" loading="lazy"
-                                            :src="`${this.$config.site_url}/img/kratom/icons/calendar-icon.png`"
+                                            :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/calendar-icon.png`"
                                             alt="icon" /> <span v-html="blogs[2].display_date"
                                             v-if="blogs[2].display_date"></span>
                                     </div>
@@ -71,7 +71,7 @@
                                 <div class="col-md-8">
                                     <div class="news_date">
                                         <img format="webp" width="30" height="30" loading="lazy"
-                                            :src="`${this.$config.site_url}/img/kratom/icons/calendar-icon.png`"
+                                            :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/calendar-icon.png`"
                                             alt="icon" /> <span v-html="blogs[3].display_date"
                                             v-if="blogs[3].display_date"></span>
                                     </div>

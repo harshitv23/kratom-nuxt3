@@ -7,7 +7,7 @@
             </button>
             <div class="mobile-menu-inner-wrapper">
                 <div class="offcanvas-mobile-search">
-                    <form class="mobile-search-inner" :action="`${this.$config.site_url}/s`">
+                    <form class="mobile-search-inner" :action="`${useRuntimeConfig().public.site_url}/s`">
                         <input type="text" placeholder="Search here" name="s">
                         <button type="submit"><i class="pe-7s-search"></i></button>
                     </form>
@@ -55,7 +55,7 @@ export default {
     methods: {
         /* fatch() {
             axios.get(
-                this.$config.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
+                useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
                     this.kratom_header_data = result.data;
                 }, (error) => {
                     console.log(error);

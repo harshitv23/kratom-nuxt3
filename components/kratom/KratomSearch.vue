@@ -31,7 +31,7 @@
                             </div>
                         </div>
                         <div v-if="loading == true" class="pt-140 pb-140 text-center "><img width="120" height="120"
-                :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
+                :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <CategoryList :kratom_products="kratom_products" :layout="layout" :yotpo_reviews_count="yotpo_reviews_count" v-else/>
                     </div>
                     <div class="col-lg-3">
@@ -83,7 +83,7 @@ export default {
             this.loading = true;
             var sortby = event.target.value;
             const Buffer = require('buffer').Buffer;
-            const encodedCredentials = Buffer.from(`${this.$config.consumer_key}:${this.$config.secret_key}`).toString('base64');
+            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
             if (sortby == 'price-desc') {
                 var params = {
                     per_page: 100,
@@ -91,8 +91,8 @@ export default {
                     orderby: 'price',
                     status: 'publish',
                     search: this.$route.query.s,
-                    /* consumer_key: this.$config.consumer_key,
-                    consumer_secret: this.$config.secret_key, */
+                    /* consumer_key: useRuntimeConfig().public.consumer_key,
+                    consumer_secret: useRuntimeConfig().public.secret_key, */
                 }
             } else {
                 var params = {
@@ -101,12 +101,12 @@ export default {
                     orderby: sortby,
                     status: 'publish',
                     search: this.$route.query.s,
-                    /* consumer_key: this.$config.consumer_key,
-                    consumer_secret: this.$config.secret_key, */
+                    /* consumer_key: useRuntimeConfig().public.consumer_key,
+                    consumer_secret: useRuntimeConfig().public.secret_key, */
                 }
             }
             axios.get(
-                this.$config.api_url + '/wp-json/wc/v3/products',
+                useRuntimeConfig().public.api_url + '/wp-json/wc/v3/products',
                 {
                     params: params,
                         headers: {
@@ -122,16 +122,16 @@ export default {
         },
         fetch() {
             const Buffer = require('buffer').Buffer;
-            const encodedCredentials = Buffer.from(`${this.$config.consumer_key}:${this.$config.secret_key}`).toString('base64');
+            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
             axios.get(
-                this.$config.api_url + '/wp-json/wc/v3/products',
+                useRuntimeConfig().public.api_url + '/wp-json/wc/v3/products',
                 {
                     params: {
                         per_page: 100,
                         search: this.$route.query.s,
                         status: 'publish',
-                        /* consumer_key: this.$config.consumer_key,
-                        consumer_secret: this.$config.secret_key, */
+                        /* consumer_key: useRuntimeConfig().public.consumer_key,
+                        consumer_secret: useRuntimeConfig().public.secret_key, */
                     },
                         headers: {
                             authorization: 'Basic ' + encodedCredentials
@@ -150,7 +150,7 @@ export default {
                 product_ids.push(data[i].id);
             });
             axios.get(
-                this.$config.api_url + '/wp-json/yotpo/reviews/',
+                useRuntimeConfig().public.api_url + '/wp-json/yotpo/reviews/',
                 {
                     params: {
                         product_id: product_ids,

@@ -9,7 +9,7 @@
 	  	<!-- <div class="container pb-60 pb-sm-50 pt-sm-40 d-none">		
 			<div class="row align-items-center">			
 				<div class="col-lg-6 col-md-12 col-sm-12 ms-auto pb-sm-20 mt-md-40">
-					<img :src="`${this.$config.site_url}/img/kratom/category2.png`" alt="listpage-1" class="w-100"/>
+					<img :src="`${useRuntimeConfig().public.site_url}/img/kratom/category2.png`" alt="listpage-1" class="w-100"/>
 				</div>
 				<div class="col-lg-6 col-md-12 col-sm-12 ms-auto">
 					<KratomTitle title="Responsibly Sourced" subTitle="Kratom, Always" class="mb-40 mb-sm-20"/>
@@ -36,7 +36,7 @@
 				</div>
 			</div>
 			<div class="col-lg-6 col-md-12 col-sm-12 ms-auto pt-sm-40 pb-sm-10 mt-md-40">
-				<img :src="`${this.$config.site_url}/img/kratom/category2.png`" alt="kratomspot-1" class="w-100"/>
+				<img :src="`${useRuntimeConfig().public.site_url}/img/kratom/category2.png`" alt="kratomspot-1" class="w-100"/>
 			</div>
 			
 	  </div>
