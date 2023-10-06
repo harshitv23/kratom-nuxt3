@@ -24,28 +24,28 @@
 				</div>
 				<!-- <div class="shop_category_col">
 				<NuxtLink :to="'/kratom-capsules-for-sale'"  class="shop-category px-4 py-4 text-center p-3 mb-5 mb-sm-25">
-					<img class="w-30 mb-20 mb-sm-10" :src="`${this.$config.site_url}/img/kratom/kratom_capsules.jpg`" alt="icon-1" />
+					<img class="w-30 mb-20 mb-sm-10" :src="`${useRuntimeConfig().public.site_url}/img/kratom/kratom_capsules.jpg`" alt="icon-1" />
 					
 					<p class="text-wrap shop_category_title">KRATOM <strong>CAPSULES</strong></p>	
 				</NuxtLink>	
 			</div>
 			<div class="shop_category_col">
 				<NuxtLink :to="'/buy-kratom-extract'"  class="shop-category  px-4 py-4 text-center p-3 mb-5 mb-sm-25">
-					<img class="w-30 mb-20 mb-sm-10" :src="`${this.$config.site_url}/img/kratom/kratom_extracts.jpg`" alt="icon-1" />
+					<img class="w-30 mb-20 mb-sm-10" :src="`${useRuntimeConfig().public.site_url}/img/kratom/kratom_extracts.jpg`" alt="icon-1" />
 					
 					<p class="text-wrap shop_category_title">KRATOM <strong>EXTRACTS</strong></p>	
 				</NuxtLink>	
 			</div>
 			<div class="shop_category_col">
 				<NuxtLink :to="'/kratom-shots'"  class="shop-category  px-4 py-4 text-center p-3 mb-5 mb-sm-25">
-					<img class="w-30 mb-20 mb-sm-10" :src="`${this.$config.site_url}/img/kratom/kratom_shots.jpg`" alt="icon-1" />
+					<img class="w-30 mb-20 mb-sm-10" :src="`${useRuntimeConfig().public.site_url}/img/kratom/kratom_shots.jpg`" alt="icon-1" />
 					
 					<p class="text-wrap shop_category_title">KRATOM <strong>SHOTS</strong></p>	
 				</NuxtLink>	
 			</div>
 			<div class="shop_category_col">
 				<NuxtLink :to="'/red-vein-kratom'"  class="shop-category  px-4 py-4 text-center p-3 mb-5 mb-sm-25">
-					<img class="w-30 mb-20 mb-sm-10" :src="`${this.$config.site_url}/img/kratom/red_veins.jpg`" alt="icon-1" />
+					<img class="w-30 mb-20 mb-sm-10" :src="`${useRuntimeConfig().public.site_url}/img/kratom/red_veins.jpg`" alt="icon-1" />
 					
 					<p class="text-wrap shop_category_title"><strong>RED </strong>VEINS</p>	
 				</NuxtLink>	
@@ -53,28 +53,28 @@
 			
 			<div class="shop_category_col">
 				<NuxtLink :to="'/green-vein-kratom'"  class="shop-category  px-4 py-4 text-center p-3 mb-5 mb-sm-25">
-					<img class="w-30 mb-20 mb-sm-10" :src="`${this.$config.site_url}/img/kratom/green_veins.jpg`" alt="icon-1" />
+					<img class="w-30 mb-20 mb-sm-10" :src="`${useRuntimeConfig().public.site_url}/img/kratom/green_veins.jpg`" alt="icon-1" />
 					
 					<p class="text-wrap shop_category_title"><strong> GREEN </strong> VEINS</p>	
 				</NuxtLink>	
 			</div>
 			<div class="shop_category_col">
 				<NuxtLink :to="'/white-vein-kratom'"  class="shop-category  px-4 py-4 text-center p-3 mb-5 mb-sm-25">
-					<img class="w-30 mb-20 mb-sm-10" :src="`${this.$config.site_url}/img/kratom/white_veins.jpg`" alt="icon-1" />
+					<img class="w-30 mb-20 mb-sm-10" :src="`${useRuntimeConfig().public.site_url}/img/kratom/white_veins.jpg`" alt="icon-1" />
 					
 					<p class="text-wrap shop_category_title"><strong>WHITE </strong> VEINS</p>	
 				</NuxtLink>	
 			</div>
 			<div class="shop_category_col">
 				<NuxtLink :to="'/indo-kratom'"  class="shop-category  px-4 py-4 text-center p-3 mb-5 mb-sm-25">
-					<img class="w-30 mb-20 mb-sm-10" :src="`${this.$config.site_url}/img/kratom/indo_kratom.jpg`" alt="icon-1" />
+					<img class="w-30 mb-20 mb-sm-10" :src="`${useRuntimeConfig().public.site_url}/img/kratom/indo_kratom.jpg`" alt="icon-1" />
 					
 					<p class="text-wrap shop_category_title"><strong>INDO</strong> KRATOM</p>	
 				</NuxtLink>	
 			</div>
 			<div class="shop_category_col">
 				<NuxtLink :to="'/maeng-da-kratom-powders-capsules'"  class="shop-category  px-4 py-4 text-center p-3 mb-5 mb-sm-25">
-					<img class="w-30 mb-20 mb-sm-10" :src="`${this.$config.site_url}/img/kratom/maega_da.jpg`" alt="icon-1" />
+					<img class="w-30 mb-20 mb-sm-10" :src="`${useRuntimeConfig().public.site_url}/img/kratom/maega_da.jpg`" alt="icon-1" />
 					
 					<p class="text-wrap shop_category_title"><strong> MAENG DA </strong> KRATOM</p>	
 				</NuxtLink>	
@@ -155,7 +155,7 @@ export default {
 	methods: {
 		fatch() {
 			axios.get(
-				this.$config.api_url + '/wp-json/acf/v3/header?data_type=section_3').then((result) => {
+				useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=section_3').then((result) => {
 					this.kratom_header_data = result.data;
 				}, (error) => {
 					console.log(error);

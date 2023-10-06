@@ -14,7 +14,7 @@
 		</div>
 
 	  <div class="after_banner">
-			<img :src="`${this.$config.site_url}/img/kratom/bannerbg-2.png`" alt="listpage-5" class="w-100"/>
+			<img :src="`${useRuntimeConfig().public.site_url}/img/kratom/bannerbg-2.png`" alt="listpage-5" class="w-100"/>
 		</div>
 	</section>
   </template>

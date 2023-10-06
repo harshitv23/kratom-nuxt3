@@ -54,7 +54,7 @@ export default {
     methods: {
         fatch() {
             axios.get(
-                this.$config.api_url + '/wp-json/acf/v3/header?data_type=homefind').then((result) => {
+                useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=homefind').then((result) => {
                     this.kratom_find_data = result.data;
                 }, (error) => {
                     console.log(error);

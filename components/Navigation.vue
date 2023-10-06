@@ -4,8 +4,8 @@
             <NuxtLink v-for="(menu_heading,index) in kratom_header_data.buy_kratom" :key="index" :to="`/${menu_heading.menu_slug}`"> {{ menu_heading.menu_text }} <i class="fa fa-angle-down"></i></NuxtLink>
             <ul class="mega-menu mega-menu-padding">
                 <li class="mega-menu-img mb-2 mega_menu_col-3 text-center menu_img_column_center">
-                    <NuxtImg format="webp" loading="lazy" width="135" height="280" class="w-auto menu_cat_img" :src="`${this.$config.site_url}/img/kratom/redkratom.png`" alt="Kratom Spot" />
-                    <!-- <img loading="lazy" width="135" height="280" class="w-auto max-width-135 menu_cat_img" :src="`${this.$config.site_url}/img/kratom/redkratom.png`" alt="Kratom Spot" /> -->
+                    <img format="webp" loading="lazy" width="135" height="280" class="w-auto menu_cat_img" :src="`${useRuntimeConfig().public.site_url}/img/kratom/redkratom.png`" alt="Kratom Spot" />
+                    <!-- <img loading="lazy" width="135" height="280" class="w-auto max-width-135 menu_cat_img" :src="`${useRuntimeConfig().public.site_url}/img/kratom/redkratom.png`" alt="Kratom Spot" /> -->
                 </li>
                 <li class="mega_menu_col-3">
                     <ul>
@@ -89,7 +89,7 @@ export default {
     methods: {
         /* fetch() {
             axios.get(
-                this.$config.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
+                useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
                     this.kratom_header_data = result.data;
                 }, (error) => {
                     console.log(error);

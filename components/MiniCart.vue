@@ -30,7 +30,7 @@
                 </div>
                 <div class="shopping-cart-btn btn-hover text-center" @click="$emit('minicartClose')">
                     <NuxtLink to="/cart" class="default-btn">view cart</NuxtLink>
-                    <a :href="this.$config.site_url+'/checkout'" class="default-btn">checkout</a>
+                    <a :href="useRuntimeConfig().public.site_url+'/checkout'" class="default-btn">checkout</a>
                 </div>
             </div>
             <div class="shopping-cart-content text-center" v-else>
@@ -232,7 +232,7 @@ export default {
                     'Authorization': 'Bearer ' + kratom_token
                 }
                 axios.get(
-                    this.$config.api_url+'/wp-json/wc/store/v1/cart',
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/store/v1/cart',
                     {
                         params: {
 
@@ -260,7 +260,7 @@ export default {
 
                 var config = {
                     method: 'get',
-                    url: this.$config.api_url+'/wp-json/cocart/v2/cart',
+                    url: useRuntimeConfig().public.api_url+'/wp-json/cocart/v2/cart',
                     headers: headers,
                     params: data
                 };
@@ -289,7 +289,7 @@ export default {
 
 
             /*axios.get( 
-                this.$config.api_url+'/wp-json/wc/store/v1/cart',
+                useRuntimeConfig().public.api_url+'/wp-json/wc/store/v1/cart',
                 {
                     params: {
                         

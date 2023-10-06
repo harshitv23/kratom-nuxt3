@@ -25,13 +25,13 @@ export default {
                     var slug = "";
                 }
 
-                //var basicToken = 'Basic ' + btoa(this.$config.affiliate_public+':'+this.$config.affiliate_token);
+                //var basicToken = 'Basic ' + btoa(useRuntimeConfig().public.affiliate_public+':'+useRuntimeConfig().public.affiliate_token);
                 let headersList = {
-                 "Authorization": 'Basic ' + btoa(this.$config.affiliate_public+':'+this.$config.affiliate_token) 
+                 "Authorization": 'Basic ' + btoa(useRuntimeConfig().public.affiliate_public+':'+useRuntimeConfig().public.affiliate_token) 
                 }
                 
                 let reqOptions = {
-                  url: "https://kratomspot.com/wp-json/affwp/v1/visits/?url="+this.$config.api_url+"/"+slug+"&affiliate_id="+this.ref,
+                  url: "https://kratomspot.com/wp-json/affwp/v1/visits/?url="+useRuntimeConfig().public.api_url+"/"+slug+"&affiliate_id="+this.ref,
                   method: "POST",
                   headers: headersList,
                 }
@@ -43,7 +43,7 @@ export default {
                     this.$cookies.set("affwp_campaign", response.data.campaign)
                 });                
                 /* axios.post(
-                    this.$config.api_url+'/wp-json/affwp/v1/visits/?url='+this.$config.api_url+'/'+slug+'&affiliate_id='+this.ref,
+                    useRuntimeConfig().public.api_url+'/wp-json/affwp/v1/visits/?url='+useRuntimeConfig().public.api_url+'/'+slug+'&affiliate_id='+this.ref,
                     {
                         params: {
                             

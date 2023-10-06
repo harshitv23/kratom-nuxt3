@@ -37,7 +37,7 @@
                             </div>
                             <div class="addedcart_actions shopping-cart-btn btn-hover text-center">
                                 <NuxtLink to="/cart" class="default-btn">View Cart</NuxtLink> 
-                                <a :href="`${this.$config.site_url}/checkout`" class="default-btn addedcart_checkout" @click="checkoutclicked()">Checkout</a>
+                                <a :href="`${useRuntimeConfig().public.site_url}/checkout`" class="default-btn addedcart_checkout" @click="checkoutclicked()">Checkout</a>
                             </div>
 
 
@@ -93,7 +93,7 @@ export default {
         },
         remove_base_url(fullurl) {
             var url;
-            url = fullurl.replace(this.$config.site_url + '/', "");
+            url = fullurl.replace(useRuntimeConfig().public.site_url + '/', "");
             return url;
         },
         fetchcart() {
@@ -111,7 +111,7 @@ export default {
                 }
             }
 
-            var url = this.$config.api_url + '/wp-json/wc/store/v1/cart';
+            var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart';
             var config = {
                 method: 'get',
                 url: url,
@@ -176,7 +176,7 @@ export default {
             }
             var config = {
                 method: 'delete',
-                url: this.$config.api_url + '/wp-json/wc/store/v1/cart/items/' + product_key,
+                url: useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/items/' + product_key,
                 headers: headers,
                 withCredentials: true
             };
@@ -201,7 +201,7 @@ export default {
                     'Authorization': 'Bearer ' + kratom_token
                 }
                 /* axios.get( 
-                    this.$config.api_url+'/wp-json/wc/store/v1/cart',
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/store/v1/cart',
                     {
                         headers: headers,
                         withCredentials: true
@@ -225,7 +225,7 @@ export default {
                     
                     var config = {
                         method: 'get',                
-                        url: this.$config.api_url+'/wp-json/cocart/v2/cart',
+                        url: useRuntimeConfig().public.api_url+'/wp-json/cocart/v2/cart',
                         headers: headers,
                         params : data,
                         withCredentials: true
@@ -251,7 +251,7 @@ export default {
                 }
             }
 
-            var url = this.$config.api_url + '/wp-json/wc/store/v1/cart';
+            var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart';
             var config = {
                 method: 'get',
                 url: url,
@@ -284,7 +284,7 @@ export default {
                     'Authorization': 'Bearer ' + kratom_token
                 }
                 axios.get(
-                    this.$config.api_url + '/wp-json/wc/store/v1/cart',
+                    useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart',
                     {
                         params: {
 
@@ -312,7 +312,7 @@ export default {
 
                 var config = {
                     method: 'get',
-                    url: this.$config.api_url + '/wp-json/cocart/v2/cart',
+                    url: useRuntimeConfig().public.api_url + '/wp-json/cocart/v2/cart',
                     headers: headers,
                     params: data
                 };
@@ -341,7 +341,7 @@ export default {
 
 
             /*axios.get( 
-                this.$config.api_url+'/wp-json/wc/store/v1/cart',
+                useRuntimeConfig().public.api_url+'/wp-json/wc/store/v1/cart',
                 {
                     params: {
                         

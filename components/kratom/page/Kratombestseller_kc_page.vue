@@ -39,7 +39,7 @@
                 </div>
                 <div class="tab-content mt-sm-30 mt-20">
                     <div class="tab-pane fade show active" id="new-product" role="tabpanel">
-                        <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
+                        <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
 								<swiper :options="swiperOption" :pagination="true">
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="green" role="tabpanel">
-                        <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
+                        <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
 								<swiper :options="swiperOption2" :pagination="true">
@@ -89,7 +89,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="white" role="tabpanel">
-                        <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
+                        <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
 								<swiper :options="swiperOption3" :pagination="true">
@@ -114,7 +114,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="extracts" role="tabpanel">
-                        <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
+                        <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
 								<swiper :options="swiperOption4" :pagination="true">
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="capsules" role="tabpanel">
-                        <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
+                        <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
 								<swiper :options="swiperOption5" :pagination="true">
@@ -344,7 +344,7 @@ import $ from "jquery";
         methods: {  
             tab_click($event, clicktype = 'tab'){
                 const Buffer = require('buffer').Buffer;
-            const encodedCredentials = Buffer.from(`${this.$config.consumer_key}:${this.$config.secret_key}`).toString('base64');
+            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 if(clicktype == 'tab'){
                     var cat_id = $event.target.getAttribute('category_id');
                 }else if(clicktype == 'select'){                    
@@ -361,7 +361,7 @@ import $ from "jquery";
                 ){
                     this.loading = true;
                     axios.get( 
-                        this.$config.api_url+'/wp-json/wc/v3/products',
+                        useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
                         {
                             params: {
                                 per_page: 8,
@@ -407,17 +407,17 @@ import $ from "jquery";
             }   ,       
             fetch() {
                 const Buffer = require('buffer').Buffer;
-            const encodedCredentials = Buffer.from(`${this.$config.consumer_key}:${this.$config.secret_key}`).toString('base64');
+            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 axios.get( 
-                    this.$config.api_url+'/wp-json/wc/v3/products',
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
                     {
                         params: {
                             per_page: 8,
                             order:'asc',
                             category:168,          
                             status: 'publish',                  
-                           /*  consumer_key:this.$config.consumer_key,
-                            consumer_secret:this.$config.secret_key, */
+                           /*  consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key, */
                         },
                         headers: {
                             authorization: 'Basic ' + encodedCredentials

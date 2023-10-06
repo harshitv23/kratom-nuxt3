@@ -98,7 +98,7 @@ import * as $ from "jquery";
             }
             var config = {
                 method: "post",
-                url: this.$config.api_url + "/wp-json/wc/store/v1/cart/add-item",
+                url: useRuntimeConfig().public.api_url + "/wp-json/wc/store/v1/cart/add-item",
                 headers: headers,
                 params: data,
                 withCredentials: true

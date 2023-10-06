@@ -68,7 +68,7 @@ export default {
     methods: {
         remove_base_url(fullurl){
             var url;
-            url = fullurl.replace(this.$config.site_url+'/', "");
+            url = fullurl.replace(useRuntimeConfig().public.site_url+'/', "");
             return url;
         },   
         addToCart(product, event) {
@@ -93,7 +93,7 @@ export default {
             }
             var config = {
                 method: 'post',
-                url: this.$config.api_url + '/wp-json/wc/store/v1/cart/add-item',
+                url: useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/add-item',
                 headers: headers,
                 params: data,
                 withCredentials: true

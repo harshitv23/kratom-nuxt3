@@ -1,10 +1,10 @@
 <template>
     <div class="home_banner_main_div">
     <!-- <div class="home_banner pt-sm-0 pb-sm-0" id="mob-banner">
-		<img :src="`${this.$config.site_url}/img/kratom/mobile_banner_image.jpg`"/>
+		<img :src="`${useRuntimeConfig().public.site_url}/img/kratom/mobile_banner_image.jpg`"/>
 	</div>
     <div class="after_banner1 d-sm-block" id="mob-afterbanner" style="display:none;">
-        <img :src="`${this.$config.site_url}/img/kratom/bannerbg-2.png`"/>
+        <img :src="`${useRuntimeConfig().public.site_url}/img/kratom/bannerbg-2.png`"/>
     </div> -->
     <!-- <div class="home_banner home_banner_mob pt-sm-10 pb-sm-25" :style="`background-image:url(${home_page_banner_background_image_mobile2});`">
         <div class="container">
@@ -132,7 +132,7 @@
     methods: {
         fatch() {
             axios.get(
-                this.$config.api_url + '/wp-json/acf/v3/header?data_type=banner').then((result) => {
+                useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=banner').then((result) => {
                     this.kratom_header_data = result.data;
                 }, (error) => {
                     console.log(error);

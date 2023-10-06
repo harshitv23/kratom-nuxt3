@@ -106,7 +106,7 @@
                                         <div class="container">
                                             <div class="search_close" @click="search_click"><i class="fa fa-times"
                                                     aria-hidden="true"></i></div>
-                                            <form :action="`${this.$config.site_url}/s`">
+                                            <form :action="`${useRuntimeConfig().public.site_url}/s`">
                                                 <input type="text" name="s" placeholder="Search"
                                                     @keyup="searchkeychange($event)" autocomplete="off" />
                                                 <!-- <input type="text" name="s" placeholder="Search"
@@ -144,7 +144,7 @@
                                         <div class="container">
                                             <div class="search_close" @click="search_click"><i class="fa fa-times"
                                                     aria-hidden="true"></i></div>
-                                            <form :action="`${this.$config.site_url}/s`">
+                                            <form :action="`${useRuntimeConfig().public.site_url}/s`">
                                                 <input type="text" name="s" placeholder="Search"
                                                     @keyup="searchkeychange($event)" autocomplete="off" />
                                                 <!-- <input type="text" name="s" placeholder="Search"
@@ -157,8 +157,8 @@
                                     </div>
                                 </div>
                                 <div class="same-style account-setting">
-                                    <!-- <a :href="`${this.$config.site_url}/my-account`" class="account-setting-active" @click="account_click"><i class="pe-7s-user-female"></i><span class="header_icons_label" v-html="username"></span></a> -->
-                                    <a :href="`${this.$config.site_url}/my-account`" class="account-setting-active" aria-label="Login"  name="Profile"><i
+                                    <!-- <a :href="`${useRuntimeConfig().public.site_url}/my-account`" class="account-setting-active" @click="account_click"><i class="pe-7s-user-female"></i><span class="header_icons_label" v-html="username"></span></a> -->
+                                    <a :href="`${useRuntimeConfig().public.site_url}/my-account`" class="account-setting-active" aria-label="Login"  name="Profile"><i
                                             class="pe-7s-user-female"></i><span class="header_icons_label"
                                             v-html="username"></span></a>
                                     <!-- <div class="account-dropdown" :class="{ active:isOpenAccountSettings }">
@@ -440,7 +440,7 @@ export default {
         searchkeychange(event) {
             if (event.target.value.length > 3) {
                 axios.get(
-                    this.$config.api_url + '/wp-json/search/v3/suggest',
+                    useRuntimeConfig().public.api_url + '/wp-json/search/v3/suggest',
                     {
                         params: {
                             search: event.target.value,

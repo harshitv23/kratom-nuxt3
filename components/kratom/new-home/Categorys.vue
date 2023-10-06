@@ -142,7 +142,7 @@ export default {
     },
     async fetch() {
         await axios.get(
-                this.$config.api_url + '/wp-json/acf/v3/header?data_type=homecategory').then((result) => {
+                useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=homecategory').then((result) => {
                     this.kratom_category_data = result.data;
                 }, (error) => {
                     console.log(error);

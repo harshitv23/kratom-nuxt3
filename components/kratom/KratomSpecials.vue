@@ -100,17 +100,17 @@ export default {
     methods: {
         fetch() {
             const Buffer = require('buffer').Buffer;
-            const encodedCredentials = Buffer.from(`${this.$config.consumer_key}:${this.$config.secret_key}`).toString('base64');
+            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
             axios.get(
-                this.$config.api_url+'/wp-json/wc/v3/products',
+                useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
                 {
                     params: {
                         per_page: 8,
                         order: 'desc',
                         category: 173,
                         status: 'publish',
-                        /* consumer_key: this.$config.consumer_key,
-                        consumer_secret: this.$config.secret_key */
+                        /* consumer_key: useRuntimeConfig().public.consumer_key,
+                        consumer_secret: useRuntimeConfig().public.secret_key */
                     },
                         headers: {
                             authorization: 'Basic ' + encodedCredentials
@@ -126,7 +126,7 @@ export default {
 
         fetch_data() {
             axios.get(
-                this.$config.api_url + '/wp-json/acf/v3/header?data_type=section_6').then((result) => {
+                useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=section_6').then((result) => {
                     this.kratom_header_data = result.data;
                 }, (error) => {
                     console.log(error);
@@ -139,7 +139,7 @@ export default {
             });
             
             axios.get(
-                this.$config.api_url + '/wp-json/yotpo/reviews/',
+                useRuntimeConfig().public.api_url + '/wp-json/yotpo/reviews/',
                 {
                     params: {
                         product_id: product_ids,

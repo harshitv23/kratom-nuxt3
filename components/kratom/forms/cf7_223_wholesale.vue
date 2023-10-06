@@ -1,6 +1,6 @@
 <template>
     <div class="cf7_379 mt-40">
-        <form :action="`${this.$config.site_url}/wp-json/contact-form-7/v1/contact-forms/223/feedback`" method="post"
+        <form :action="`${useRuntimeConfig().public.site_url}/wp-json/contact-form-7/v1/contact-forms/223/feedback`" method="post"
             class="wpcf7-form init" novalidate="novalidate" data-status="init"  @submit="checkForm">
             <span v-html="error_msg"></span>
             <div v-if="errors.length" class="cf7_errors" id="cf7_errors">
@@ -128,7 +128,7 @@ export default {
                 axios({
                     method: "post",
                     url:
-                    this.$config.site_url + "/wp-json/contact-form-7/v1/contact-forms/223/feedback",
+                    useRuntimeConfig().public.site_url + "/wp-json/contact-form-7/v1/contact-forms/223/feedback",
                     data: bodyFormData,
                     config: { headers: { "Content-Type": "multipart/form-data" } }
                 }).then(function (response) {

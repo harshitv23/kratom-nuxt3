@@ -107,7 +107,7 @@
 
                                 </div>
                                 <div class="col-lg-4 col-md-12">
-                                    <a :href="`${this.$config.site_url}/checkout`" class="cart_checkout_button" @click="checkoutclicked()">Proceed to Checkout</a>
+                                    <a :href="`${useRuntimeConfig().public.site_url}/checkout`" class="cart_checkout_button" @click="checkoutclicked()">Proceed to Checkout</a>
                                     <div class="col-lg-12 col-md-12" :class="loading">
                                         <div class="grand-total">
                                             <div class="title-wrap mb-20">
@@ -318,7 +318,7 @@ export default {
                 }
             }
 
-            var url = this.$config.api_url + '/wp-json/wc/store/v1/cart?asfd';
+            var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart?asfd';
             var config = {
                 method: 'get',
                 url: url,
@@ -374,14 +374,14 @@ export default {
 
 
             if (this.$cookies.isKey('kratom_token')) {
-                var url = this.$config.api_url + '/wp-json/wc/store/v1/cart/coupons';
+                var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons';
                 var data = { "code": coupon_code };
             } else if (this.$cookies.isKey('cart_key') && this.$cookies.get('cart_key') != "") {
-                var url = this.$config.api_url + '/wp-json/wc/store/v1/cart/coupons';
+                var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons';
                 var cart_key = this.$cookies.get('cart_key');
                 var data = { "code": coupon_code, "cart_key": cart_key };
             } else {
-                var url = this.$config.api_url + '/wp-json/wc/store/v1/cart/coupons';
+                var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons';
                 var data = { "code": coupon_code };
             }
 
@@ -436,14 +436,14 @@ export default {
 
 
             if (this.$cookies.isKey('kratom_token')) {
-                var url = this.$config.api_url + '/wp-json/wc/store/v1/cart/coupons/' + coupon_code;
+                var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons/' + coupon_code;
                 var data = {};
             } else if (this.$cookies.isKey('cart_key') && this.$cookies.get('cart_key') != "") {
-                var url = this.$config.api_url + '/wp-json/wc/store/v1/cart/coupons';
+                var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons';
                 var cart_key = this.$cookies.get('cart_key');
                 var data = { "code": coupon_code, "cart_key": cart_key };
             } else {
-                var url = this.$config.api_url + '/wp-json/wc/store/v1/cart/coupons';
+                var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons';
                 var data = { "code": coupon_code };
             }
 
@@ -498,7 +498,7 @@ export default {
                     'Authorization': 'Bearer ' + kratom_token
                 }
                 /* axios.get( 
-                    this.$config.api_url+'/wp-json/wc/store/v1/cart',
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/store/v1/cart',
                     {
                         headers: headers,
                         withCredentials: true
@@ -522,7 +522,7 @@ export default {
                     
                     var config = {
                         method: 'get',                
-                        url: this.$config.api_url+'/wp-json/cocart/v2/cart',
+                        url: useRuntimeConfig().public.api_url+'/wp-json/cocart/v2/cart',
                         headers: headers,
                         params : data,
                         withCredentials: true
@@ -548,7 +548,7 @@ export default {
                 }
             }
 
-            var url = this.$config.api_url + '/wp-json/wc/store/v1/cart';
+            var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart';
             var config = {
                 method: 'get',
                 url: url,
@@ -616,7 +616,7 @@ export default {
             }
             var config = {
                 method: 'delete',
-                url: this.$config.api_url + '/wp-json/wc/store/v1/cart/items/' + product_key,
+                url: useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/items/' + product_key,
                 headers: headers,
                 withCredentials: true
             };
@@ -655,7 +655,7 @@ export default {
                 }
                 axios({
                     method: 'DELETE',
-                    url: this.$config.api_url + '/wp-json/wc/store/v1/cart/items/',
+                    url: useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/items/',
                     headers: headers,
                     withCredentials: true
                 })
@@ -688,7 +688,7 @@ export default {
             }
             axios({
                 method: 'POST',
-                url: this.$config.api_url + '/wp-json/wc/store/v1/cart/update-item',
+                url: useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/update-item',
                 headers: headers,
                 withCredentials: true,
                 params: {
@@ -714,8 +714,8 @@ export default {
         /* console.log(process.env.VUE_APP_TITLE);
         console.log(process.env.vue_app_secretkey);        
         console.log(process.env); */
-        /* console.log(this.$config.title);
-        console.log(this.$config.title2); */
+        /* console.log(useRuntimeConfig().public.title);
+        console.log(useRuntimeConfig().public.title2); */
     },
     created() {
         if (this.cartload) {

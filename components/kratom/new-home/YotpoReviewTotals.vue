@@ -32,7 +32,7 @@ export default {
     },
     methods: {
         totalReview() {
-            axios.get(this.$config.api_url + "/wp-json/yotpo/bottomline", {
+            axios.get(useRuntimeConfig().public.api_url + "/wp-json/yotpo/bottomline", {
             }).then((result) => {
                 this.review_total = result.data;
             }, (error) => {

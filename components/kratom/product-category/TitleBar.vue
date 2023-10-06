@@ -13,14 +13,14 @@
 	  		</div>
 		</div>
 		<!-- <div class="after_banner1 d-sm-block" id="mob-afterbanner">
-			<img :src="`${this.$config.site_url}/img/kratom/bannerbg-2.png`" alt="listpage-5" class="w-100"/>
+			<img :src="`${useRuntimeConfig().public.site_url}/img/kratom/bannerbg-2.png`" alt="listpage-5" class="w-100"/>
 		</div> -->
 	  <div class="after_banner d-none d-md-block">
 			<picture>
                 <source media="(max-width:575px)" srcset="/img/kratom/noimage.webp">
-                <img preload :src="`${this.$config.site_url}/img/kratom/bannerbg-2.png`" alt="Kratom Spot Banner"  width="1900" height="917" class="banner_bg"/>
+                <img preload :src="`${useRuntimeConfig().public.site_url}/img/kratom/bannerbg-2.png`" alt="Kratom Spot Banner"  width="1900" height="917" class="banner_bg"/>
             </picture>
-			<!-- <img :src="`${this.$config.site_url}/img/kratom/bannerbg-2.png`" alt="listpage-5" class="w-100" width="1098" height="108"/> -->
+			<!-- <img :src="`${useRuntimeConfig().public.site_url}/img/kratom/bannerbg-2.png`" alt="listpage-5" class="w-100" width="1098" height="108"/> -->
 		</div>
 	</section>
   </template>

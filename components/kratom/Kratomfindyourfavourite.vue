@@ -53,7 +53,7 @@
 								alt="kratomfind-2" />
 						</div>
 						<!-- <div class="col-lg-6 col-md-6 col-sm-12 kratomfind-3">
-							<img   loading="lazy"  class="w-100" :src="`${this.$config.site_url}/img/kratom/fav6.png`"
+							<img   loading="lazy"  class="w-100" :src="`${useRuntimeConfig().public.site_url}/img/kratom/fav6.png`"
 								alt="kratomfind-3" />
 						</div> -->
 					</div>
@@ -119,7 +119,7 @@ export default {
 	methods: {
 		fetch() {
 			axios.get(
-				this.$config.api_url + '/wp-json/acf/v3/header?data_type=section_5').then((result) => {
+				useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=section_5').then((result) => {
 					this.kratom_header_data = result.data;
 				}, (error) => {
 					console.log(error);
