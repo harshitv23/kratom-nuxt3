@@ -1,6 +1,3 @@
-<script setup>
-
-</script>
 <template>
     <div class=""
         :class="`content_type_${content_type} ${content_type == 'product' ? 'product-details-page-wrapper' : ''}`">
@@ -258,7 +255,7 @@
     }
 }
 </style>
-<!-- <script>
+<script>
 import axios from "axios";
 import KratomDetail from "../components/kratom/product-detail/KratomDetail.vue";
 import KratomDetailTabs from "../components/kratom/product-detail/KratomDetailTabs.vue";
@@ -802,7 +799,7 @@ export default {
     }, */
     components: { KratomDetail, KratomDetailTabs, CustomRelatedProducts, KratomProductDetailQualityImage, KratomFreeShipping, TitleBar, CategoryList, KratomReviewsProduct, PageDetail, blogCTA, Categoryreviews }
 };
-</script> -->
+</script>
 <style>
 .category_loading{
     min-height: 1500px;
