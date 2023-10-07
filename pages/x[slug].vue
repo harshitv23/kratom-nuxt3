@@ -13,13 +13,13 @@
                             <p class="text-black"> <strong>SKU:</strong> <span>N/A</span></p>
                         </div> -->
                        <!--  <div class="mb-30 d-inline-block">
-                                <div class="text-black green_vein_item mb-10"><NuxtImg format="webp" loading="lazy"  class="w-10" height="45" width="45" :src="`${this.$config.site_url}/img/kratom/icons/green_vein_1.png`"
+                                <div class="text-black green_vein_item mb-10"><NuxtImg format="webp" loading="lazy"  class="w-10" height="45" width="45" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_1.png`"
                                     alt="image_2.png" /> <span> Red
                                         Vein </span></div>
-                                <div class="text-black green_vein_item mb-10"><NuxtImg format="webp" loading="lazy"  class="w-10" height="45" width="45" :src="`${this.$config.site_url}/img/kratom/icons/green_vein_2.png`"
+                                <div class="text-black green_vein_item mb-10"><NuxtImg format="webp" loading="lazy"  class="w-10" height="45" width="45" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_2.png`"
                                     alt="image_2.png" /> <span> 0.7g
                                         per Capsule </span></div>
-                                <div class="text-black green_vein_item mb-10"><NuxtImg format="webp" loading="lazy"  class="w-10" height="45" width="45" :src="`${this.$config.site_url}/img/kratom/icons/green_vein_3.png`"
+                                <div class="text-black green_vein_item mb-10"><NuxtImg format="webp" loading="lazy"  class="w-10" height="45" width="45" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_3.png`"
                                     alt="image_2.png" /> <span> Size 00
                                     </span></div>
                             </div> -->
@@ -130,10 +130,10 @@
         </section>
         
         <div v-if="loading == true && yoast_head_json && yoast_head_json.type && yoast_head_json.type!='product-category' && yoast_head_json.type && yoast_head_json.type!='post'" class="pt-140 pb-140 text-center spin_loader">
-            <img  width="120" height="120" :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`">
+            <img  width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`">
         </div>
         <div v-else-if="checking_current_page == true" class="pt-140 pb-140 text-center spin_loader"><img  width="120" height="120"
-                :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
+                :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
         <!-- Product -->
         <div class="product_container" :class="loading ? 'product_loading' : ''" v-if="yoast_head_json && yoast_head_json.categories && yoast_head_json.categories.includes('accessories-and-merchandise') && yoast_head_json.type && yoast_head_json.type == 'product'">
             <KratomDetail2 :product="product" :product_id="product.id" :product_price="product.price_html" :product_laberesult="product.ACF.lab_results" :product_moreinfo="product.ACF.additional_information"
@@ -186,7 +186,7 @@
                     <div class="row flex-row-reverse">
                         <div class="col-lg-9" :class="loading ? 'category_loading' : ''" v-if="loading == true && yoast_head_json && yoast_head_json.type && yoast_head_json.type=='product-category'">
                             <div v-if="loading == true && yoast_head_json && yoast_head_json.type && (yoast_head_json.type=='product-category' || yoast_head_json.type=='post')" class="pt-140 pb-140 text-center spin_loader"><img  width="120" height="120"
-                :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>                            
+                :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>                            
                         </div>
                         <div class="col-lg-9" v-if="loading == false && content_type == 'product-category'">
                             <div class="mb-20">
@@ -213,7 +213,7 @@
                                 </div>
                             </div>
                             <div v-if="listloading == true" class="pt-140 pb-140 text-center "><img  width="120" height="120"
-                                    :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
+                                    :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                             <CategoryList :kratom_products="kratom_products" :layout="layout" :empty_message="empty_message" :yotpo_reviews_count="yotpo_reviews_count"  v-else />
                         </div>
                         <div class="col-lg-3">
@@ -242,7 +242,7 @@
         <error404 v-if="loading == false && content_type == 'none'" />
         
         <div v-if="loading == true && yoast_head_json && yoast_head_json.type && yoast_head_json.type=='post'" class="pt-140 pb-140 text-center spin_loader"><img  width="120" height="120"
-                :src="`${this.$config.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
+                :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
 
         <KratomTheFooter :yotpo_review = "yoast_head_json && yoast_head_json.type && yoast_head_json.type == 'product-category' ? 'no' : '' "/>
         

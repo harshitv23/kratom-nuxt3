@@ -7,9 +7,9 @@ export default defineNuxtConfig({
     /* '@nuxt/image', */
     '@nacelle/nacelle-yotpo-nuxt-module'
   ],
-  nacelle: {
+  /* nacelle: {
     yotpoAPIKey: process.env.YOTPO_API_KEY,
-  },
+  }, */
   devtools: {
     enabled: true,
 
