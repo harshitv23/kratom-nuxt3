@@ -7,7 +7,8 @@ const product = ref("");
 const content_type = ref("");
 const kratom_products = ref("");
 const category_id = ref("");
-const pagetitle = defineProps(['pagetitle']);
+//const pagetitle = defineProps(['pagetitle']);
+const pagetitle = ref("");
 const currentDetailId = ref("");
 const kratom_post = ref("");
 const layout = ref("threeColumn");
@@ -26,14 +27,16 @@ const showall = ref(false);
 import head_json from "../data/seo_data.json";
 //import { useAsyncData } from '@nuxt/composition-api';
 import axios from 'axios';
+import KratomDetail from "~/components/kratom/product-detail/KratomDetail.vue";
+
 yoast_head_json.value = head_json[slug.value];
 content_type.value = yoast_head_json.value.type;
 /* const { data: yoast_head_json } = await useAsyncData('yoast_head_json', async () => {
     console.log('----')
-console.log('----')
-console.log('----')
-console.log('----')
-console.log('----')
+    console.log('----')
+    console.log('----')
+    console.log('----')
+    console.log('----')
     console.log('111');
   if (head_json[slug]) {
     return head_json[slug];
@@ -57,6 +60,135 @@ function replaceSizeImg(img, replacewith = 'h_400,w_400') {
   return img;
 }
 
+
+//import { Buffer } from "Buffer";
+import { Buffer } from "buffer";
+
+const fetchData = async () => {
+  //const Buffer = require('buffer').Buffer;  
+  const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');    
+  if (content_type.value == 'product') {
+    const result = await axios.get(useRuntimeConfig().public.api_url + "/wp-json/wc/v3/products", {
+      params: {
+        per_page: 1,
+        slug: slug.value,
+        status: 'publish',
+        is_single: 'yes',
+      },
+      headers: {
+        authorization: 'Basic ' + encodedCredentials
+      }
+    });
+    
+    product.value = result.data[0];    
+    loading.value = false
+  } else if (content_type.value == 'product-category') {
+    if (category_id.value && category_id.value != '') {
+      const result = await axios.get(
+        useRuntimeConfig().public.api_url + '/wp-json/wc/v3/products',
+        {
+          params: {
+            per_page: 100,
+            orderby: 'popularity',
+            status: 'publish',
+            category: category_id.value,
+            is_list: "yes"
+          },
+          headers: {
+            authorization: 'Basic ' + encodedCredentials
+          }
+        }
+      );
+
+      kratom_products.value = result.data;
+    }
+  } else if (content_type.value == 'post') {
+    if (currentDetailId.value && currentDetailId.value != '') {
+      const result = await axios.get(
+        useRuntimeConfig().public.api_url + '/wp-json/wp/v2/posts/' + currentDetailId.value + '/?_embed',
+        {
+          params: {
+            per_page: 1
+          }
+        }
+      );
+
+      kratom_post.value = result.data;
+      pagetitle.value = result.data.title.rendered;
+    }
+  } else if (content_type.value == 'page') {
+    if (currentDetailId.value && currentDetailId.value != '') {
+      const result = await axios.get(
+        useRuntimeConfig().public.api_url + '/wp-json/wp/v2/pages/' + currentDetailId.value + '/?_embed',
+        {
+          params: {
+            per_page: 1
+          }
+        }
+      );
+
+      kratom_post.value = result.data;
+      pagetitle.value = result.data.title.rendered
+    }
+  } else if (content_type.value == 'none') {
+    loading.value = false
+  }
+  
+};
+
+const fetch = async () => {
+  const result = await axios.get(useRuntimeConfig().public.api_url + "/wp-json/current/v3/page", {
+    params: {
+      slug: slug.value
+    }
+  });
+
+  kratom_page_data.value = result.data;
+  content_type.value = result.data['type'];
+  if (result.data['cat_id']) {
+    category_id.value = result.data['cat_id'];
+  }
+  if (result.data['cat_title']) {
+    pagetitle.value = result.data['cat_title'];
+    if (result.data['type'] == 'product-category') {
+      //this.$store.dispatch('updateFromCategory', result.data['cat_title'])
+    }
+  }
+  if (result.data['id']) {
+    currentDetailId.value = result.data['id'];
+  }
+  if (result.data['permalink']) {
+    permalink.value = result.data['permalink'];
+  }
+  if (result.data['above_the_fold_texts']) {
+    above_the_fold_texts.value = result.data['above_the_fold_texts'];
+  }
+  if (result.data['description']) {
+    description.value = result.data['description'];
+  }
+  if (result.data['post_title']) {
+    pagetitle.value = result.data['post_title'];
+  }
+  if (result.data['count'] == 0) {
+    empty_message.value = result.data['empty_message'];
+  }  
+  loading.value = false
+  fetchData();
+};
+
+fetch();
+
+
+const productProps = defineProps({
+  product: Object,
+  productId: Number,
+  productPrice: String,
+});
+
+
+const product_loading = (() => {
+  return loading.value ? 'product_loading' : '';
+});
 
 const schema_scripts = []
         //console.log(this.yoast_head_json);
@@ -342,7 +474,8 @@ useHead({
         <div v-else-if="checking_current_page == true" class="pt-140 pb-140 text-center spin_loader"><img  width="120" height="120"
                 :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
         <!-- Product -->
-        <div class="product_container" :class="loading ? 'product_loading' : ''" v-if="yoast_head_json && yoast_head_json.categories && yoast_head_json.categories.includes('accessories-and-merchandise') && yoast_head_json.type && yoast_head_json.type == 'product'">
+        -- {{ loading }}
+        <div class="product_container" :class="product_loading" v-if="yoast_head_json && yoast_head_json.categories && yoast_head_json.categories.includes('accessories-and-merchandise') && yoast_head_json.type && yoast_head_json.type == 'product'">
             <KratomDetail2 :product="product" :product_id="product.id" :product_price="product.price_html" :product_laberesult="product.ACF.lab_results" :product_moreinfo="product.ACF.additional_information"
                 :description="product.description"
                 v-if="product.ACF && loading == false && content_type == 'product'" />
@@ -360,12 +493,14 @@ useHead({
                 :product_id="product.id" class="mb-80" />
             <KratomFreeShipping v-if="showall && content_type == 'product' && loading == false" />
         </div>
-        <div class="product_container" :class="loading ? 'product_loading' : ''" v-else-if="yoast_head_json && yoast_head_json.type && yoast_head_json.type == 'product'">
-            <KratomDetail :product="product" :product_id="product.id" :product_price="product.price_html" :product_laberesult="product.ACF.lab_results" :product_moreinfo="product.ACF.additional_information"
+        <div class="product_container KratomDetail1" :class="product_loading" v-else-if="yoast_head_json && yoast_head_json.type && yoast_head_json.type == 'product'">            
+            <!-- <KratomDetail :product="product" :product_id="product.id" :product_price="product.price_html" :product_laberesult="product.ACF.lab_results" :product_moreinfo="product.ACF.additional_information"
                 :description="product.description"
                 v-if="product.ACF && loading == false && content_type == 'product'" />
             <KratomDetail :product="product" :product_id="product.id" :product_price="product.price_html" 
-                v-else-if="loading == false && content_type == 'product'" />
+                v-else-if="loading == false && content_type == 'product'" /> -->
+                {{ product }}
+            <KratomDetail :product="product" name="adfasdf" v-bind:props="{ name : 'hhhhaaaarrrssshhhiiiitttt' }" v-if="loading == false && content_type == 'product'" />                
             <!-- <KratomDetailTabs v-if="product.ACF && loading == false && content_type == 'product'"
                 :product_laberesult="product.ACF.lab_results" :product_moreinfo="product.ACF.additional_information"
                 :description="product.description" />
@@ -632,7 +767,7 @@ export default {
                 }
             }).then((result) => {
                 this.kratom_page_data = result.data;
-                this.content_type = result.data['type'];
+                content_type.value = result.data['type'];
                 if (result.data['cat_id']) {
                     this.category_id = result.data['cat_id'];
                 }
@@ -687,7 +822,7 @@ export default {
         fetchdata() {
             //const Buffer = require('buffer').Buffer;
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
-            if (this.content_type == 'product') {
+            if (content_type.value == 'product') {
                 axios.get(useRuntimeConfig().public.api_url + "/wp-json/wc/v3/products", {
                     params: {
                         per_page: 1,
@@ -709,7 +844,7 @@ export default {
                 }, (error) => {
                     console.log(error);
                 }).finally(() => (this.loading = false));
-            } else if (this.content_type == 'product-category') {
+            } else if (content_type.value == 'product-category') {
 
                 if (this.category_id && this.category_id != '') {
                     axios.get(
@@ -756,7 +891,7 @@ export default {
                 if (this.category_id && this.category_id != '') {
 
                 }
-            } else if (this.content_type == 'post') {
+            } else if (content_type.value == 'post') {
                 if (this.currentDetailId && this.currentDetailId != '') {
                     axios.get(
                         useRuntimeConfig().public.api_url + '/wp-json/wp/v2/posts/' + this.currentDetailId + '/?_embed',
@@ -776,7 +911,7 @@ export default {
                     }).finally(() => (this.loading = false));
                 }
 
-            } else if (this.content_type == 'page') {
+            } else if (content_type.value == 'page') {
                 if (this.currentDetailId && this.currentDetailId != '') {
                     axios.get(
                         useRuntimeConfig().public.api_url + '/wp-json/wp/v2/pages/' + this.currentDetailId + '/?_embed',
@@ -794,7 +929,7 @@ export default {
                     }).finally(() => (this.loading = false));
                 }
 
-            } else if (this.content_type == 'none') {
+            } else if (content_type.value == 'none') {
                 this.loading = false
             }
         },
