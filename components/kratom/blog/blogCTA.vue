@@ -2,7 +2,7 @@
     <div class="blog-cta pt-60 pb-60 position-relative">
         <picture>
             <source media="(max-width:767px)" srcset="https://kratomspot.com/wp-content/uploads/2023/03/f08567-1-1.webp">
-            <NuxtImg format="webp" width="1600" height="1079" loading="lazy"
+            <img format="webp" width="1600" height="1079" loading="lazy"
                 src="https://res.cloudinary.com/dv8z5nr6r/images/v1676554792/shop_by_category_bg-1-1_21776311437/shop_by_category_bg-1-1_21776311437.jpg?_i=AA"
                 class="section_bg_div" alt="Kratom Spot Category Background" />
         </picture>

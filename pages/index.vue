@@ -1,6 +1,6 @@
 <template>
     <div>
-        <KratomTheHeader/>
+        <!-- <KratomTheHeader/> -->
         <NewkratomBanners/>
         <Categorys/>
         <Featuredproducts/>
@@ -11,7 +11,7 @@
         <FindYourFavourite/>
         <KratomNews/>
         
-        <KratomTheFooter/>
+        <!-- <KratomTheFooter/> -->
     </div>
 </template>
 

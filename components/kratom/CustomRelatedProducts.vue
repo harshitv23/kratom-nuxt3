@@ -142,9 +142,11 @@
 
 <script>    
     import axios from "axios";    
+    import { Buffer } from "buffer";
     export default {
         props: ['product_related'],
         components: {
+        
         },
 
         data() {
@@ -182,14 +184,14 @@
             }
         },
 
-        computed: {
+        /* computed: {
             products() {
                 return this.$store.getters.getNewProducts.filter(item => item.category.includes("book"))
             },
-        },
+        }, */
         methods : {
             fetch() {
-                const Buffer = require('buffer').Buffer;
+                //const Buffer = require('buffer').Buffer;
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 var include_products = '';                
                 if(this.product_related != undefined){
