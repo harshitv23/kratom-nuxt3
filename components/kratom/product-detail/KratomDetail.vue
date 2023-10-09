@@ -1,5 +1,49 @@
+<script setup>
+const showcartpopup = ref(false);
+const outofstockmsg = ref(true);
+const singleQuantity = ref(1);
+const variations = ref([]);
+const variation_id = ref("");
+const variation_price = ref("");
+const price_html = ref("");
+const product_qty = ref(1);
+const kratom_cart = ref("");
+const minicart_popup_class = ref("hidden");
+const cross_sell_products = ref("");
+const from_category = ref("");
+const added_cart_item = ref({
+                name: '',
+                qty: '',
+                price: ''
+            });
+const yith = ref("");
+const qty_no = ref("");
+
+/* const props = defineProps({
+  name: String
+}); */
+const props = defineProps({
+    product: {
+        type: Object,
+        required: true,
+    },
+    name: {
+        type: String,
+        required: true,
+    },
+});
+const { product } = props;
+const { name } = props;
+console.log('name'+name); 
+console.log('product'+product);
+
+</script>
+
 <template>
     <section class="py-5 product_detail_section py-sm-0">
+        sdfsdf
+        {{ product }}
+        <!-- 
         <div class="minicart_popup_container" v-if="showcartpopup">
             <div class="container" id="addedtocartcontainer">
                 <div class="minicart-wrapper position-relative" :class="minicart_popup_class">
@@ -15,64 +59,9 @@
         <div class="container pt-20">
 
             <div class="yith_product mb-20" v-html="replacehttptohttps(yith.product_points)" v-if="yith.product_points"></div>
-            <!-- <div class="yith" v-html="yith.yith_cart_total"></div> -->
-            <!-- <div class="product_detail_breadcrumb mb-20 mt-30 pt-20 pb-20 pl-10 pr-10">
-                Home
-                <i class="fa fa-angle-double-right" aria-hidden="true" v-if="from_category_fun && from_category_fun != ''"></i>                
-                <span v-if="from_category_fun && from_category_fun != ''" v-html="from_category_fun"></span>
-                <i class="fa fa-angle-double-right" aria-hidden="true"></i>
-                <span v-html="product.name"></span>
-            </div> -->
             <div class="row my-6 pl-15 pr-15">
                 <div class="col-lg-4 col-md-12 col-sm-12 mx-auto pl-0 pr-10 mt-10 pl-md-0 pr-md-0 mt-sm-25 product_detail_silde_rows" id="sm-order3">
-                    <!-- <div class="product_detail_categories_section bg-3 p-40 mb-40 pt-sm-20 pb-sm-20 pl-sm-20 pr-sm-20">
-                        <p class="text-black"> <strong>SKU:</strong>
-                            <span v-if="product.sku != undefined && product.sku != ''">{{ product.sku }}</span>
-                            <span v-else>N/A</span>
-                        </p>
-                        <p class="text-black mb-0"> <strong>Categories:</strong> </p>
-                        <p class="product_detail_categories" v-if="product.categories?.length > 0">
-                            <a :href="`/${category.slug}`" v-for="(category, index) in product.categories" :key="index"
-                                v-html="`${category.name}<span>,</span>`"></a>
-                        </p>
-                        <p class="product_detail_categories" v-else>
-                            <a href="#">Uncategorized<span>,</span> </a>
-                        </p>
-                    </div> -->
-                    <!-- <div class="mb-30 d-inline-block">
-                            <div class="text-black green_vein_item mb-10">
-                                <NuxtImg format="webp" loading="lazy" class="w-10" height="45" width="45"
-                                    :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_1.png`" alt="image_2.png" />
-                                <span> {{ product.ACF.first_icon_text }} </span>
-                            </div>
-                            <div class="text-black green_vein_item mb-10">
-                                <NuxtImg format="webp" loading="lazy" class="w-10" height="45" width="45"
-                                    :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_2.png`" alt="image_2.png" />
-                                <span> {{ product.ACF.second_icon_text }} </span>
-                            </div>
-                            <div class="text-black green_vein_item mb-10">
-                                <NuxtImg format="webp" loading="lazy" class="w-10" height="45" width="45"
-                                    :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_3.png`" alt="image_2.png" />
-                                <span> {{ product.ACF.third_icon_text }} </span>
-                            </div>
-                        </div>
-                    <ul class="product_detail_extra_list_n mb-40">
-                        <li><img loading="lazy" class="w-5" height="25" width="25" :src="`/img/kratom/icons/ext_1.png`"
-                                alt="ext_1.png" />Tested for
-                            contaminants, heavy metals, and adulterants</li>
-                        <li><img loading="lazy" class="w-5" height="25" width="25" :src="`/img/kratom/icons/ext_2.png`"
-                                alt="ext_2.png" />Premium grade kratom
-                            leaf powder</li>
-                        <li><img loading="lazy" class="w-5" height="25" width="25" :src="`/img/kratom/icons/ext_3.png`"
-                                alt="ext_3.png" />100% all-natural
-                            kratom</li>
-                        <li><img loading="lazy" class="w-5" height="25" width="25" :src="`/img/kratom/icons/ext_4.png`"
-                                alt="ext_4.png" />No additives or
-                            fillers</li>
-                        <li><img loading="lazy" class="w-5" height="25" width="25" :src="`/img/kratom/icons/ext_5.png`"
-                                alt="ext_5.png" />Certified GMP (Good
-                            Manufacturing Practice) Product</li>
-                    </ul> -->
+                    
                     <div class="product_detail_silde_row">
                         <ul class="product_detail_extra_list_n">
                             <li class="text-li text-li-1">
@@ -165,33 +154,13 @@
                             <div class="large-img swiper-slide" v-for="(image, index) in product.images" :key="index">
                                 <NuxtImg format="webp" height="800" width="800" preload class="img-fluid"
                                     :src="replaceSizeImg(image.src, 'h_500,w_500')" :alt="image.alt" />
-                            </div>
-                            <!-- <div class="quickview-nav swiper-button-prev2 img_prev">
-                                <i class="pe-7s-angle-left"></i>
-                            </div>
-                            <div class="quickview-nav swiper-button-next2 img_next">
-                                <i class="pe-7s-angle-right"></i>
-                            </div> -->
-                            <!-- <div class="quickview-nav swiper-button-prev">
-                            <i class="pe-7s-angle-left"></i>
-                            </div>
-                            <div class="quickview-nav swiper-button-next">
-                                <i class="pe-7s-angle-right"></i>
-                            </div> -->
+                            </div>                            
                         </swiper>
                         <swiper  :options="swiperOptionThumbs" ref="swiperThumbs">
                             <div class="thumb-img swiper-slide" v-for="(image, index) in product.images" :key="index">
                                 <NuxtImg format="webp" loading="lazy" class="img-fluid"
                                     :src="replaceSizeImg(image.src, 'h_122,w_122')" :alt="image.alt" height="120" width="120"/>
-                            </div>
-                            <!-- <div class="thumb-img swiper-slide">
-                                <NuxtImg format="webp" loading="lazy" class="img-fluid"
-                                    :src="replaceSizeImg('https://res.cloudinary.com/dv8z5nr6r/images/v1683984911/2023_000_Powder-Red_226086d4987/2023_000_Powder-Red_226086d4987.png?_i=AA', 'h_300,w_300')" />
-                            </div>
-                            <div class="thumb-img swiper-slide">
-                                <NuxtImg format="webp" loading="lazy" class="img-fluid"
-                                    :src="replaceSizeImg('https://res.cloudinary.com/dv8z5nr6r/images/v1683984901/2023_012_Web-ProductFacts-2-16oz_226085fdb51/2023_012_Web-ProductFacts-2-16oz_226085fdb51.png?_i=AA', 'h_300,w_300')"/>
-                            </div> -->
+                            </div>                            
                         </swiper>
                     </div>
                 </div>
@@ -199,15 +168,13 @@
                 <div class="col-lg-4 col-md-12 col-sm-12 product-price-box p-0" id="sm-order2">
                     <div class="mx-auto d-block  product-price-box-inner pr-sm-20 pb-sm-20 pl-sm-20 p-40">
                         <KratomTitleProduct :title="product.name" subTitle="" class="" />
-                        <div class="d-inline-block mt-10 mb-10">
-                            <!-- <testimonials-widget class="d-none" /> -->
+                        <div class="d-inline-block mt-10 mb-10">                            
                             <div class="yotpo bottomLine yotpo-small" :data-product-id="product.id"
                                 :data-url="`https://kratomspottstg.wpengine.com/${product.slug}`" data-lang="en"
                                 data-yotpo-element-id="2"></div>
                             <div class="yotpo QABottomLine yotpo-small"
                                 data-appkey="qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57" :data-product-id="product.id"
-                                data-yotpo-element-id="3"></div>
-                            <!-- <img class="w-50" :src="`${useRuntimeConfig().public.site_url}/img/kratom/Screenshot_41.png`" alt="image_1.png" /> -->
+                                data-yotpo-element-id="3"></div>                            
                         </div>
                         <div class="text-black mb-30"><span class="kratom-product-price" v-html="price_html2"></span>
                         </div>
@@ -225,9 +192,8 @@
                         <div class="outofstockmsg" v-if="outofstockmsg == false">Out of stock</div>
                         <div class="product_detail_addtocart_section">
                             <label>
-                                <span class="d-none">qty</span>
-                                <!-- <input type="number" class="product_detail_qty" value="1" min="1" v-model="product_qty"> -->
-                                <select id="qty_no" class="product_detail_qty" v-bind:value="product_qty">
+                                <span class="d-none">qty</span>                                
+                                <select id="qty_no" class="product_detail_qty" v-model="product_qty">
                                     <option value="1" selected="selected">1</option>
                                     <option v-for="q_no in qty_no" :value="`${q_no}`" :selected="(q_no == 1 || q_no == '1')?'selected':''">{{ q_no }}</option>
                                 </select>
@@ -237,11 +203,10 @@
                                 CART</button>
                             <button type="button" class="btn product_detail_addtocart_btn text-white" v-else disabled>ADD TO
                                 CART</button>
-                            <input type="hidden" id="selected_product_variation" v-bind:value="variation_id">
+                            <input type="hidden" id="selected_product_variation" v-model="variation_id">
                             <input type="hidden" id="selected_product_id" v-bind:value="product_id" />
                             <input type="hidden" id="selected_product_type" v-bind:value="product.type" />
-                        </div>
-                        <!-- <div class="yith_product mt-20" v-html="yith.product_points" v-if="yith.product_points"></div> -->
+                        </div>                        
                         <div class="row product-price-box-logo align-items-center">
                             <div class="col-4">
                                 <div class="side-logo">
@@ -278,554 +243,10 @@
                 </div>
             </div>
         </div>
-    </section>
+     --></section>
 </template>
 
 
-<script>
-import axios from "axios";
-import $ from "jquery";
-import KratomTitleProduct from "../KratomTitleProduct.vue";
-import MiniCartPopup from "./MiniCartPopup.vue";
-
-export default {
-    props: ["product", "product_id", "product_price", "description", "product_moreinfo", "product_laberesult"],
-    data() {
-        return {
-            showcartpopup: false,
-            outofstockmsg: true,
-            singleQuantity: 1,
-            /*  swiperOptionTop: {
-                 loop: false,
-                 slidesPerView: 1,
-                 spaceBetween: 10,
-                 effect: "fade",
-                 loopedSlides: 5,
-                 navigation: {
-                     nextEl: ".img_next",
-                     prevEl: ".img_prev"
-                 }
-             }, */
-            swiperOptionTop: {
-                loop: false,
-                slidesPerView: 1,
-                // spaceBetween: 10,
-                effect: "fade",
-                //loopedSlides: 5,
-                navigation: {
-                    nextEl: ".detail-swiper-button-next",
-                    prevEl: ".detail-swiper-button-prev"
-                }
-            },
-            /* swiperOptionThumbs: {
-                loop: false,
-                spaceBetween: 20,
-                centeredSlides: false,
-                slidesPerView: 3,
-                freeMode: true,
-                watchSlidesVisibility: true,
-                watchSlidesProgress: true,
-                slideToClickedSlide: true,
-                loopedSlides: 3, // looped slides should be the same
-            }, */
-            swiperOptionThumbs: {
-                // loop: false,
-                spaceBetween: 20,
-                //centeredSlides: false,
-                slidesPerView: 3,
-                //freeMode: true,
-                //watchSlidesVisibility: true,
-                //watchSlidesProgress: true,
-                slideToClickedSlide: true,
-                //loopedSlides: 5, // looped slides should be the same
-                on: {
-                    click: () => {
-                        const topSwiper = this.$refs.swiperTop.$swiper;
-                        const thumbsSwiper = this.$refs.swiperThumbs.$swiper;
-                        const activeIndex = thumbsSwiper.clickedIndex;
-                        topSwiper.slideTo(activeIndex);
-                    }
-                }
-            },
-            variations: [],
-            variation_id: "",
-            variation_price: "",
-            price_html: this.product_price,
-            product_qty: 1,
-            kratom_cart: "",
-            minicart_popup_class: 'hidden',
-            cross_sell_products: '',
-            from_category: this.$store.state.from_category,
-            added_cart_item: {
-                name: '',
-                qty: '',
-                price: ''
-            },
-            yith: '',
-            qty_no: []
-        };
-    },
-    mounted() {
-        //this.fetch();
-        this.$nextTick(() => {
-            const swiperTop = this.$refs.swiperTop.$swiper;
-            const swiperThumbs = this.$refs.swiperThumbs.$swiper;
-            swiperTop.controller.control = swiperThumbs;
-            swiperThumbs.controller.control = swiperTop;
-        });
-        var i
-        for(i = 2; i < 100; i++) {
-             $('select#qty_no').val(i);
-             this.qty_no.push(i);
-        }
-        
-        /* omnisend.push(["track", "$productViewed",{
- $productID:"prod666",
- $variantID: "prod666_1",
- $currency: "USD",
- $price: 6666, //price in cents (integer)
- $oldPrice: 6999, //old price in cents (integer)
- $title:"Container",
- $description:"",
- $imageUrl: "http://www.example.com/images/products/prod-666.png",
- $productUrl:"http://www.example.com/products/prod-666",
- $vendor: "vendor"
-}]); */
-
-
-        omnisend.push(["track", "$productViewed", {
-            $productID: this.product_id + "",
-            $variantID: this.product_id + "",
-            $currency: "USD",
-            $price: parseInt(this.product.price), //price in cents (integer)
-            $oldPrice: parseInt(this.product.regular_price), //old price in cents (integer)
-            $title: this.product.name,
-            $description: this.product.description,
-            $imageUrl: this.product.images[0].src,
-            $productUrl: this.product.permalink,
-            $vendor: "Kratomspot"
-        }]);
-
-        /* $('.header-btn.mb-1').on('click' , function (){
-            $('.header-btn.mb-1').find('.fa').addClass('fa-plus');
-            $('.header-btn.mb-1').find('.fa').removeClass('fa-minus');
-            if($(this).find('.fa').hasClass('fa-plus')){
-                $(this).find('.fa').addClass('fa-minus');
-                $(this).find('.fa').removeClass('fa-plus');
-            } else {
-                $(this).find('.fa').addClass('fa-minus');
-                $(this).find('.fa').removeClass('fa-plus');
-            }
-        }); */
-    },
-    computed: {
-        
-        price_html2: function () {
-            if (this.price_html == undefined) {
-                return this.product.price_html;
-            }
-            else {
-                return this.price_html;
-            }
-        },
-        from_category_fun() {
-            var is_valid = false;
-            var from_category = this.from_category;
-            if (this.from_category && this.product.categories.length > 0) {
-                $.each(this.product.categories, function (i, item) {
-                    if (from_category == item.name && is_valid == false) {
-                        is_valid = true;
-                    }
-                });
-                if (is_valid) {
-                    return this.from_category;
-                } else if (this.product.categories[0]) {
-                    return this.product.categories[0].name;
-                }
-            } else if (this.product.categories[0]) {
-                return this.product.categories[0].name;
-            } else {
-                return '';
-            }
-        }
-    },
-    created() {
-        this.fetch();
-        this.fetch_yith();
-    },
-    methods: {
-        replacehttptohttps(content){
-            content = content.replace('http://', 'https://');
-            content = content.replace('http://', 'https://');
-            return content;
-        },
-        variationwithdiscount(variation_price,type,value){
-            var new_price = false;
-            var phtml = '<ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>' + variation_price + '</bdi></span></ins>';
-            if (type && type == 'percentage') {
-                new_price = parseFloat(variation_price - ((variation_price * value) / 100)).toFixed(2);
-            }
-            if (new_price) {
-                phtml = '<del><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>' + variation_price + '</bdi></span></del><br><ins><span class="woocommerce-Price-amount amount"><bdi><span class="woocommerce-Price-currencySymbol">$</span>' + new_price + '</bdi></span></ins>';
-            }
-            return phtml;
-        },
-        replaceSizeImg(img, replacewith = 'h_400,w_400') {
-            if (img.indexOf('f_auto,q_auto') > -1) {
-                img = img.replace("f_auto,q_auto", replacewith);
-            }
-            return img;
-        },
-        close_addedcart() {
-            this.minicart_popup_class = 'hidden';
-            this.showcartpopup = false;
-        },
-        listenerChild(reply) {
-            this.added_cart_item = reply;
-        },
-        onChangeVarible(event) {
-            var list = [];
-            var list2 = [];
-            const children = this.$el.querySelectorAll(".product_variations select");
-            children.forEach((value, index) => {
-                list[value.getAttribute("name")] = value.value;
-            });
-            var variation_id;
-            var variation_price;
-            var variation_avail = false;
-            /* console.log(this.variations); */
-            this.variations.forEach(function (value, index) {                
-                value.attributes.map(function (attr) {
-                    list2[attr.name] = attr.option;
-                });
-                var flag;
-                if (Object.keys(list).length == Object.keys(list2).length) {
-                    for (var key in list) {
-                        if (list[key] == list2[key]) {
-                            flag = true;
-                            variation_avail = true;
-                        } else {
-                            flag = false;
-                            return;
-                        }
-                    }
-                }
-                if (flag) {
-                    variation_id = value.id;
-                    variation_price = value.price;                    
-                    if(value.stock_status == "outofstock"){
-                        variation_avail = false;
-                    }
-                }
-            });
-
-            this.variation_id = variation_id;
-            if (variation_price != undefined && variation_price != "") {
-                variation_price = this.variationwithdiscount(variation_price, this.product.discount_type, this.product.discount_value)
-                this.price_html = variation_price;
-                this.variation_price = variation_price;
-            }
-            else {
-                this.price_html = this.product.price_html;
-                this.variation_price = "";
-            }
-            /* if ($(event.target).find(":selected").val() == "") {
-                variation_avail = true;
-            } */
-            this.outofstockmsg = variation_avail;
-        },
-        addToCart(product, ptype = "variable", event) {
-            //this.onChangeVarible();
-            $(event.target).addClass("btn-loading-icon");
-            var option_valid = true;
-            $(".product_variations .variation_select").each(function () {
-                if ($(this).find(":selected").val() == "") {
-                    $(this).addClass("invalid_select");
-                    option_valid = false;
-                }
-                else {
-                    $(this).removeClass("invalid_select");
-                }
-            });
-            if (!option_valid) {
-                this.$notify({
-                    title: "Please select product options before adding this product to your cart.",
-                    type: "error"
-                });
-                $(event.target).removeClass("btn-loading-icon");
-                return 0;
-            }
-            if (this.$cookies.isKey("kratom_token") && this.$cookies.get("kratom_token") != "") {
-                var kratom_token = this.$cookies.get("kratom_token");
-                var headers = {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + kratom_token
-                };
-            } else {
-                var headers = {
-                    "Content-Type": "application/json",
-                };
-            }
-            if (this.$cookies.isKey("kratom_token")) {
-                var url = useRuntimeConfig().public.api_url + "/wp-json/wc/store/v1/cart/add-item";
-                if (ptype == "variable") {
-                    var data = { "id": "" + this.variation_id, "quantity": "" + this.product_qty };
-                }
-                else {
-                    var data = { "id": "" + this.product_id, "quantity": "" + this.product_qty };
-                }
-            } /* else if (this.$cookies.isKey('cart_key') && this.$cookies.get('cart_key') != "") {
-                var url = useRuntimeConfig().public.api_url+'/wp-json/cocart/v2/cart/add-item';
-                var cart_key = this.$cookies.get('cart_key');
-                if (ptype == 'variable') {
-                    var data = { "id": '' + this.variation_id, "quantity": '' + this.product_qty, "cart_key": cart_key };
-                } else {
-                    var data = { "id": '' + this.product_id, "quantity": '' + this.product_qty, "cart_key": cart_key };
-                }
-            } */
-            else {
-                //var url = useRuntimeConfig().public.api_url+'/wp-json/cocart/v2/cart/add-item';
-                var url = useRuntimeConfig().public.api_url + "/wp-json/wc/store/v1/cart/add-item";
-                if (ptype == "variable") {
-                    var data = { "id": "" + this.variation_id, "quantity": "" + this.product_qty };
-                }
-                else {
-                    var data = { "id": "" + this.product_id, "quantity": "" + this.product_qty };
-                }
-            }
-            /*  var config = {
-                 method: 'post',
-                 //url: useRuntimeConfig().public.api_url+'/wp-json/wc/store/v1/cart/add-item',
-                 url: url,
-                 headers: headers,
-                 credentials: 'include',
-                 params: data
-             }; */
-            var config = {
-                method: "POST",
-                headers: headers,
-                withCredentials: true,
-                credentials: true,
-                params: data,
-                //body: JSON.stringify(data),
-                //body: data,
-                url: url
-            };
-            /*  if (this.$cookies.isKey('kratom_token')) {
-                 axios(config)
-                     .then((result) => {
-                         this.$store.dispatch("addToCartItemKratom", result.data);
-                         console.log(result.data.item_count);
-                         if (result.data.cart_key != undefined) {
-                             this.$cookies.set('cart_key', result.data.cart_key);
-                         }
-                     }, (error) => {
-                         console.log(error);
-                     });
-             } else { */
-            /* axios(config)
-                .then((result) => {
-                    console.log(result.data);
-                    this.$store.dispatch("addToCartItemKratom", result.data);
-                    console.log(result.data.item_count);
-                    if (result.data.cart_key != undefined) {
-                        this.$cookies.set('cart_key', result.data.cart_key);
-                    }
-                }, (error) => {
-                    console.log(error);
-                }); */
-            axios(config)
-                .then((result) => {
-                    this.added_cart_item.qty = this.product_qty;
-                    this.added_cart_item.name = this.product.name;
-                    if (this.variation_price) {
-                        this.added_cart_item.price = this.variation_price;
-                    } else {
-                        this.added_cart_item.price = this.product.price;
-                    }
-                    this.$store.dispatch("addToCartItemKratom", result.data);
-                    this.$notify({ title: "Product added to cart successfully!" });
-                    this.minicart_popup_class = "show";
-                    this.showcartpopup = true;
-                    window.scroll({
-                        top: 0,
-                        behavior: "smooth",
-                    });
-                    this.cross_sell_products = result.data.cross_sells;
-                }, (error) => {
-                    this.$notify({ title: error.response.data.message, type: "error" });
-                }).finally((result) => {
-                    $(event.target).removeClass("btn-loading-icon");
-                });
-            /* fetch(url, config)
-            .then(res => {
-                this.$notify({title: "Product added to cart successfully!"});
-                return res.json();
-            }).then(json => {
-                console.log(json);
-            }).finally(json => {
-                $(event.target).removeClass('btn-loading-icon');
-            }); */
-            /* } */
-            /* var list = [];
-            const children = this.$el.querySelectorAll(".kratom_product_variations select");
-            children.forEach((value, index) => {
-                list[value.getAttribute("name")] = value.value;
-            }); */
-            //var list = { ...list };
-            //const prod = { ...product, cartQuantity: this.singleQuantity, selectedVariation: this.variation_id, selectedVariationPrice: this.variation_price, display_variations: list };
-            // for notification
-            /* if (this.$store.state.cart.find(el => product.id === el.id)) {
-                this.$notify(
-                    {
-                        title: "Already added to cart update with one",
-                        type: 'error'
-                    }
-                );
-            }
-            else {
-                this.$notify({ title: "Add to cart successfully!" });
-            } */
-            //this.$store.dispatch("addToCartItem", prod);
-        },
-        discountedPrice(product) {
-            return product.price - (product.price * product.discount / 100);
-        },
-        increaseQuantity() {
-            this.singleQuantity++;
-        },
-        decreaseQuantity() {
-            if (this.singleQuantity > 1)
-                this.singleQuantity--;
-        },
-        fetch() {
-            const Buffer = require('buffer').Buffer;
-            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
-            //axios.get(useRuntimeConfig().public.api_url+"/wp-json/wc/v3/products/" + this.product_id + "/variations/", {
-            axios.get(useRuntimeConfig().public.api_url + "/wp-json/wc/v3/products/" + this.product_id + "/variations/", {
-                params: {
-                    /* consumer_key: useRuntimeConfig().public.consumer_key,
-                    consumer_secret: useRuntimeConfig().public.secret_key, */
-                    in_stock: true,
-                    status: 'publish',
-                },
-                headers: {
-                    authorization: 'Basic ' + encodedCredentials
-                }
-            }).then((result) => {
-                this.variations = result.data;
-                if(this.variations.length > 0){
-                    this.onChangeVarible();
-                }
-            }, (error) => {
-                console.log(error);
-            });
-        },
-        fetch_yith() {
-            //axios.get(useRuntimeConfig().public.api_url+"/wp-json/wc/v3/products/" + this.product_id + "/variations/", {
-            axios.get(useRuntimeConfig().public.api_url + "/wp-json/yith/v3/data/", {
-                params: {
-                    product_id: this.product_id
-                }
-            }).then((result) => {
-                this.yith = result.data;
-                /* var result_data_yith = result.data
-                this.yith = result_data_yith.replace("http://", "https://"); */
-            }, (error) => {
-                console.log(error);
-            });
-        },
-        fetchx() {
-            this.loading = "loading";
-            if (this.$cookies.isKey("kratom_token") && this.$cookies.get("kratom_token") != "" && this.cartload) {
-                var kratom_token = this.$cookies.get("kratom_token");
-                var headers = {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + kratom_token
-                };
-                /* axios.get(
-                    useRuntimeConfig().public.api_url+'/wp-json/wc/store/v1/cart',
-                    {
-                        headers: headers,
-                        withCredentials: true
-                    }
-                ).then((result) => {
-                    this.cartdata = result.data;
-                    this.cart_type = 'loggedin';
-                    this.$store.dispatch("addToCartItemKratom", result.data);
-                    this.kratom_cart = result.data;
-                    this.loading = '';
-                },(error) => {
-                    console.log(error);
-                }); */
-            } /* else if(this.$cookies.isKey('cart_key') && this.$cookies.get('cart_key') != "" && this.cartload) {
-                    var cart_key = this.$cookies.get('cart_key');
-                    var headers = {
-                        'Content-Type': 'application/json',
-                    }
-                    var data = {"cart_key":cart_key};
-                    
-                    var config = {
-                        method: 'get',
-                        url: useRuntimeConfig().public.api_url+'/wp-json/cocart/v2/cart',
-                        headers: headers,
-                        params : data,
-                        withCredentials: true
-                    };
-
-                    axios(config)
-                    .then((result) => {
-                        this.cartdata = result.data;
-                        this.cart_type = 'guest';
-                        this.$store.dispatch("addToCartItemKratom", result.data);
-                        this.kratom_cart = result.data;
-                        this.loading = '';
-                    },(error) => {
-                        console.log(error);
-                    });
-
-                    
-                    console.log(this.cart_type);
-                } */
-            else {
-                var headers = {
-                    "Content-Type": "application/json",
-                };
-            }
-            var url = useRuntimeConfig().public.api_url + "/wp-json/wc/store/v1/cart";
-            var config = {
-                method: "get",
-                url: url,
-                headers: headers,
-                withCredentials: true
-            };
-            axios(config)
-                .then((result) => {
-
-                    this.cartdata = result.data;
-                    this.$store.dispatch("addToCartItemKratom", result.data);
-                    this.kratom_cart = result.data;
-                    this.loading = "";
-                }, (error) => {
-                    console.log(error);
-                });
-            /* fetch(url, config)
-            .then((result) => {
-                //this.cartdata = result.json();
-                this.cart_type = 'loggedin';
-                this.$store.dispatch("addToCartItemKratom", result.json());
-                //console.log(result.json());
-                this.kratom_cart = result.json();
-                this.loading = '';
-            },(error) => {
-                console.log(error);
-            }); */
-            this.$store.state.kratom_cart = this.kratom_cart;
-        }
-    },
-    components: { MiniCartPopup, CartRelatedProducts: () => import("@/components/kratom/cart/CartRelatedProducts"), KratomTitleProduct }
-};
-</script>
 
 <style>
 .green_vein_item {
