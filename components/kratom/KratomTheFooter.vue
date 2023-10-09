@@ -301,7 +301,7 @@ export default {
     },
     mounted(){
         
-        if ((this.yotpo_review == undefined || this.yotpo_review == '') && this.yotpo_review != "no") {            
+        /* if ((this.yotpo_review == undefined || this.yotpo_review == '') && this.yotpo_review != "no") { */
             
             const script = document.createElement('script')
             script.src = 'https://staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js'
@@ -309,7 +309,7 @@ export default {
                 yotpo.refreshWidgets()
             }
             document.head.appendChild(script) 
-        }        
+        /* }         */
         
     },
     methods: {
