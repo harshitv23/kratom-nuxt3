@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="shopping-cart-content text-center" v-else>
-                <p>You have no items in your shopping cart.</p>
+                <p>You have no items in your shopping cart. {{ cartstate.items }}</p>
             </div>
         </div>
     </client-only>
@@ -42,13 +42,15 @@
 
 <script>
 import axios from "axios";
+import { useCartStore } from "../stores/states";
 export default {
     props: ["miniCart"],
 
     data() {
         return {
             kratom_cart: '',
-            loading: ''
+            loading: '',
+            cartstate: useCartStore(),
         }
     },
 
@@ -57,10 +59,10 @@ export default {
             return this.formatprice(this.$store.state.kratom_cart.totals.total_price, 2);
         },
         products() {
-            if (this.$store.state.kratom_cart.items == undefined) {
+            if (this.cartstate.items == undefined) {
                 return ''
             } else {
-                return this.$store.state.kratom_cart.items
+                return this.cartstate.items
             }
         },
         total() {
@@ -86,7 +88,7 @@ export default {
             return url;
         },        
         fetchcart() {
-            
+            console.log('sdf');
             this.loading = 'loading';
             const kratom_token_c = useCookie('kratom_token')
             if (kratom_token_c.value && kratom_token_c.value != "" && this.cartload) {
@@ -185,6 +187,7 @@ export default {
                 console.log('Remove');
         },
         fetch() {
+            console.log('sdf');
             this.loading = 'loading';
             const kratom_token_c = useCookie('kratom_token')
             if (kratom_token_c.value && kratom_token_c.value != "" && this.cartload) {
@@ -210,7 +213,9 @@ export default {
                 .then((result) => {
                     
                     this.cartdata = result.data;
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    /* this.$store.dispatch("addToCartItemKratom", result.data); */
+                    this.cartstate.addItems = result.data;
+                    console.log(result.data); 
                     this.kratom_cart = result.data;
                     this.loading = '';
                 }, (error) => {

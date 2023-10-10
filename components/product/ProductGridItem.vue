@@ -66,8 +66,15 @@ data-url="The url to the page where the product is url escaped">
 //import StarRating from "@nacelle/nacelle-yotpo-nuxt-module/lib/components/StarRating.vue";
 import axios from "axios";  
 import * as $ from "jquery";
+import { useCartStore } from "~/stores/states";
     export default {
     props: ["product", "layout", "yotpoonce", "yotpo_reviews_count", "is_landing"],
+
+    data() {
+        return {
+            cartstate: useCartStore(),
+        }
+    },
     methods: {
         replaceSizeImg(img){
             if(img.indexOf('f_auto,q_auto') > -1){
@@ -77,8 +84,8 @@ import * as $ from "jquery";
         },
         addToCart(product, event) {
             $(event.target).addClass("btn-loading-icon");
-            if (this.$cookies.isKey("kratom_token") && this.$cookies.get("kratom_token") != "") {
-                var kratom_token = this.$cookies.get("kratom_token");
+            if (useCookie("kratom_token") && useCookie("kratom_token") != "") {
+                var kratom_token = useCookie("kratom_token");
                 var headers = {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + kratom_token
@@ -89,8 +96,8 @@ import * as $ from "jquery";
                     "Content-Type": "application/json"
                 };
             }
-            if (this.$cookies.isKey("cart_key") && this.$cookies.get("cart_key") != "") {
-                var cart_key = this.$cookies.get("cart_key");
+            if (useCookie("cart_key") && useCookie("cart_key") != "") {
+                var cart_key = useCookie("cart_key");
                 var data = { "id": "" + product.id, "quantity": "" + 1, "cart_key": cart_key };
             }
             else {
@@ -105,8 +112,10 @@ import * as $ from "jquery";
             };
             axios(config)
                 .then((result) => {
-                this.$store.dispatch("addToCartItemKratom", result.data);
-                this.$notify({ title: "Product added to cart successfully!" });
+                /* this.$store.dispatch("addToCartItemKratom", result.data);
+                this.$notify({ title: "Product added to cart successfully!" }); */
+                this.cartstate.addItems = result.data;
+                console.log('added...!');
             }, (error) => {
                 console.log(error);
             }).finally(() => $(event.target).removeClass("btn-loading-icon"));

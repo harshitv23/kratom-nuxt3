@@ -1,6 +1,7 @@
 <template>
     <div>
-        
+        <div class="yotpo yotpo-main-widget" data-product-id="229749" data-lang="en" data-yotpo-element-id="1">
+            </div>
         <NewkratomBanners/>
         <Categorys/>
         <Featuredproducts/>
