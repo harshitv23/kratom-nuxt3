@@ -1,6 +1,6 @@
 <template>
     <section class="product_effects position-relative mt-40 pt-md-60">
-        <div class="product_effects_bg pt-20">
+        <!-- <div class="product_effects_bg pt-20">
         <div class="container product_effects_inner">
             <h2 class="product_effects_heading">KRATOM EFFECTS</h2>
             <ul class="product_effects_ul">
@@ -13,7 +13,7 @@
                 <img src="img/kratom/product_effect_img.png" alt="kratom effects" width="498" height="180" v-else>
             </div>
         </div>
-    </div>
+    </div> -->
     </section>
 </template>
 
