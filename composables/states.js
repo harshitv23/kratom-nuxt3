@@ -1,0 +1,1 @@
+export const useReeard = () => useState ('reward', () => 10)
