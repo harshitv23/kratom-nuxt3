@@ -11,10 +11,10 @@
                     </div>
                     <div class="" :class="loading == true ? 'hidden' : ''">
                         <div class="product-carousel product-carousel-nav-center position-relative">
-                            <swiper :options="swiperOption" :pagination="true" :loop="false" :slides-per-view="4" spaceBetween="30">
-                                <SwiperSlide v-for="(product, index) in kratom_products_red" :key="index">
+                            <swiper class="swiper" :options="swiperOption" :pagination="true" :loop="false" :slides-per-view="4" :spaceBetween="30">
+                                <swiper-slide class="slide" v-for="(product, index) in kratom_products_red" :key="index">
                                     <ProductGridItem :yotpoonce="index" :product="product" :layout="layout" :yotpo_reviews_count="yotpo_reviews_count" />
-                                </SwiperSlide>
+                                </swiper-slide>
                             </swiper>
                             <!-- Swiper Navigation Start -->
                             <div class="product-carousel-nav swiper-button-prev swiper-button-prev5">
@@ -44,7 +44,7 @@ import KratomTitle from "../KratomTitle.vue";
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import $ from "jquery";
 import { Buffer } from "buffer";
-
+import 'swiper/css'
 
 export default {
     components: {
