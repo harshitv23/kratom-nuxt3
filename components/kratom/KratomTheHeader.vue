@@ -173,7 +173,7 @@
                                 <div class="same-style cart-wrap">
                                     <button class="icon-cart" @click="cart_click">
                                         <i class="pe-7s-shopbag"></i>
-                                        <span class="count-style">{{ cartItemCount }}</span>
+                                        <span class="count-style">{{ cart_count.kratom_cart.items_count }}</span>
                                         <span class="header_icons_label">Cart</span>
                                     </button>
                                     <MiniCart :miniCart="{ visible: openCart }" @minicartClose="openCart = !openCart" />
@@ -199,8 +199,14 @@
 <script>
 import $ from "jquery";
 import axios from "axios";
+import { useKratom_cartStore } from "../stores/index";
 
 export default {
+    setup() {
+        const cart_count = useKratom_cartStore();
+
+        return { cart_count }
+    },
     components: {
         Navigation: () => import("@/components/Navigation"),
         MiniCart: () => import("@/components/MiniCart"),

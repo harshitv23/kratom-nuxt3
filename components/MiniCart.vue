@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="shopping-cart-content text-center" v-else>
-                <p>You have no items in your shopping cart. {{ cartstate.items }}</p>
+                <p>You have no items in your shopping cart.</p>
             </div>
         </div>
     </client-only>
@@ -42,31 +42,40 @@
 
 <script>
 import axios from "axios";
-import { useCartStore } from "../stores/states";
+import { useKratom_cartStore } from "../stores/index";
 export default {
+    setup() {
+        const Kratom_cartitem = useKratom_cartStore()
+
+        /* const fetchcart = (cart) => {
+            Kratom_cartitem.addToCartItemKratom({cart})
+        }
+        fetchcart(); */
+
+        return { Kratom_cartitem }
+    },
     props: ["miniCart"],
 
     data() {
         return {
             kratom_cart: '',
             loading: '',
-            cartstate: useCartStore(),
         }
     },
 
     computed: {
         total_price() {
-            return this.formatprice(this.$store.state.kratom_cart.totals.total_price, 2);
+            return this.formatprice(this.Kratom_cartitem.kratom_cart.totals.total_price, 2);
         },
         products() {
-            if (this.cartstate.items == undefined) {
+            if (this.Kratom_cartitem.kratom_cart.items == undefined) {
                 return ''
             } else {
-                return this.cartstate.items
+                return this.Kratom_cartitem.kratom_cart.items
             }
         },
         total() {
-            if (this.$store.state.kratom_cart == undefined) {
+            if (this.kratom_cart == undefined) {
                 return ''
             } else {
                 //return this.$store.state.kratom_cart.totals.total_price
@@ -88,7 +97,6 @@ export default {
             return url;
         },        
         fetchcart() {
-            console.log('sdf');
             this.loading = 'loading';
             const kratom_token_c = useCookie('kratom_token')
             if (kratom_token_c.value && kratom_token_c.value != "" && this.cartload) {
@@ -116,7 +124,8 @@ export default {
                     
                     this.cartdata = result.data;
                     this.cart_type = 'loggedin';
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    /* this.$store.dispatch("addToCartItemKratom", result.data); */
+                    this.Kratom_cartitem.kratom_cart = result.data;
                     this.kratom_cart = result.data;
                     this.loading = '';
                 }, (error) => {
@@ -126,8 +135,8 @@ export default {
         getProductName(product) {
             var pkey = product.key;
             var pname = '';
-            if(this.$store.state.kratom_cart.shipping_rates[0] != undefined && this.$store.state.kratom_cart.shipping_rates[0].items != undefined){
-                this.$store.state.kratom_cart.shipping_rates[0].items.map(function (value, key) {
+            if(this.Kratom_cartitem.kratom_cart.shipping_rates[0] != undefined && this.Kratom_cartitem.kratom_cart.shipping_rates[0].items != undefined){
+                this.Kratom_cartitem.kratom_cart.shipping_rates[0].items.map(function (value, key) {
                     if (pkey == value.key) {
                         pname = value.name;
                     }
@@ -178,7 +187,7 @@ export default {
             axios(config)
                 .then((result) => {
                     this.loading = '';                    
-                    this.$notify({ title: 'Item remove from cart!' })
+                    /* this.$notify({ title: 'Item remove from cart!' }) */
                     this.fetchcart();
                 }, (error) => {
                     console.log(error);
@@ -214,7 +223,7 @@ export default {
                     
                     this.cartdata = result.data;
                     /* this.$store.dispatch("addToCartItemKratom", result.data); */
-                    this.cartstate.addItems = result.data;
+                    this.Kratom_cartitem.kratom_cart = result.data;
                     console.log(result.data); 
                     this.kratom_cart = result.data;
                     this.loading = '';
@@ -247,7 +256,7 @@ export default {
                 ).then((result) => {
                     this.cartdata = result.data;
 
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    /* this.cartstate.$patch("addToCartItemKratom", result.data); */
                     this.kratom_cart = result.data;
                     
 
@@ -340,6 +349,7 @@ export default {
             }
         }
     }, mounted() {
+        console.log(this.Kratom_cartitem.kratom_cart.length)
         this.fetch()
     },
 };

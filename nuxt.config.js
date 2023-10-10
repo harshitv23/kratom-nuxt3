@@ -4,6 +4,14 @@ export default {
     /* configureWebpack: {
         plugins: [new BundleAnalyzerPlugin()]
     }, */
+    router: {
+        routes: [
+          {
+            path: '/our-reviews',
+            component: 'pages/our-reviews.vue',
+          },
+        ],
+      },
     image: {
         cloudinary: {
           baseURL: 'https://res.cloudinary.com/dv8z5nr6r/images/f_auto,q_auto/'
@@ -65,18 +73,18 @@ export default {
             {              
               src: '~/plugins/yotposcript.js',
               //defer: true,              
-            }
+            },
             /* ,
             {
                 innerHTML: "cntrUpTag.track('cntrData', '1002bc32bada5173');",
                 type: 'text/javascript'
               } */
-            /* {
+            {
               // Add a script to the end of the <body></body>
               src: '//staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js',
-              //defer: true,
-              body: true,
-            }, */
+              defer: true,
+              //body: true,
+            },
           ]
         
     },
@@ -97,6 +105,10 @@ export default {
         '~/plugins/vuejs-pagiante.js',
         '~/plugins/observe-visibility.js',
         /* '~/plugins/persistedState.client.js', */
+        /* { 
+            src: '~/plugins/yotpo.js', 
+            mode: 'client'
+        }, */
         { 
             src: '~/plugins/bootstrap.js', 
             mode: 'client'

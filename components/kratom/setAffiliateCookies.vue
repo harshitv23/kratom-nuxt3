@@ -8,10 +8,10 @@ import axios from "axios";
 export default {
     data() {
         return {
-            ref: this.$route.query.ref,
-            visit: this.$route.query.visit,            
-            campaign: this.$route.query.campaign,            
-            refslug: this.$route.params.slug
+            ref: useRoute().route.query.ref,
+            visit: useRoute().route.query.visit,            
+            campaign: useRoute().route.query.campaign,            
+            refslug: useRoute().route.params.slug
         }
     },
     methods: {
@@ -36,27 +36,10 @@ export default {
                   headers: headersList,
                 }
                 
-                axios.request(reqOptions).then(response => {                                
-                    /* this.visit = response.data.visit_id;            
-                    this.campaign = response.data.campaign; */
+                axios.request(reqOptions).then(response => {
                     this.$cookies.set("affwp_ref_visit_id", response.data.visit_id)
                     this.$cookies.set("affwp_campaign", response.data.campaign)
-                });                
-                /* axios.post(
-                    useRuntimeConfig().public.api_url+'/wp-json/affwp/v1/visits/?url='+useRuntimeConfig().public.api_url+'/'+slug+'&affiliate_id='+this.ref,
-                    {
-                        params: {
-                            
-                        },
-                        headers:{
-                            'Authorization' : basicToken
-                        }
-                    }
-                ).then((result) => {
-                    console.log(result);
-                }, (error) => {
-                    console.log(error);
-                }); */
+                });
             }
             if (this.visit != undefined && this.visit != '') {
                 this.$cookies.set("affwp_ref_visit_id", this.visit)

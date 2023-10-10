@@ -9,19 +9,10 @@
                                 <div class="blog-details-img">
                                     <picture>                                        
                                         <source media="(max-width:767px)" :srcset="replaceSizeImg(blog['_embedded']['wp:featuredmedia'][0]['source_url'],'f_auto,w_400')">
-                                        <NuxtImg preload :src="blog['_embedded']['wp:featuredmedia'][0]['source_url']" alt="Kratom Spot Banner"  width="1022" height="682" class="banner_bg"/>
+                                        <img preload :src="blog['_embedded']['wp:featuredmedia'][0]['source_url']" alt="Kratom Spot Banner"  width="1022" height="682" class="banner_bg"/>
                                     </picture>
-                                    <!-- <img :src="blog['_embedded']['wp:featuredmedia'][0]['source_url']"
-                                        :alt="blog.title.rendered" width="1022" height="682"> -->
                                 </div>
                                 <div class="blog-details-content">
-                                    <!-- <div class="blog-meta-2">
-                                        <ul>
-                                            <li>Posted on {{ format_date(blog.date) }}</li>
-                                            <li>By {{ blog['_embedded']['author'][0]['name'] }}</li>                                            
-                                        </ul>
-                                    </div> -->
-                                    <!-- <h3 v-html="blog.title.rendered"></h3> -->
                                     <div class="post_content" v-html="blog.content.rendered"></div>
                                 </div>
                             </div>
@@ -56,15 +47,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- <li class="blog_categories">Posted in
-                                <div v-for="category in blog['_embedded']['wp:term'][0]">
-                                    {{ category.name }} <span>,</span>
-                                </div>
-                            </li> -->
                             <div class="Blog-Categories">Posted in
                                 <div v-for="category in blog['_embedded']['wp:term'][0]">
-                                    <!-- <NuxtLink :to="`/${category.slug}`" v-html="category.name">
-                                    </NuxtLink><span>,</span> -->
                                     {{ category.name }} <span>,</span>
 
                                 </div>
@@ -85,44 +69,27 @@
 </template>
 
 <script>
-/* import moment from 'moment/locale/es' */
-/* import moment from "moment"; */
 import $ from "jquery";
+import pop_products from "../data/product_popup.json";
 export default {
     props: ["blog"],
     data() {
         return {
             //blog : post,
-            //slug: this.$route.params.slug
-            
+            //slug: this.$route.params.slug            
+            pop_products: ref(pop_products)
         }
-    },
-    computed: {
-        pop_products() {
-            return this.$store.state.products_popup;
-        }
-    },
+    },    
     methods: {
-        /* product_url_popup(current,url){
-            let slug = url => new URL(url).pathname.match(/[^\/]+/g)
-            console.log(this.pop_products)
-        }, */
         replaceSizeImg(img, replacewith = 'h_400,w_400'){
             if(img.indexOf('f_auto,q_auto') > -1){
                 img = img.replace("f_auto,q_auto", replacewith);
             }
             return img;
         },
-        /* format_date(value) {
-            if (value) {
-                return moment(String(value)).format('MMMM D, YYYY')
-            }
-        } */
     },
     mounted() {
-        
-        omnisend.push(["track", "$pageViewed"]);
-
+        omnisend.push(["track", "$pageViewed"]);        
         var products_pop = this.pop_products;
         $(".post_content a").on("mouseover", function () {
             if($(this).find('.link_product_popup').length == 1){
@@ -151,30 +118,11 @@ export default {
         });
         $(".post_content a").on("mouseout", function () {
             $(this).find('.link_product_popup').hide();
-        });
-        
-        //this.blog = blog.find(blog => this.slugify(blog.title) === this.slug);
+        });                
     },
     created(){
         
     },
-    
-    /* head() {
-        return {
-            htmlAttrs: { lang: 'en-US' },
-            title: this.blog.title,
-            meta: [{ charset: 'utf-8' },
-            { name: 'viewport', content: 'width=device-width, initial-scale=1' },],
-            link: [
-            { rel: 'icon', type: 'image/x-icon', href: '/new-favicon.png' },
-        ],
-        }
-    }, */
-    /* head() {
-        return {
-            title: this.blog.title
-        }
-    }, */
 };
 </script>
 <style>

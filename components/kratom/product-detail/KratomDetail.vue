@@ -41,7 +41,7 @@ console.log('product'+product);
 
 <template>
     <section class="py-5 product_detail_section py-sm-0">
-        sdfsdf
+        components - KratomDetail
         {{ product }}
         <!-- 
         <div class="minicart_popup_container" v-if="showcartpopup">

@@ -31,8 +31,7 @@ export default {
     props: ["blog"],
     data() {
         return {
-            //blog : post,
-            //slug: this.$route.params.slug
+            
         }
     },
 

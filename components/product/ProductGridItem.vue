@@ -66,13 +66,18 @@ data-url="The url to the page where the product is url escaped">
 //import StarRating from "@nacelle/nacelle-yotpo-nuxt-module/lib/components/StarRating.vue";
 import axios from "axios";  
 import * as $ from "jquery";
-import { useCartStore } from "~/stores/states";
+import { useKratom_cartStore } from "~/stores/index";
     export default {
+        setup() {
+            const add_item = useKratom_cartStore() 
+
+            return { add_item }
+        },
     props: ["product", "layout", "yotpoonce", "yotpo_reviews_count", "is_landing"],
 
     data() {
         return {
-            cartstate: useCartStore(),
+            
         }
     },
     methods: {
@@ -114,8 +119,8 @@ import { useCartStore } from "~/stores/states";
                 .then((result) => {
                 /* this.$store.dispatch("addToCartItemKratom", result.data);
                 this.$notify({ title: "Product added to cart successfully!" }); */
-                this.cartstate.addItems = result.data;
-                console.log('added...!');
+                /* this.cartstate.items = result.data.items; */
+                this.add_item.kratom_cart = result.data;
             }, (error) => {
                 console.log(error);
             }).finally(() => $(event.target).removeClass("btn-loading-icon"));
