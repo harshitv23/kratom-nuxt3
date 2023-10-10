@@ -30,7 +30,8 @@ import axios from 'axios';
 import KratomDetail from "~/components/kratom/product-detail/KratomDetail.vue";
 import KratomDetailNew from "~/components/kratom/product-detail/KratomDetailNew.vue";
 import KratomEffects from "~/components/kratom/product-detail/KratomEffects.vue";
-import CustomRelatedProducts from "~/components/kratom/CustomRelatedProducts.vue";
+//import CustomRelatedProducts from "~/components/kratom/CustomRelatedProducts.vue";
+import CustomRelatedProducts from "~/components/kratom/product-detail/CustomRelatedProducts.vue";
 import KratomProductDetailQualityImage from "~/components/kratom/product-detail/KratomProductDetailQualityImage.vue";
 import KratomReviewsProduct from "~/components/kratom/product-detail/KratomReviewsProduct.vue";
 import TitleBar from "~/components/kratom/product-category/TitleBar.vue";
@@ -41,9 +42,14 @@ import KratomResponsiblySourced from "~/components/kratom/product-category/Krato
 import postDetail from "~/components/post/postDetail.vue";
 import blogCTA from "~/components/kratom/blog/blogCTA.vue";
 import PageDetail from "~/components/kratom/page/pageDetail.vue";
+import KratomFreeShipping from "~/components/kratom/KratomFreeShipping.vue";
+import $ from "jquery";
 
+console.log(head_json[slug.value]);
 yoast_head_json.value = head_json[slug.value];
+console.log(yoast_head_json.value);
 content_type.value = yoast_head_json.value.type;
+console.log(yoast_head_json.value.type)
 /* const { data: yoast_head_json } = await useAsyncData('yoast_head_json', async () => {
     console.log('----')
     console.log('----')
@@ -74,8 +80,54 @@ function replaceSizeImg(img, replacewith = 'h_400,w_400') {
 }
 
 
+function yotporeviews(data) {
+    const product_ids = [];
+    $.each(data, function(i, item) {
+        product_ids.push(data[i].id);
+    });
+    
+    axios.get(
+        useRuntimeConfig().public.api_url + '/wp-json/yotpo/reviews/',
+        {
+            params: {
+                product_id: product_ids,
+                per_page: 2
+            }
+        }
+    ).then((result) => {
+        yotpo_reviews_count.value = result.data;
+    }, (error) => {
+        console.log(error);
+    });
+    axios.get(
+        useRuntimeConfig().public.api_url + '/wp-json/yotpo/reviews/',
+        {
+            params: {
+                product_id: product_ids,
+                per_page: 2,
+                page_type: "category"
+            }
+        }
+    ).then((result) => {
+        yotpo_reviews.value = result.data;        
+    }, (error) => {
+        console.log(error);
+    });
+}
+
 //import { Buffer } from "Buffer";
 import { Buffer } from "buffer";
+
+const load_yotpo = () => {
+    const script = document.createElement('script')
+        script.src = 'https://staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js'
+        script.async = true;        
+        script.onload = function() {
+            yotpo.refreshWidgets()
+        }
+        document.head.appendChild(script) 
+}
+
 
 const fetchData = async () => {
   //const Buffer = require('buffer').Buffer;  
@@ -95,6 +147,7 @@ const fetchData = async () => {
     
     product.value = result.data[0];    
     loading.value = false
+    load_yotpo();
   } else if (content_type.value == 'product-category') {
     if (category_id.value && category_id.value != '') {
       const result = await axios.get(
@@ -114,6 +167,8 @@ const fetchData = async () => {
       );
 
       kratom_products.value = result.data;
+      yotporeviews(result.data);
+      loading.value = false      
     }
   } else if (content_type.value == 'post') {
     if (currentDetailId.value && currentDetailId.value != '') {
@@ -128,6 +183,7 @@ const fetchData = async () => {
 
       kratom_post.value = result.data;
       pagetitle.value = result.data.title.rendered;
+      loading.value = false
     }
   } else if (content_type.value == 'page') {
     if (currentDetailId.value && currentDetailId.value != '') {
@@ -142,20 +198,19 @@ const fetchData = async () => {
 
       kratom_post.value = result.data;
       pagetitle.value = result.data.title.rendered
+      loading.value = false
     }
   } else if (content_type.value == 'none') {
     loading.value = false
   }
   
 };
-
 const fetch = async () => {
   const result = await axios.get(useRuntimeConfig().public.api_url + "/wp-json/current/v3/page", {
     params: {
       slug: slug.value
     }
   });
-
   kratom_page_data.value = result.data;
   content_type.value = result.data['type'];
   if (result.data['cat_id']) {
@@ -185,7 +240,7 @@ const fetch = async () => {
   if (result.data['count'] == 0) {
     empty_message.value = result.data['empty_message'];
   }  
-  loading.value = false
+  //loading.value = false
   fetchData();
 };
 
@@ -354,8 +409,8 @@ useHead({
 <template>
     <div class=""
         :class="`content_type_${content_type} ${content_type == 'product' ? 'product-details-page-wrapper' : ''}`">
-        <!-- <div v-if="yoast_head_json && yoast_head_json.categories && yoast_head_json.categories.includes('accessories-and-merchandise')"></div> -->
-        <section class="py-5 product_detail_section product_detail_section_loading py-sm-0" v-if="yoast_head_json && yoast_head_json.categories && yoast_head_json.categories.includes('accessories-and-merchandise') && yoast_head_json.type && yoast_head_json.type == 'product' && loading == true">
+        <!-- <div v-if="yoast_head_json && yoast_head_json.categories && yoast_head_json.categories.includes('accessories-and-merchandise')"></div> -->        
+        <section class="py-5 product_detail_section product_detail_section_loading py-sm-0" v-if="yoast_head_json && yoast_head_json.categories && yoast_head_json.categories.includes('accessories-and-merchandise') && content_type && content_type == 'product' && loading == true">
             <div class="container pt-40">
                 <div class="row my-6 pl-15 pr-15">
                     <div id="sm-order3"
@@ -389,7 +444,7 @@ useHead({
                     </div>
                     <div id="sm-order1" class="col-lg-4 col-md-12 col-sm-12 mx-auto product-mob-img pl-sm-0 pr-sm-0">
                         <div class="product-details-img">
-                            <NuxtImg format="webp" height="800" width="800" rel="preload" class="img-fluid" :src="replaceSizeImg(yoast_head_json.meta.og_image[0].url,'h_400,w_400')" :alt="yoast_head_json.meta.title"/>
+                            <img format="webp" height="800" width="800" rel="preload" class="img-fluid" :src="replaceSizeImg(yoast_head_json.meta.og_image[0].url,'h_400,w_400')" :alt="yoast_head_json.meta.title"/>
                         </div>
                     </div>
                     <div id="sm-order2"
@@ -416,7 +471,7 @@ useHead({
                 </div>
             </div>
         </section>
-        <section class="py-5 product_detail_section product_detail_section_loading py-sm-0" v-else-if="yoast_head_json && yoast_head_json.type && yoast_head_json.type == 'product' && loading == true">
+        <section class="py-5 product_detail_section product_detail_section_loading py-sm-0" v-else-if="yoast_head_json && content_type && content_type == 'product' && loading == true">
             <div class="container pt-40">
                 <div class="row my-6 pl-15 pr-15">
                     <div id="sm-order3"
@@ -452,7 +507,7 @@ useHead({
                     </div>
                     <div id="sm-order1" class="col-lg-4 col-md-12 col-sm-12 mx-auto product-mob-img pl-sm-0 pr-sm-0">
                         <div class="product-details-img">
-                            <NuxtImg format="webp" height="800" width="800" rel="preload" class="img-fluid" :src="replaceSizeImg(yoast_head_json.meta.og_image[0].url,'h_400,w_400')" :alt="yoast_head_json.meta.title"/>
+                            <img format="webp" height="800" width="800" rel="preload" class="img-fluid" :src="replaceSizeImg(yoast_head_json.meta.og_image[0].url,'h_400,w_400')" :alt="yoast_head_json.meta.title"/>
                         </div>
                     </div>
                     <div id="sm-order2"
@@ -479,13 +534,13 @@ useHead({
                 </div>
             </div>
         </section>
-        <div v-if="loading == true && yoast_head_json && yoast_head_json.type && yoast_head_json.type!='product-category' && yoast_head_json.type && yoast_head_json.type!='post'" class="pt-140 pb-140 text-center spin_loader 2">
+        <div v-if="loading == true && yoast_head_json && content_type && content_type!='product-category' && content_type && content_type!='post'" class="pt-140 pb-140 text-center spin_loader 2">
             <img  width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`">
         </div>
         <div v-else-if="checking_current_page == true" class="pt-140 pb-140 text-center spin_loader 3"><img  width="120" height="120"
                 :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
         <!-- Product -->
-        <div class="product_container" :class="product_loading" v-if="yoast_head_json && yoast_head_json.categories && yoast_head_json.categories.includes('accessories-and-merchandise') && yoast_head_json.type && yoast_head_json.type == 'product'">
+        <div class="product_container" :class="product_loading" v-if="yoast_head_json && yoast_head_json.categories && yoast_head_json.categories.includes('accessories-and-merchandise') && content_type && content_type == 'product'">
             <KratomDetail2 :product="product" :product_id="product.id" :product_price="product.price_html" :product_laberesult="product.ACF.lab_results" :product_moreinfo="product.ACF.additional_information"
                 :description="product.description"
                 v-if="product.ACF && loading == false && content_type == 'product'" />
@@ -503,7 +558,7 @@ useHead({
                 :product_id="product.id" class="mb-80" />
             <KratomFreeShipping v-if="showall && content_type == 'product' && loading == false" />
         </div>
-        <div class="product_container KratomDetail1" :class="product_loading" v-else-if="yoast_head_json && yoast_head_json.type && yoast_head_json.type == 'product'">            
+        <div class="product_container KratomDetail1" :class="product_loading" v-else-if="yoast_head_json && content_type && content_type == 'product'">            
             <!-- <KratomDetail :product="product" :product_id="product.id" :product_price="product.price_html" :product_laberesult="product.ACF.lab_results" :product_moreinfo="product.ACF.additional_information"
                 :description="product.description"
                 v-if="product.ACF && loading == false && content_type == 'product'" />
@@ -519,27 +574,27 @@ useHead({
                 :description="product.description" /> -->
             <KratomEffects v-if="loading == false && content_type == 'product'" :product="product"/>
             
-            <!-- <CustomRelatedProducts :product_related="product.related_ids"
-                v-if="loading == false && content_type == 'product' && product.related_ids != undefined"/> -->
+            <CustomRelatedProducts :product_related="product.related_ids"
+                v-if="loading == false && content_type == 'product' && product.related_ids != undefined"/>
             <KratomProductDetailQualityImage v-if="loading == false && content_type == 'product'" />
             <KratomReviewsProduct v-if="loading == false && content_type == 'product'" :product="product"
                 :product_id="product.id" class="mb-80" />
-            <KratomFreeShipping v-if="showall && content_type == 'product' && loading == false" />
+            <KratomFreeShipping v-if="content_type == 'product' && loading == false" />
         </div>
 
         <!-- Product Category -->
-        <div class="product_category_container" v-if="yoast_head_json && yoast_head_json.type && yoast_head_json.type == 'product-category'">
+        <div class="product_category_container" v-if="yoast_head_json && content_type && content_type == 'product-category'">
             <!-- <TitleBar :title="pagetitle" v-if="loading == false && content_type == 'product-category'" /> -->
-            <TitleBar :title="pagetitle" v-if="yoast_head_json && yoast_head_json.type && yoast_head_json.type == 'product-category'" />
+            <TitleBar :title="pagetitle" v-if="yoast_head_json && content_type && content_type == 'product-category'" />
             <TitleBar :title="pagetitle" v-else-if="loading == false && content_type == 'product-category'" />
-            <KratomCategoryTopSection v-if="yoast_head_json && yoast_head_json.type && yoast_head_json.type=='product-category'"
+            <KratomCategoryTopSection v-if="yoast_head_json && content_type && content_type=='product-category'"
                 :above_the_fold_texts="(above_the_fold_texts)?above_the_fold_texts:yoast_head_json.above_the_fold_texts" />
             
             <div class="shop-area pt-100 pb-100 pt-sm-0 pb-sm-0 mt-sm-20 mb-sm-20 mt-40 mb-40">
                 <div class="container">
                     <div class="row flex-row-reverse">
-                        <div class="col-lg-9" :class="loading ? 'category_loading' : ''" v-if="loading == true && yoast_head_json && yoast_head_json.type && yoast_head_json.type=='product-category'">
-                            <div v-if="loading == true && yoast_head_json && yoast_head_json.type && (yoast_head_json.type=='product-category' || yoast_head_json.type=='post')" class="pt-140 pb-140 text-center spin_loader 4"><img  width="120" height="120"
+                        <div class="col-lg-9" :class="loading ? 'category_loading' : ''" v-if="loading == true && yoast_head_json && content_type && content_type=='product-category'">
+                            <div v-if="loading == true && yoast_head_json && content_type && (content_type=='product-category' || content_type=='post')" class="pt-140 pb-140 text-center spin_loader 4"><img  width="120" height="120"
                 :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>                            
                         </div>
                         <div class="col-lg-9" v-if="loading == false && content_type == 'product-category'">
@@ -583,7 +638,7 @@ useHead({
 
         <!-- Post -->
         <!-- <TitleBar :title="pagetitle" v-if="loading == false && content_type == 'post'" /> -->
-        <TitleBar :title="pagetitle" v-if="yoast_head_json && yoast_head_json.type && yoast_head_json.type == 'post'" />
+        <TitleBar :title="pagetitle" v-if="yoast_head_json && content_type && content_type == 'post'" />
         <TitleBar :title="pagetitle" v-else-if="loading == false && content_type == 'post'" />
         <postDetail :blog='kratom_post' v-if="kratom_post && loading == false && content_type == 'post'" />
         <blogCTA v-if="showall && kratom_post && loading == false && content_type == 'post'"/>
@@ -595,10 +650,10 @@ useHead({
         <!-- 404 -->
         <error404 v-if="loading == false && content_type == 'none'" />
         
-        <div v-if="loading == true && yoast_head_json && yoast_head_json.type && yoast_head_json.type=='post'" class="pt-140 pb-140 text-center spin_loader 1"><img  width="120" height="120"
+        <div v-if="loading == true && yoast_head_json && content_type && content_type=='post'" class="pt-140 pb-140 text-center spin_loader 1"><img  width="120" height="120"
                 :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
 
-        <!-- <KratomTheFooter :yotpo_review = "yoast_head_json && yoast_head_json.type && yoast_head_json.type == 'product-category' ? 'no' : '' "/> -->
+        <!-- <KratomTheFooter :yotpo_review = "yoast_head_json && content_type && content_type == 'product-category' ? 'no' : '' "/> -->
         
     </div>
 </template>

@@ -7,17 +7,18 @@
 import axios from "axios";
 export default {
     data() {
-        return {
-            ref: useRoute().route.query.ref,
-            visit: useRoute().route.query.visit,            
-            campaign: useRoute().route.query.campaign,            
-            refslug: useRoute().route.params.slug
+        return {            
+            ref: useRoute().query.ref,
+            visit: useRoute().query.visit,            
+            campaign: useRoute().query.campaign,            
+            refslug: useRoute().params.slug
         }
     },
     methods: {
-        set_affiliate_cookies() {
+        set_affiliate_cookies() {            
             if (this.ref != undefined && this.ref != '') {
-                this.$cookies.set("wp-ywpar_referral_token", this.ref, "7 Days")
+                useCookie().set("wp-ywpar_referral_token", this.ref, "7 Days")
+                //this.$cookies.set("wp-ywpar_referral_token", this.ref, "7 Days")
                 this.$cookies.set("affwp_ref", this.ref, "7 Days")
                 if(this.refslug){
                     var slug = this.refslug;

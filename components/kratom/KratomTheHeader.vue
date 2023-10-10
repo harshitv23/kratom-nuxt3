@@ -214,7 +214,9 @@ export default {
             return 0
         }
     },
-
+    setup(props){        
+        
+    },
     data() {
         return {
             isSticky: false,
@@ -406,14 +408,23 @@ export default {
             }
         })
         const user_display_name = useCookie('user_display_name')
+        console.log(user_display_name.value);
         if (user_display_name.value && user_display_name.value != "") {
             this.loggedin = true;
-            let user_display_name = user_display_name
-            this.username = 'Hi, ' + user_display_name.split(" ")[0]
+            this.username = 'Hi, ' + user_display_name.value.split(" ")[0]
         } else {
             this.loggedin = false;
+        }        
+        
+        console.log('header mounted');
+        /* const script = document.createElement('script')
+        script.src = 'https://staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js'
+        script.async = true;        
+        script.onload = function() {
+            yotpo.refreshWidgets()
         }
-
+        document.head.appendChild(script)  */
+        
     },
     methods: {
         copyToClipboard(text) {

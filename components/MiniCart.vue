@@ -57,11 +57,11 @@ export default {
             return this.formatprice(this.$store.state.kratom_cart.totals.total_price, 2);
         },
         products() {
-            if (this.$store.state.kratom_cart.items == undefined) {
+            /* if (this.$store.state.kratom_cart.items == undefined) {
                 return ''
             } else {
                 return this.$store.state.kratom_cart.items
-            }
+            } */
         },
         total() {
             if (this.$store.state.kratom_cart == undefined) {
@@ -114,7 +114,7 @@ export default {
                     
                     this.cartdata = result.data;
                     this.cart_type = 'loggedin';
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    //this.$store.dispatch("addToCartItemKratom", result.data);
                     this.kratom_cart = result.data;
                     this.loading = '';
                 }, (error) => {
@@ -210,7 +210,7 @@ export default {
                 .then((result) => {
                     
                     this.cartdata = result.data;
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    //this.$store.dispatch("addToCartItemKratom", result.data);
                     this.kratom_cart = result.data;
                     this.loading = '';
                 }, (error) => {
@@ -242,7 +242,7 @@ export default {
                 ).then((result) => {
                     this.cartdata = result.data;
 
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    //this.$store.dispatch("addToCartItemKratom", result.data);
                     this.kratom_cart = result.data;
                     
 
