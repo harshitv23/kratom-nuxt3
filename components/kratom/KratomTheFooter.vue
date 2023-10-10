@@ -300,15 +300,14 @@ export default {
 
     },
     mounted(){
-        
         /* if ((this.yotpo_review == undefined || this.yotpo_review == '') && this.yotpo_review != "no") { */
             
-            const script = document.createElement('script')
+            /* const script = document.createElement('script')
             script.src = 'https://staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js'
             script.onload = function() {
                 yotpo.refreshWidgets()
             }
-            document.head.appendChild(script) 
+            document.head.appendChild(script)  */
         /* }         */
         
     },

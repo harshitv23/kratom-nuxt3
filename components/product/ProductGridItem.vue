@@ -15,13 +15,14 @@
                 <NuxtLink :to="`/${product.slug}`">{{ product.name }}</NuxtLink>
             </h3>
             <!-- <StarRating :id="`${product.id+''}`" v-if="yotpo_reviews_count == null || yotpo_reviews_count == undefined"/> -->
-
-            <div class="yotpo-reviews-bottom-line" v-if="index == product.id && review_count.total_review > 0 && yotpo_reviews_count" v-for="(review_count, index) in yotpo_reviews_count" :key="index">
-                <div class="starttttt" :style="`--ratingwidth: ${review_count.average_score * 20}%`" >
+            <!-- index == product.id && review_count.total_review > 0 && yotpo_reviews_count -->
+            <div class="yotpo-reviews-bottom-line" v-for="(review_count, index) in yotpo_reviews_count" :key="index" :absc="index" :ppp="product.id">
+                <div class="starttttt" :style="`--ratingwidth: ${review_count.average_score * 20}%`" v-if="index == product.id && review_count.total_review > 0 && yotpo_reviews_count">
                     <img src="/img/kratom/icons/star-rating-empty.webp" alt="Review Stars" width="87" height="15" loading="lazy"/>
                 </div>
-                <p class="yotpo-cat-review-text" v-html="`${review_count.total_review} Reviews`"></p>
+                <p class="yotpo-cat-review-text" v-html="`${review_count.total_review} Reviews`" v-if="index == product.id && review_count.total_review > 0 && yotpo_reviews_count"></p>
             </div>
+            <!-- <div class="yotpo bottomLine" :data-product-id="product.id" /> -->
 
             
 <!-- <div class="yotpo bottomLine"

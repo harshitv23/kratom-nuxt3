@@ -3,7 +3,7 @@
         <div class="product-area">            
             
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="new-product" role="tabpanel">
+                    <div class="tab-pane fade show active" id="new-product" role="tabpanel">                        
                         <div class="row" v-if="layout == 'list' && kratom_products.length > 0">
                             <div class="product_single_item col-md-12 mb-30" v-for="(product, index) in kratom_products" :key="index">
                                 <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count = "yotpo_reviews_count"/>
@@ -114,6 +114,15 @@
     
 },
         mounted(){
+
+            const script = document.createElement('script')
+        script.src = 'https://staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js'
+        script.async = true;        
+        script.onload = function() {
+            yotpo.refreshWidgets()
+        }
+        document.head.appendChild(script) 
+
             omnisend.push(["track", "$pageViewed"]);
             $('.sidebar-widget-search input[name="s"]').on('change keyup', function () { 
                 var keyword = $(this).val().toLowerCase();      
