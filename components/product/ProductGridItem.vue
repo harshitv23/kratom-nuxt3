@@ -67,10 +67,18 @@ data-url="The url to the page where the product is url escaped">
 import axios from "axios";  
 import * as $ from "jquery";
 import { useKratom_cartStore } from "~/stores/index";
+import { useNotification } from "@kyvg/vue3-notification";
+
+const notification = useNotification()
+
+notification.notify({
+  title: "Vue 3 notification 🎉",
+});
     export default {
         setup() {
             const add_item = useKratom_cartStore() 
-
+            /* console.log(notify);
+            notify({ title: "Product added to cart successfully!" });  */
             return { add_item }
         },
     props: ["product", "layout", "yotpoonce", "yotpo_reviews_count", "is_landing"],
@@ -121,6 +129,8 @@ import { useKratom_cartStore } from "~/stores/index";
                 this.$notify({ title: "Product added to cart successfully!" }); */
                 /* this.cartstate.items = result.data.items; */
                 this.add_item.kratom_cart = result.data;
+                /* this.$notify({ title: "Product added to cart successfully!" }); */
+                
             }, (error) => {
                 console.log(error);
             }).finally(() => $(event.target).removeClass("btn-loading-icon"));

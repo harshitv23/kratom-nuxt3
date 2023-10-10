@@ -18,6 +18,7 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
+    "@kyvg/vue3-notification": "^3.0.2",
     "@nacelle/nacelle-nuxt-module": "^5.6.4",
     "@nacelle/nacelle-yotpo-nuxt-module": "^1.0.10",
     "@nuxt/image": "^1.0.0-rc.3",

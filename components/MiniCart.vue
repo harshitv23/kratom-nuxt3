@@ -47,11 +47,6 @@ export default {
     setup() {
         const Kratom_cartitem = useKratom_cartStore()
 
-        /* const fetchcart = (cart) => {
-            Kratom_cartitem.addToCartItemKratom({cart})
-        }
-        fetchcart(); */
-
         return { Kratom_cartitem }
     },
     props: ["miniCart"],
