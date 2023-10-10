@@ -44,6 +44,8 @@ import KratomTitle from "../KratomTitle.vue";
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import $ from "jquery";
 import { Buffer } from "buffer";
+
+
 export default {
     components: {
         ProductGridItem: () => import("@/components/product/ProductGridItem"),
