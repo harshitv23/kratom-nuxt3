@@ -36,7 +36,13 @@
 <script>
 
 import axios from "axios";
+/* const var1 = useState('user', () => ({
+    id : 3,
+    name: 'Michael',
+    profile: '...',
+})); */
 export default {
+    
     data() {
         return {
             kratom_header_data: {}

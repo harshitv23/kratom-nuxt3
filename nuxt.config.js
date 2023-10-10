@@ -69,11 +69,12 @@ export default {
         htmlAttrs: {
             lang: 'en',
         },
-        script: [
-            /* {              
-              src: 'https://cdn01.basis.net/assets/up.js?um=1',
-              defer: true,              
+        script: [            
+            {              
+              src: '~/plugins/yotposcript.js',
+              //defer: true,              
             },
+            /* ,
             {
                 innerHTML: "cntrUpTag.track('cntrData', '1002bc32bada5173');",
                 type: 'text/javascript'
@@ -96,6 +97,10 @@ export default {
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
+        { 
+            src: '~/plugins/yotposcript.js', 
+            mode: 'client'
+        },
         '~/plugins/vue-awesome-swiper.js',
         '~/plugins/vuejs-pagiante.js',
         '~/plugins/observe-visibility.js',
@@ -139,6 +144,7 @@ export default {
 
     // Modules (https://go.nuxtjs.dev/config-modules)
     modules: [
+        '@pinia/nuxt',
         /* '@nuxtjs/style-resources', */
         /* '@nuxtjs/axios', */
         /* '@nacelle/nacelle-yotpo-nuxt-module' */

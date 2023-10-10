@@ -24,7 +24,9 @@ export default {
         Swiper,
         YotpoReviewTotals,
     },
-
+    setup(){
+        
+    },
     data() {
         return {
             review_list: [],
