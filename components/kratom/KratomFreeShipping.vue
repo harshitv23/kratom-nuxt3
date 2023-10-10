@@ -4,7 +4,7 @@
 			<div class="row">
 				<div class="col-lg-4 col-md-6 mb-20 mb-md-30" v-for="(box,index) in kratom_header_data.free_shipping_boxes" :key="index">
 					<div class="text-center freeship_item item-mob bg-gray pt-sm-30 pr-sm-20 pb-sm-30 pl-sm-20" :class="box.free_shipping_boxes_title == 'TRUSTED REVIEWS'?'freeship_item_trusted_reviews':''">
-						<NuxtImg width="150" height="150" format="webp"   :src="`${box.free_shiping_boxes_image}`" alt="free-shipping" loading="lazy"  />
+						<img width="150" height="150" format="webp"   :src="`${box.free_shiping_boxes_image}`" alt="free-shipping" loading="lazy"  />
 						<div class="txt-mob pl-sm-20">
 							<span class="mt-30 mt-sm-0" v-html="box.free_shipping_boxes_title"></span>
 							<p class="" v-html="box.free_shipping_boxes_text"></p>

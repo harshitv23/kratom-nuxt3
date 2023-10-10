@@ -25,7 +25,7 @@
 
 import axios from "axios";
 import $ from 'jquery';
-
+import { Buffer } from "buffer";
     export default {
         props: ['product_related'],
         components: {
@@ -76,7 +76,7 @@ import $ from 'jquery';
         },
         methods : {
             fetch() {
-                const Buffer = require('buffer').Buffer;
+                
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 var include_products = '';                
                 if(this.product_related != undefined){

@@ -173,7 +173,7 @@
                                 <div class="same-style cart-wrap">
                                     <button class="icon-cart" @click="cart_click">
                                         <i class="pe-7s-shopbag"></i>
-                                        <span class="count-style">{{ cart_count.kratom_cart.items_count }}</span>
+                                        <span class="count-style">{{ Kratom_cartitem.kratom_cart.items_count }}</span>
                                         <span class="header_icons_label">Cart</span>
                                     </button>
                                     <MiniCart :miniCart="{ visible: openCart }" @minicartClose="openCart = !openCart" />
@@ -199,13 +199,13 @@
 <script>
 import $ from "jquery";
 import axios from "axios";
-import { useKratom_cartStore } from "../stores/index";
+import { useKratom_cartStore } from "~/stores/index"
 
 export default {
     setup() {
-        const cart_count = useKratom_cartStore();
+        const Kratom_cartitem = useKratom_cartStore()
 
-        return { cart_count }
+        return { Kratom_cartitem }
     },
     components: {
         Navigation: () => import("@/components/Navigation"),
@@ -224,7 +224,7 @@ export default {
     data() {
         return {
             isSticky: false,
-            isOpenSearch: false,
+            isOpenSearch: false, 
             isOpenAccountSettings: false,
             openCart: false,
             navOpen: false,
@@ -412,14 +412,23 @@ export default {
             }
         })
         const user_display_name = useCookie('user_display_name')
+        console.log(user_display_name.value);
         if (user_display_name.value && user_display_name.value != "") {
             this.loggedin = true;
-            let user_display_name = user_display_name
-            this.username = 'Hi, ' + user_display_name.split(" ")[0]
+            this.username = 'Hi, ' + user_display_name.value.split(" ")[0]
         } else {
             this.loggedin = false;
+        }        
+        
+        console.log('header mounted');
+        /* const script = document.createElement('script')
+        script.src = 'https://staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js'
+        script.async = true;        
+        script.onload = function() {
+            yotpo.refreshWidgets()
         }
-
+        document.head.appendChild(script)  */
+        
     },
     methods: {
         copyToClipboard(text) {

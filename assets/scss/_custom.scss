@@ -1145,6 +1145,7 @@ body .footer_subscribe input:focus {
 }
 .content_type_product {
     position: relative;
+    min-height: 1000px;
 }
 .product_detail_section + .spin_loader {
     position: absolute;

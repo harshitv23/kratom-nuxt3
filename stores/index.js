@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 
 export const useKratom_cartStore = defineStore ('kratom_cart', {
     state: () => ({
-        kratom_cart: {},
+        kratom_cart: {}
     }),
     getters: {
         getCartKratom: state => {
