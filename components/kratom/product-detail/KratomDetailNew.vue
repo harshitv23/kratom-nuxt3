@@ -409,6 +409,7 @@ import { Buffer } from 'buffer';
 import axios from 'axios';
 import $ from "jquery";
 import MiniCartPopup from './MiniCartPopup.vue';
+import 'swiper/css'
 
 export default{
     props: ["product", "product_id", "price_html", "description", "product_moreinfo", "product_laberesult"],

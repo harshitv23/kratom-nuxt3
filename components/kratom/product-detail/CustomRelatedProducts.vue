@@ -26,6 +26,7 @@
 import axios from "axios";
 import $ from 'jquery';
 import { Buffer } from "buffer";
+
     export default {
         props: ['product_related'],
         components: {
