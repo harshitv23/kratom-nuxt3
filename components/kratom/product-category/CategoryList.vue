@@ -45,7 +45,7 @@
     props: ['kratom_products','layout','empty_message', 'yotpo_reviews_count'],
     data() {
         return {
-            slug: this.$route.params.slug,
+            slug: useRoute().params.slug,
             category_id : ''
         }
     },
@@ -70,7 +70,7 @@
         methods: {
             /* async fetch() {
                 console.log(this.slug);
-                console.log(this.$route.params);
+                console.log(useRoute().params);
                 await axios.get( 
                     useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products/categories',
                     {

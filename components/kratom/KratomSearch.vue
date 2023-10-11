@@ -68,7 +68,7 @@ export default {
             selectedPrice: 'default',
             kratom_products: '',
             category_id: '',
-            title: 'Search: '+this.$route.query.s,
+            title: 'Search: '+useRoute().query.s,
             loading : true,
             yotpo_reviews_count : []
         }
@@ -90,7 +90,7 @@ export default {
                     order: 'desc',
                     orderby: 'price',
                     status: 'publish',
-                    search: this.$route.query.s,
+                    search: useRoute().query.s,
                     /* consumer_key: useRuntimeConfig().public.consumer_key,
                     consumer_secret: useRuntimeConfig().public.secret_key, */
                 }
@@ -100,7 +100,7 @@ export default {
                     order: 'asc',
                     orderby: sortby,
                     status: 'publish',
-                    search: this.$route.query.s,
+                    search: useRoute().query.s,
                     /* consumer_key: useRuntimeConfig().public.consumer_key,
                     consumer_secret: useRuntimeConfig().public.secret_key, */
                 }
@@ -128,7 +128,7 @@ export default {
                 {
                     params: {
                         per_page: 100,
-                        search: this.$route.query.s,
+                        search: useRoute().query.s,
                         status: 'publish',
                         /* consumer_key: useRuntimeConfig().public.consumer_key,
                         consumer_secret: useRuntimeConfig().public.secret_key, */
