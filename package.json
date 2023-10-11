@@ -12,6 +12,7 @@
   "devDependencies": {
     "@nuxt/bridge": "npm:@nuxt/bridge-edge@^3.0.0-rc.1-28271265.8fa71e1",
     "@nuxt/devtools": "latest",
+    "@types/jquery": "^3.5.22",
     "nuxt": "^3.7.4",
     "sass": "^1.68.0",
     "vue": "^3.3.4",

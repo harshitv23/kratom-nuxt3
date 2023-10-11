@@ -11,12 +11,14 @@
     </div>
 </template>
 
-<script>   
+<script>
+
+import Kratombestseller_bko_page from '@/components/kratom/page/Kratombestseller_bko_page';
 
     export default {
         props: ['page_content'],
         components: {            
-            Kratombestseller_bko_page: () => import("@/components/kratom/page/Kratombestseller_bko_page"),
+            Kratombestseller_bko_page
         },
 
         data() {
