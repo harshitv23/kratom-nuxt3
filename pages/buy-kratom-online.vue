@@ -48,7 +48,7 @@ export default {
 
     methods: {
         fetch() {
-            //const Buffer = require('buffer').Buffer;
+            /* const Buffer = require('buffer').Buffer; */
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
             axios.get(
                 useRuntimeConfig().public.api_url + '/wp-json/wp/v2/pages/174?_embed',

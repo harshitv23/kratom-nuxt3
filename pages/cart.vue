@@ -12,11 +12,11 @@
 <script>
 
 import TitleBar from '../components/kratom/product-category/TitleBar.vue';
-
+import cart from '~/components/kratom/cart/cart.vue'
 export default {
     components: {
         
-        cart: () => import("@/components/kratom/cart/cart"),
+        cart,
         TitleBar
     },
     head() {

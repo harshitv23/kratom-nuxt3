@@ -68,14 +68,8 @@ data-url="The url to the page where the product is url escaped">
 import axios from "axios";  
 import * as $ from "jquery";
 import { useKratom_cartStore } from "~/stores/index";
-import { useNotification } from "@kyvg/vue3-notification";
 
-const notification = useNotification()
-
-notification.notify({
-  title: "Vue 3 notification 🎉",
-});
-    export default {
+export default {
         setup() {
             const add_item = useKratom_cartStore() 
             /* console.log(notify);
