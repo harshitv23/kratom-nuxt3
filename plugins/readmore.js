@@ -1,4 +1,5 @@
-import ReadMore from 'vue-read-more';
-import Vue from 'vue'
-
-Vue.use(ReadMore)
+//import ReadMore from 'vue-read-more';
+///import Vue from 'vue'
+export default defineNuxtPlugin((nuxtApp) => {        
+    //nuxtApp.use(ReadMore)
+})

@@ -47,7 +47,7 @@
                                 <li class="d-none"><NuxtLink to="/shipping">Kratom Shipping</NuxtLink></li>
                                 <li class="d-none"><NuxtLink to="/what-is-kratom">What is kratom?</NuxtLink></li>
                                 <li class="d-none"><NuxtLink to="/wholesale-thank-you">Thank you</NuxtLink></li>
-                                <li class="d-none"><NuxtLink to="/xshop/blog-data">Blog Data</NuxtLink></li>
+                                <!-- <li class="d-none"><NuxtLink to="/xshop/blog-data">Blog Data</NuxtLink></li> -->
                                 <li class="d-none"><NuxtLink to="/contact-form-thank-you">Contact form thank you</NuxtLink></li>
                                 <li class="d-none"><NuxtLink to="/shop2">Shop Full</NuxtLink></li>                                
                                 <li class="d-none"><NuxtLink to="/edibles">Edibles</NuxtLink></li>                                

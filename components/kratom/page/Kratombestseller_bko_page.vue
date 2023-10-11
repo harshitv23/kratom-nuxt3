@@ -229,6 +229,7 @@
 //import KratomTitle from "../KratomTitle.vue";    
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import $ from "jquery";
+import { Buffer } from "buffer";
 
     export default {
         components: {
@@ -450,7 +451,7 @@ import $ from "jquery";
         },
         methods: {  
             tab_click($event, clicktype = 'tab'){
-                const Buffer = require('buffer').Buffer;
+                //const Buffer = require('buffer').Buffer;
                 const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 if(clicktype == 'tab'){
                     var cat_id = $event.target.getAttribute('category_id');
@@ -514,7 +515,7 @@ import $ from "jquery";
 
             },
             fetch() {
-                const Buffer = require('buffer').Buffer;
+                //const Buffer = require('buffer').Buffer;
                 const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 axios.get( 
                     useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',

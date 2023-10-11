@@ -101,7 +101,7 @@ export default {
             src: '~/plugins/yotposcript.js', 
             mode: 'client'
         },
-        '~/plugins/vue-awesome-swiper.js',
+       /*  '~/plugins/vue-awesome-swiper.js', */
         '~/plugins/vuejs-pagiante.js',
         '~/plugins/observe-visibility.js',
         /* '~/plugins/persistedState.client.js', */
