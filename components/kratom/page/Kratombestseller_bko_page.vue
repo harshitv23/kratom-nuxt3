@@ -44,10 +44,10 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_red" :key="index">
+								<swiper :options="swiperOption" :pagination="swiperOption.pagination" :loop="swiperOption.loop" :slides-per-view="swiperOption.slidesPerView" :spaceBetween="swiperOption.spaceBetween" :navigation="swiperOption.navigation">
+									<SwiperSlide  class="slide" v-for="(product, index) in kratom_products_red" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
+									</SwiperSlide>
 								</swiper>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev1">
@@ -69,10 +69,10 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption2" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_green" :key="index">
+								<swiper :options="swiperOption2" :pagination="swiperOption2.pagination" :loop="swiperOption2.loop" :slides-per-view="swiperOption2.slidesPerView" :spaceBetween="swiperOption2.spaceBetween" :navigation="swiperOption2.navigation">
+									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_green" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
+									</SwiperSlide>
 								</swiper>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev2">
@@ -94,10 +94,10 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption3" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_white" :key="index">
+								<swiper :options="swiperOption3" :pagination="swiperOption3.pagination" :loop="swiperOption3.loop" :slides-per-view="swiperOption3.slidesPerView" :spaceBetween="swiperOption3.spaceBetween" :navigation="swiperOption3.navigation">
+									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_white" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
+									</SwiperSlide>
 								</swiper>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev3">
@@ -119,10 +119,10 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption4" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_extracts" :key="index">
+								<swiper :options="swiperOption4" :pagination="swiperOption4.pagination" :loop="swiperOption4.loop" :slides-per-view="swiperOption4.slidesPerView" :spaceBetween="swiperOption4.spaceBetween" :navigation="swiperOption4.navigation">
+									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_extracts" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
+									</SwiperSlide>
 								</swiper>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev4">
@@ -144,10 +144,10 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption5" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_capsules" :key="index">
+								<swiper :options="swiperOption5" :pagination="swiperOption5.pagination" :loop="swiperOption5.loop" :slides-per-view="swiperOption5.slidesPerView" :spaceBetween="swiperOption5.spaceBetween" :navigation="swiperOption5.navigation">
+									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_capsules" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
+									</SwiperSlide >
 								</swiper>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev5">
@@ -169,10 +169,10 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption6" :pagination="true" ref="swiperTop">
-									<swiper-slide v-for="(product, index) in kratom_products_drinks" :key="index">
+								<swiper :options="swiperOption6" :pagination="swiperOption6.pagination" :loop="swiperOption6.loop" :slides-per-view="swiperOption6.slidesPerView" :spaceBetween="swiperOption6.spaceBetween" :navigation="swiperOption6.navigation">
+									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_drinks" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
+									</SwiperSlide>
 								</swiper>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev6">
@@ -194,10 +194,10 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption7" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_kratom_leaves" :key="index">
+								<swiper :options="swiperOption7" :pagination="swiperOption7.pagination" :loop="swiperOption7.loop" :slides-per-view="swiperOption7.slidesPerView" :spaceBetween="swiperOption7.spaceBetween" :navigation="swiperOption7.navigation">
+									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_kratom_leaves" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
+									</SwiperSlide>
 								</swiper>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev7">
@@ -265,6 +265,9 @@ export default {
                         },
                         992: {
                             slidesPerView: 3
+                        },
+                        1200: {
+                            slidesPerView: 4
                         }
                     }
                 },
@@ -293,6 +296,9 @@ export default {
                         },
                         992: {
                             slidesPerView: 3
+                        },
+                        1200: {
+                            slidesPerView: 4
                         }
                     }
                 },
@@ -321,6 +327,9 @@ export default {
                         },
                         992: {
                             slidesPerView: 3
+                        },
+                        1200: {
+                            slidesPerView: 4
                         }
                     }
                 },
@@ -349,6 +358,9 @@ export default {
                         },
                         992: {
                             slidesPerView: 3
+                        },
+                        1200: {
+                            slidesPerView: 4
                         }
                     }
                 },
@@ -377,6 +389,9 @@ export default {
                         },
                         992: {
                             slidesPerView: 3
+                        },
+                        1200: {
+                            slidesPerView: 4
                         }
                     }
                 },
@@ -405,6 +420,9 @@ export default {
                         },
                         992: {
                             slidesPerView: 3
+                        },
+                        1200: {
+                            slidesPerView: 4
                         }
                     }
                 },
@@ -423,7 +441,7 @@ export default {
                     breakpoints: {
                         320: {
                             slidesPerView: 2,
-                        spaceBetween: 20,
+                            spaceBetween: 20,
                         },
                         480: {
                             slidesPerView: 2
@@ -433,6 +451,9 @@ export default {
                         },
                         992: {
                             slidesPerView: 3
+                        },
+                        1200: {
+                            slidesPerView: 4
                         }
                     }
                 },
