@@ -101,7 +101,7 @@ export default {
             src: '~/plugins/yotposcript.js', 
             mode: 'client'
         },
-        '~/plugins/vue-awesome-swiper.js',
+       /*  '~/plugins/vue-awesome-swiper.js', */
         '~/plugins/vuejs-pagiante.js',
         '~/plugins/observe-visibility.js',
         /* '~/plugins/persistedState.client.js', */
@@ -117,10 +117,10 @@ export default {
             src: '~/plugins/vue-js-modal', 
             mode: 'client'
         },
-        { 
+        /* { 
             src: '~/plugins/notifications-client.js', 
             mode: 'client' 
-        },
+        }, */
         {   
             src : '~/plugins/readmore.js', 
             mode: 'client'

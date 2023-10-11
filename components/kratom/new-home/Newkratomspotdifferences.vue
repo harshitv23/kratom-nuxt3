@@ -187,7 +187,7 @@ export default {
 .diff-img {
     display: flex;
     justify-content: center;
-    align-items: end;
+    /* align-items: end; */
 }
 
 .double_border_left_dis {

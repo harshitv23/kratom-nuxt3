@@ -230,7 +230,6 @@ import axios from "axios";
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import $ from "jquery";
 import { Buffer } from "buffer";
-import 'swiper/css'
 
 export default {
     components: {
@@ -257,304 +256,385 @@ export default {
                     320: {
                         slidesPerView: 2,
                         spaceBetween: 20,
-                    },
-                    480: {
-                        slidesPerView: 2
-                    },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 3
-                    },
-                    1200: {
-                        slidesPerView: 4
+                        },
+                        480: {
+                            slidesPerView: 2
+                        },
+                        768: {
+                            slidesPerView: 3
+                        },
+                        992: {
+                            slidesPerView: 3
+                        }
                     }
-                }
-            },
-            swiperOption2: {
-                loop: true,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 3,
-                autoplay: {
-                    delay: 6000
                 },
-                navigation: {
-                    nextEl: '.swiper-button-next2',
-                    prevEl: '.swiper-button-prev2',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 2,
-                    spaceBetween: 20,
+                swiperOption2: {
+                    loop: true,
+                    speed: 200,
+                    spaceBetween: 30,
+                    slidesPerView: 3,
+                    autoplay: {
+                        delay: 6000
                     },
-                    480: {
-                        slidesPerView: 2
+                    navigation: {
+                        nextEl: '.swiper-button-next2',
+                        prevEl: '.swiper-button-prev2',
                     },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 3
-                    },
-                    1200: {
-                        slidesPerView: 4
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 2,
+                        spaceBetween: 20,
+                        },
+                        480: {
+                            slidesPerView: 2
+                        },
+                        768: {
+                            slidesPerView: 3
+                        },
+                        992: {
+                            slidesPerView: 3
+                        }
                     }
-                }
-            },
-            swiperOption3: {
-                loop: true,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 3,
-                autoplay: {
-                    delay: 6000
                 },
-                navigation: {
-                    nextEl: '.swiper-button-next3',
-                    prevEl: '.swiper-button-prev3',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 2,
-                    spaceBetween: 20,
+                swiperOption3: {
+                    loop: true,
+                    speed: 200,
+                    spaceBetween: 30,
+                    slidesPerView: 3,
+                    autoplay: {
+                        delay: 6000
                     },
-                    480: {
-                        slidesPerView: 2
+                    navigation: {
+                        nextEl: '.swiper-button-next3',
+                        prevEl: '.swiper-button-prev3',
                     },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 3
-                    },
-                    1200: {
-                        slidesPerView: 4
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 2,
+                        spaceBetween: 20,
+                        },
+                        480: {
+                            slidesPerView: 2
+                        },
+                        768: {
+                            slidesPerView: 3
+                        },
+                        992: {
+                            slidesPerView: 3
+                        }
                     }
-                }
-            },
-            swiperOption4: {
-                loop: true,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 3,
-                autoplay: {
-                    delay: 6000
                 },
-                navigation: {
-                    nextEl: '.swiper-button-next4',
-                    prevEl: '.swiper-button-prev4',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 2,
-                    spaceBetween: 20,
+                swiperOption4: {
+                    loop: true,
+                    speed: 200,
+                    spaceBetween: 30,
+                    slidesPerView: 3,
+                    autoplay: {
+                        delay: 6000
                     },
-                    480: {
-                        slidesPerView: 2
+                    navigation: {
+                        nextEl: '.swiper-button-next4',
+                        prevEl: '.swiper-button-prev4',
                     },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 3
-                    },
-                    1200: {
-                        slidesPerView: 4
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 2,
+                        spaceBetween: 20,
+                        },
+                        480: {
+                            slidesPerView: 2
+                        },
+                        768: {
+                            slidesPerView: 3
+                        },
+                        992: {
+                            slidesPerView: 3
+                        }
                     }
-                }
-            },
-            swiperOption5: {
-                loop: true,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 3,
-                autoplay: {
-                    delay: 6000
                 },
-                navigation: {
-                    nextEl: '.swiper-button-next5',
-                    prevEl: '.swiper-button-prev5',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 2,
-                    spaceBetween: 20,
+                swiperOption5: {
+                    loop: true,
+                    speed: 200,
+                    spaceBetween: 30,
+                    slidesPerView: 3,
+                    autoplay: {
+                        delay: 6000
                     },
-                    480: {
-                        slidesPerView: 2
+                    navigation: {
+                        nextEl: '.swiper-button-next5',
+                        prevEl: '.swiper-button-prev5',
                     },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 3
-                    },
-                    1200: {
-                        slidesPerView: 4
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 2,
+                        spaceBetween: 20,
+                        },
+                        480: {
+                            slidesPerView: 2
+                        },
+                        768: {
+                            slidesPerView: 3
+                        },
+                        992: {
+                            slidesPerView: 3
+                        }
                     }
-                }
-            },
-            swiperOption6: {
-                loop: true,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 3,
-                autoplay: {
-                    delay: 6000
                 },
-                navigation: {
-                    nextEl: '.swiper-button-next6',
-                    prevEl: '.swiper-button-prev6',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 2,
-                    spaceBetween: 20,
+                swiperOption6: {
+                    loop: true,
+                    speed: 200,
+                    spaceBetween: 30,
+                    slidesPerView: 3,
+                    autoplay: {
+                        delay: 6000
                     },
-                    480: {
-                        slidesPerView: 2
+                    navigation: {
+                        nextEl: '.swiper-button-next6',
+                        prevEl: '.swiper-button-prev6',
                     },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 3
-                    },
-                    1200: {
-                        slidesPerView: 4
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 2,
+                        spaceBetween: 20,
+                        },
+                        480: {
+                            slidesPerView: 2
+                        },
+                        768: {
+                            slidesPerView: 3
+                        },
+                        992: {
+                            slidesPerView: 3
+                        }
                     }
-                }
-            },
-            swiperOption7: {
-                loop: true,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 3,
-                autoplay: {
-                    delay: 6000
                 },
-                navigation: {
-                    nextEl: '.swiper-button-next7',
-                    prevEl: '.swiper-button-prev7',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 2,
-                    spaceBetween: 20,
+                swiperOption7: {
+                    loop: true,
+                    speed: 200,
+                    spaceBetween: 30,
+                    slidesPerView: 3,
+                    autoplay: {
+                        delay: 6000
                     },
-                    480: {
-                        slidesPerView: 2
+                    navigation: {
+                        nextEl: '.swiper-button-next7',
+                        prevEl: '.swiper-button-prev7',
                     },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 3
-                    },
-                    1200: {
-                        slidesPerView: 4
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 2,
+                        spaceBetween: 20,
+                        },
+                        480: {
+                            slidesPerView: 2
+                        },
+                        768: {
+                            slidesPerView: 3
+                        },
+                        992: {
+                            slidesPerView: 3
+                        }
                     }
-                }
-            },
-            kratom_products_red: '',
-            kratom_products_green: '',
-            kratom_products_white: '',
-            kratom_products_extracts: '',
-            kratom_products_capsules: '',
-            kratom_products_drinks: '',
-            kratom_products_kratom_leaves: '',
-            layout: 'twoColumn',
-            slider: null,
-            loading : true
-        }
-    },
-    methods: {  
-        tab_click($event, clicktype = 'tab'){
-            /* const Buffer = require('buffer').Buffer; */
-            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
-            if(clicktype == 'tab'){
-                var cat_id = $event.target.getAttribute('category_id');
-                console.log(cat_id);
-            }else if(clicktype == 'select'){                    
-                var cat_id = $event.target.value;
-                var elem = $(".product-tab-list-2").find(`[category_id='${cat_id}']`)                    
-                elem.click()
+                },
+                kratom_products_red: '',
+                kratom_products_green: '',
+                kratom_products_white: '',
+                kratom_products_extracts: '',
+                kratom_products_capsules: '',
+                kratom_products_drinks: '',
+                kratom_products_kratom_leaves: '',
+                layout: 'twoColumn',
+                slider: null,
+                loading : true
             }
-            if(
-                (cat_id == '168' && this.kratom_products_red == '') ||
-                (cat_id == '170' && this.kratom_products_green == '') ||
-                (cat_id == '169' && this.kratom_products_white == '') ||
-                (cat_id == '37' && this.kratom_products_extracts == '') ||
-                (cat_id == '47' && this.kratom_products_capsules == '') ||
-                (cat_id == '2763' && this.kratom_products_drinks == '') ||
-                (cat_id == '2764' && this.kratom_products_kratom_leaves == '')
-            ){
-                this.loading = true;
+        },
+        methods: {  
+            tab_click($event, clicktype = 'tab'){
+                /* const Buffer = require('buffer').Buffer; */
+                const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
+                if(clicktype == 'tab'){
+                    var cat_id = $event.target.getAttribute('category_id');
+                }else if(clicktype == 'select'){                    
+                    var cat_id = $event.target.value;
+                    var elem = $(".product-tab-list-2").find(`[category_id='${cat_id}']`)                    
+                    elem.click()
+                }
+                if(
+                    (cat_id == '168' && this.kratom_products_red == '') ||
+                    (cat_id == '170' && this.kratom_products_green == '') ||
+                    (cat_id == '169' && this.kratom_products_white == '') ||
+                    (cat_id == '37' && this.kratom_products_extracts == '') ||
+                    (cat_id == '47' && this.kratom_products_capsules == '') ||
+                    (cat_id == '2763' && this.kratom_products_drinks == '') ||
+                    (cat_id == '2764' && this.kratom_products_kratom_leaves == '')
+                ){
+                    this.loading = true;
+                    axios.get( 
+                        useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
+                        {
+                            params: {
+                                per_page: 8,
+                                order:'asc',
+                                category:cat_id,                            
+                                status: 'publish',
+                            },
+                        headers: {
+                            authorization: 'Basic ' + encodedCredentials
+                        }
+                        }
+                    ).then((result) => {                        
+                        if(cat_id == '168'){
+                            this.kratom_products_red = result.data;
+                        }                  
+                        if(cat_id == '170'){      
+                            this.kratom_products_green = result.data;
+                        }
+                        if(cat_id == '169'){
+                            this.kratom_products_white = result.data;
+                        }
+                        if(cat_id == '37'){
+                            this.kratom_products_extracts = result.data;
+                        }
+                        if(cat_id == '47'){
+                            this.kratom_products_capsules = result.data;
+                        }
+                        if(cat_id == '2763'){
+                            this.kratom_products_drinks = result.data;
+                        }
+                        if(cat_id == '2764'){
+                            this.kratom_products_kratom_leaves = result.data;
+                        }
+                    },(error) => {
+                        console.log(error);
+                    }).finally(() => (this.loading = false)); 
+                        
+                }
+                
+                //console.log($event.target.getAttribute('category_id'));
+
+            },
+            fetch() {
+                /* const Buffer = require('buffer').Buffer; */
+                const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 axios.get( 
                     useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
                     {
                         params: {
                             per_page: 8,
                             order:'asc',
-                            category:cat_id,                            
-                            status: 'publish',
+                            category:168,   
+                            status: 'publish'
                         },
-                    headers: {
-                        authorization: 'Basic ' + encodedCredentials
+                        headers: {
+                            authorization: 'Basic ' + encodedCredentials
+                        }
                     }
-                    }
-                ).then((result) => { 
-                    console.log(result.data);                       
-                    if(cat_id == '168'){
-                        this.kratom_products_red = result.data;
-                    }                  
-                    if(cat_id == '170'){      
-                        this.kratom_products_green = result.data;
-                    }
-                    if(cat_id == '169'){
-                        this.kratom_products_white = result.data;
-                    }
-                    if(cat_id == '37'){
-                        this.kratom_products_extracts = result.data;
-                    }
-                    if(cat_id == '47'){
-                        this.kratom_products_capsules = result.data;
-                    }
-                    if(cat_id == '2763'){
-                        this.kratom_products_drinks = result.data;
-                    }
-                    if(cat_id == '2764'){
-                        this.kratom_products_kratom_leaves = result.data;
-                    }
+                ).then((result) => {            
+                    this.kratom_products_red = result.data;
                 },(error) => {
                     console.log(error);
                 }).finally(() => (this.loading = false)); 
-                    
-            }
-        },
-        fetch() {
-            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
-            axios.get( 
-                useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
-                {
-                    params: {
-                        per_page: 8,
-                        order:'asc',
-                        category:168,   
-                        status: 'publish'
-                    },
-                    headers: {
-                        authorization: 'Basic ' + encodedCredentials
+                /*await axios.get( 
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
+                    {
+                        params: {
+                            per_page: 8,
+                            order:'asc',
+                            category:170,                            
+                            consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key,
+                        }
                     }
-                }
-            ).then((result) => {            
-                this.kratom_products_red = result.data;
-            },(error) => {
-                console.log(error);
-            }).finally(() => (this.loading = false)); 
-        }
+                ).then((result) => {            
+                    this.kratom_products_green = result.data;
+                    
+                },(error) => {
+                    console.log(error);
+                }); 
+                await axios.get( 
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
+                    {
+                        params: {
+                            per_page: 8,
+                            order:'asc',
+                            category:169,                            
+                            consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key,
+                        }
+                    }
+                ).then((result) => {            
+                    this.kratom_products_white = result.data;
+                },(error) => {
+                    console.log(error);
+                }); 
+                await axios.get( 
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
+                    {
+                        params: {
+                            per_page: 8,
+                            order:'asc',
+                            category:37,                            
+                            consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key,
+                        }
+                    }
+                ).then((result) => {            
+                    this.kratom_products_extracts = result.data;
+                },(error) => {
+                    console.log(error);
+                }); 
+                await axios.get( 
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
+                    {
+                        params: {
+                            per_page: 8,
+                            order:'asc',
+                            category:172,                            
+                            consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key,
+                        }
+                    }
+                ).then((result) => {            
+                    this.kratom_products_capsules = result.data;
+                },(error) => {
+                    console.log(error);
+                });
+                await axios.get( 
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
+                    {
+                        params: {
+                            per_page: 8,
+                            order:'asc',
+                            category:2763,                            
+                            consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key,
+                        }
+                    }
+                ).then((result) => {            
+                    this.kratom_products_drinks = result.data;
+                },(error) => {
+                    console.log(error);
+                }); 
+                await axios.get( 
+                    useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',
+                    {
+                        params: {
+                            per_page: 8,
+                            order:'asc',
+                            category:2764,                            
+                            consumer_key:useRuntimeConfig().public.consumer_key,
+                            consumer_secret:useRuntimeConfig().public.secret_key,
+                        }
+                    }
+                ).then((result) => {            
+                    this.kratom_products_kratom_leaves = result.data;                    
+                },(error) => {
+                    console.log(error);
+                }); */
+                
+                
+                
+            }
 
     },created () {
         this.fetch()

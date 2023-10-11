@@ -1,3 +1,5 @@
-import Vue from 'vue'
-import Pagination from 'vue-pagination-2';
-Vue.component('pagination', Pagination);
+//import Vue from 'vue'
+//import Pagination from 'v-pagination-3';
+export default defineNuxtPlugin((nuxtApp) => {        
+    //nuxtApp.component('pagination', Pagination);
+})

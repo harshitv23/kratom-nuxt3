@@ -19,7 +19,6 @@
     "vue-router": "^4.2.5"
   },
   "dependencies": {
-    "@kyvg/vue3-notification": "^3.0.2",
     "@nuxt/image": "^1.0.0-rc.3",
     "@pinia/nuxt": "^0.4.11",
     "axios": "^1.5.1",
@@ -30,6 +29,7 @@
     "pinia": "^2.1.6",
     "v-pagination-3": "^0.1.7",
     "vue-awesome-swiper": "^5.0.1",
-    "vue-read-more": "^1.1.1"
+    "vue-observe-visibility": "^1.0.0",
+    "vue-toast-notification": "3.0"
   }
 }

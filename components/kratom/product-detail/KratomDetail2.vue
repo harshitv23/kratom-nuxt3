@@ -154,8 +154,14 @@ import axios from "axios";
 import $ from "jquery";
 import KratomTitleProduct from "../KratomTitleProduct.vue";
 import MiniCartPopup from "./MiniCartPopup.vue";
+import { useKratom_cartStore } from "~/stores";
 
 export default {
+    setup() {
+        const add_item = useKratom_cartStore();
+
+        return { add_item }
+    },
     props: ["product", "product_id", "product_price"],
     data() {
         return {
@@ -492,8 +498,9 @@ export default {
                     } else {
                         this.added_cart_item.price = this.product.price;
                     }
-                    this.$store.dispatch("addToCartItemKratom", result.data);
-                    this.$notify({ title: "Product added to cart successfully!" });
+                    this.add_item.kratom_cart = result.data;
+                    /* this.$store.dispatch("addToCartItemKratom", result.data); */
+                    /* this.$notify({ title: "Product added to cart successfully!" }); */
                     this.minicart_popup_class = "show";
                     this.showcartpopup = true;
                     window.scroll({
@@ -650,9 +657,9 @@ export default {
             };
             axios(config)
                 .then((result) => {
-
+                    this.add_item.kratom_cart = result.data;
                     this.cartdata = result.data;
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    /* this.$store.dispatch("addToCartItemKratom", result.data); */
                     this.kratom_cart = result.data;
                     this.loading = "";
                 }, (error) => {
