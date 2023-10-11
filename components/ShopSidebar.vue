@@ -4,7 +4,7 @@
             <h4 class="pro-sidebar-title">Product Search</h4>
             <div class="pro-sidebar-search mt-25">
                 <form class="sidebar-search-form" :action="`${useRuntimeConfig().public.site_url}/s`">
-                    <input type="text" name="s" placeholder="Search..." :value="this.$route.query.s">
+                    <input type="text" name="s" placeholder="Search..." :value="useRoute().query.s">
                     <button>
                         Search Product
                     </button>

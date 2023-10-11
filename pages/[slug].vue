@@ -45,11 +45,11 @@ import PageDetail from "~/components/kratom/page/pageDetail.vue";
 import KratomFreeShipping from "~/components/kratom/KratomFreeShipping.vue";
 import $ from "jquery";
 
-console.log(head_json[slug.value]);
+
 yoast_head_json.value = head_json[slug.value];
-console.log(yoast_head_json.value);
+
 content_type.value = yoast_head_json.value.type;
-console.log(yoast_head_json.value.type)
+
 /* const { data: yoast_head_json } = await useAsyncData('yoast_head_json', async () => {
     console.log('----')
     console.log('----')
@@ -711,7 +711,7 @@ export default {
         return {
             loading: true,
             listloading: false,
-            slug: this.$route.params.slug,
+            slug: useRoute().params.slug,
             product: "",
             content_type: '',
             kratom_products: '',
@@ -739,16 +739,16 @@ export default {
         }
     },
     /* async fetch(){
-        //console.log(head_json[this.$route.params.slug]);
-        if(head_json[this.$route.params.slug]){
-            this.yoast_head_json = head_json[this.$route.params.slug];
+        //console.log(head_json[useRoute().params.slug]);
+        if(head_json[useRoute().params.slug]){
+            this.yoast_head_json = head_json[useRoute().params.slug];
         }else{
             this.checking_current_page = true;
             await axios.get(
                 useRuntimeConfig().public.api_url + '/wp-json/kratom/v3/get_head',
                 {
                     params: {
-                        slug: this.$route.params.slug
+                        slug: useRoute().params.slug
 
                     }
                 }
@@ -792,7 +792,7 @@ export default {
                     order: 'desc',
                     orderby: 'price',
                     status: 'publish',
-                    search: this.$route.query.s,
+                    search: useRoute().query.s,
                     /* consumer_key: useRuntimeConfig().public.consumer_key,
                     consumer_secret: useRuntimeConfig().public.secret_key, */
                 }
@@ -802,7 +802,7 @@ export default {
                     order: 'asc',
                     orderby: sortby,
                     status: 'publish',
-                    search: this.$route.query.s,
+                    search: useRoute().query.s,
                     /* consumer_key: useRuntimeConfig().public.consumer_key,
                     consumer_secret: useRuntimeConfig().public.secret_key, */
                 }

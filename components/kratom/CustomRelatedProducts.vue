@@ -3,7 +3,7 @@
         <div class="container">
             <SectionTitleWithSubTitle title="YOU MAY ALSO LIKE" classes="section-title mb-55" />
             <div class="product-carousel product-carousel-nav-center position-relative">
-                <swiper :options="swiperOption" :pagination="true">
+                <swiper :options="swiperOption" :pagination="true" :loop="false" :slides-per-view="4" :spaceBetween="30">
                     <swiper-slide v-for="(product, index) in kratom_products" :key="index">
                         <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
                     </swiper-slide>

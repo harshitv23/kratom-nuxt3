@@ -3,10 +3,10 @@
         <div class="container position-relative">
             <KratomTitle title="Related" subTitle="Products" class="mb-40"/>
             <div class="product-carousel product-carousel-nav-center">
-                <swiper :options="swiperOption" :pagination="true">
-                    <swiper-slide v-for="(product, index) in kratom_products" :key="index">
+                <Swiper :options="swiperOption" :pagination="true" :loop="false" :slides-per-view="4" :spaceBetween="30">
+                    <SwiperSlide v-for="(product, index) in kratom_products" :key="index">
                         <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
-                    </swiper-slide>
+                    </SwiperSlide>
                 </swiper>
                 <!-- Swiper Navigation Start -->
                 <div class="product-carousel-nav swiper-button-prev">
@@ -26,11 +26,13 @@
 import axios from "axios";
 import $ from 'jquery';
 import { Buffer } from "buffer";
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+import 'swiper/css'
     export default {
         props: ['product_related'],
         components: {
-            
-            
+            Swiper,
+            SwiperSlide            
         },
 
         data() {
