@@ -1,4 +1,4 @@
-export default ({ app }) => {
+export default defineNuxtPlugin(() => {
     if (!process.client) {
       return;
     }
@@ -55,4 +55,4 @@ export default ({ app }) => {
       y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
   })(window, document, "clarity", "script", "gs7b5g7gzr");
 
-}
+})

@@ -29,6 +29,6 @@
     "pinia": "^2.1.6",
     "v-pagination-3": "^0.1.7",
     "vue-awesome-swiper": "^5.0.1",
-    "vue-read-more": "^1.1.1"
+    "vue-observe-visibility": "^1.0.0"
   }
 }
