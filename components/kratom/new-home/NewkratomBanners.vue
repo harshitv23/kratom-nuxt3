@@ -58,9 +58,9 @@ export default {
 
     methods: {
         async fetch() {
-            console.log(useRuntimeConfig().public.api_url);
+            
             const configs = useRuntimeConfig() //configs.public.
-            console.log(configs);
+            
             await axios.get(
                 configs.public.api_url + '/wp-json/acf/v3/header?data_type=homebanner').then((result) => {
                     this.kratom_header_data = result.data;

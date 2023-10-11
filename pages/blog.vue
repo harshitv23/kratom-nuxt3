@@ -24,9 +24,6 @@
                     <div class="col-lg-3">
                         <ShopSidebar classes="mr-30" />
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -38,11 +35,12 @@ import axios from "axios";
 //import blogItem from "../components/kratom/blog/blogItem.vue";
 import blogItem from "~/components/kratom/blog/blogItem.vue";
 import TitleBar from '~/components/kratom/product-category/TitleBar.vue';
-
+import pagination from 'v-pagination-3';
 export default {
     components: {
         TitleBar,
-        blogItem
+        blogItem,
+        pagination
     },
 
     data() {

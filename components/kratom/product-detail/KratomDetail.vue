@@ -34,8 +34,6 @@ const props = defineProps({
 });
 const { product } = props;
 const { name } = props;
-console.log('name'+name); 
-console.log('product'+product);
 
 </script>
 

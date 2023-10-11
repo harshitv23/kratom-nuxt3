@@ -110,7 +110,7 @@
                                                 <input type="text" name="s" placeholder="Search"
                                                     @keyup="searchkeychange($event)" autocomplete="off" />
                                                 <!-- <input type="text" name="s" placeholder="Search"
-                                                    :value="this.$route.query.s" @keyup="searchkeychange($event)" /> -->
+                                                    :value="useRoute().query.s" @keyup="searchkeychange($event)" /> -->
                                                 <button class="button-search" type="submit"><i
                                                         class="pe-7s-search"></i></button>
                                             </form>
@@ -148,7 +148,7 @@
                                                 <input type="text" name="s" placeholder="Search"
                                                     @keyup="searchkeychange($event)" autocomplete="off" />
                                                 <!-- <input type="text" name="s" placeholder="Search"
-                                                    :value="this.$route.query.s" @keyup="searchkeychange($event)" /> -->
+                                                    :value="useRoute().query.s" @keyup="searchkeychange($event)" /> -->
                                                 <button class="button-search" type="submit"><i
                                                         class="pe-7s-search"></i></button>
                                             </form>
@@ -412,7 +412,7 @@ export default {
             }
         })
         const user_display_name = useCookie('user_display_name')
-        console.log(user_display_name.value);
+        
         if (user_display_name.value && user_display_name.value != "") {
             this.loggedin = true;
             this.username = 'Hi, ' + user_display_name.value.split(" ")[0]
@@ -420,7 +420,7 @@ export default {
             this.loggedin = false;
         }        
         
-        console.log('header mounted');
+        
         /* const script = document.createElement('script')
         script.src = 'https://staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js'
         script.async = true;        

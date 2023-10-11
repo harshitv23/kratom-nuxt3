@@ -103,17 +103,17 @@
 
                 <div class="col-lg-4 col-md-12 col-sm-12 mx-auto product-mob-img pl-sm-0 pr-sm-0" id="sm-order1">
                     <div class="product-details-img  ">
-                        <Swiper :options="swiperOptionTop" ref="swiperTop" :loop="false" :slides-per-view="1" spaceBetween="0">
-                            <div class="large-img swiper-slide" v-for="(image, index) in product.images" :key="index">
+                        <Swiper :options="swiperOptionTop" ref="swiperTop" :loop="false" :slides-per-view="1" :spaceBetween="0">
+                            <SwiperSlide class="large-img swiper-slide" v-for="(image, index) in product.images" :key="index">
                                 <img format="webp" height="800" width="800" preload class="img-fluid"
                                     :src="replaceSizeImg(image.src, 'h_500,w_500')" :alt="image.alt" />
-                            </div>                            
+                            </SwiperSlide>                            
                         </Swiper>
-                        <Swiper  :options="swiperOptionThumbs" ref="swiperThumbs" :loop="false" :slides-per-view="3" spaceBetween="20">
-                            <div class="thumb-img swiper-slide" v-for="(image, index) in product.images" :key="index">
+                        <Swiper  :options="swiperOptionThumbs" ref="swiperThumbs" :loop="false" :slides-per-view="3" :spaceBetween="20">
+                            <SwiperSlide class="thumb-img swiper-slide" v-for="(image, index) in product.images" :key="index">
                                 <img format="webp" loading="lazy" class="img-fluid"
                                     :src="replaceSizeImg(image.src, 'h_122,w_122')" :alt="image.alt" height="120" width="120"/>
-                            </div>
+                            </SwiperSlide>
                         </Swiper>
                     </div>
                 </div>
@@ -199,207 +199,7 @@
                 
             </div>
         </div>
-        <!-- 
-        <div class="minicart_popup_container" v-if="showcartpopup">
-            <div class="container" id="addedtocartcontainer">
-                <div class="minicart-wrapper position-relative" :class="minicart_popup_class">
-                    <MiniCartPopup class="minicart_popup mb-40" :pname="product.name"
-                        :cross_sell_products="cross_sell_products" :product='product' :added_cart_item="added_cart_item"
-                        :minicart_popup_class="minicart_popup_class" />
-                    <i class="close_addedcart fa fa-times" aria-hidden="true" @click="close_addedcart()"></i>
-                </div>
-            </div>
-            <CartRelatedProducts class="" :class="minicart_popup_class" :products='cross_sell_products'
-                v-if="cross_sell_products != ''" />
-        </div>
-        <div class="container pt-20">
-
-            <div class="yith_product mb-20" v-html="replacehttptohttps(yith.product_points)" v-if="yith.product_points"></div>
-            <div class="row my-6 pl-15 pr-15">
-                <div class="col-lg-4 col-md-12 col-sm-12 mx-auto pl-0 pr-10 mt-10 pl-md-0 pr-md-0 mt-sm-25 product_detail_silde_rows" id="sm-order3">
-                    
-                    <div class="product_detail_silde_row">
-                        <ul class="product_detail_extra_list_n">
-                            <li class="text-li text-li-1">
-                                <span class="text-t">SAME DAY SHIPPING</span>
-                                <span class="text-p">ON ALL ORDERS PLACED BEFORE 3PM PST</span>
-                            </li>
-                            <li class="text-li text-li-2">
-                                <span class="text-t">100% SATISFACTION</span>
-                                <span class="text-p">GUARANTEED OR YOUR MONEY BACK</span>
-                            </li>
-                            <li class="text-li text-li-3">
-                                <span class="text-t">FREE PRIORITY SHIPPING</span>
-                                <span class="text-p">ON ORDERS $100+</span>
-                            </li>
-                            <li class="text-li text-li-4">
-                                <span class="text-t">GMP COMPLIANT</span>
-                                <span class="text-p">PRODUCT AND FACILITY</span>
-                            </li>
-                            <li class="text-li text-li-5">
-                                <span class="text-t">LAB TESTED</span>
-                                <span class="text-p">QUALITY CONTROL</span>
-                            </li>
-                            <li class="text-li text-li-6">
-                                <span class="text-t">EARN LOYALTY POINTS</span>
-                                <span class="text-p">AND REDEEM FOR DEALS</span>
-                            </li>
-                        </ul>
-                        <div id="accordion" class="product_detail_accordian">
-                            <div class="tabs" v-if="description">
-                                <div class="card-header" id="headingOne">
-                                    <h5 class="header-btn mb-1">
-                                        <button class="" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                                            aria-expanded="false" aria-controls="collapseOne">
-                                            PRODUCT DESCRIPTION
-                                        </button>
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </h5>
-                                </div>
-
-                                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
-                                    data-bs-parent="#accordion">
-                                    <div class="card-body product_dis" v-html="description"></div>
-                                </div>
-                            </div>
-                            <div class="tabs" v-if="product_laberesult">
-                                <div class="card-header" id="headingTwo">
-                                    <h5 class="header-btn mb-1">
-                                        <button class="" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-                                            aria-expanded="false" aria-controls="collapseTwo">
-                                            LAB RESULTS
-                                        </button>
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </h5>
-                                </div>
-
-                                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
-                                    data-bs-parent="#accordion">
-                                    <div class="card-body slider-btn btn-hover btn_yellow text-center mt-0 pt-2 pb-2">
-                                        <a :href="product_laberesult" class="homebanner_shop_btn" target="_blank">
-                                            <i class="fa fa-download mr-10" aria-hidden="true"></i> Download Lab Results</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tabs" v-if="product_moreinfo">
-                                <div class="card-header" id="headingThree">
-                                    <h5 class="header-btn mb-1">
-                                        <button class="" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-                                            aria-expanded="false" aria-controls="collapseThree">
-                                            INGREDIENTS FACTS
-                                        </button>
-                                        <i class="fa fa-plus" aria-hidden="true"></i>
-                                    </h5>
-                                </div>
-
-                                <div id="collapseThree" class="collapse" aria-labelledby="headingThree"
-                                    data-bs-parent="#accordion">
-                                    <div class="card-body product_info">
-                                        <div id="tab_more_info" class="tab-pane p-25" v-html="product_moreinfo"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="col-lg-4 col-md-12 col-sm-12 mx-auto product-mob-img pl-sm-0 pr-sm-0" id="sm-order1">
-                    <div class="product-details-img  ">
-                        <swiper :options="swiperOptionTop" ref="swiperTop">
-                            <div class="large-img swiper-slide" v-for="(image, index) in product.images" :key="index">
-                                <NuxtImg format="webp" height="800" width="800" preload class="img-fluid"
-                                    :src="replaceSizeImg(image.src, 'h_500,w_500')" :alt="image.alt" />
-                            </div>                            
-                        </swiper>
-                        <swiper  :options="swiperOptionThumbs" ref="swiperThumbs">
-                            <div class="thumb-img swiper-slide" v-for="(image, index) in product.images" :key="index">
-                                <NuxtImg format="webp" loading="lazy" class="img-fluid"
-                                    :src="replaceSizeImg(image.src, 'h_122,w_122')" :alt="image.alt" height="120" width="120"/>
-                            </div>                            
-                        </swiper>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-12 col-sm-12 product-price-box p-0" id="sm-order2">
-                    <div class="mx-auto d-block  product-price-box-inner pr-sm-20 pb-sm-20 pl-sm-20 p-40">
-                        <KratomTitleProduct :title="product.name" subTitle="" class="" />
-                        <div class="d-inline-block mt-10 mb-10">                            
-                            <div class="yotpo bottomLine yotpo-small" :data-product-id="product.id"
-                                :data-url="`https://kratomspottstg.wpengine.com/${product.slug}`" data-lang="en"
-                                data-yotpo-element-id="2"></div>
-                            <div class="yotpo QABottomLine yotpo-small"
-                                data-appkey="qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57" :data-product-id="product.id"
-                                data-yotpo-element-id="3"></div>                            
-                        </div>
-                        <div class="text-black mb-30"><span class="kratom-product-price" v-html="price_html2"></span>
-                        </div>
-                        <form>
-                            <div class="product_variations mb-20" v-for="attribute in product.attributes"
-                                @change="onChangeVarible($event)">
-                                <label class="text-black variation_label mb-10" v-html="(attribute.name == 'Select Capsules')?'Select Size':attribute.name"></label>
-                                <select class="variation_select" :name="attribute.name">
-                                    <option v-for="(option, index) in attribute.options" :value="option" :key="index"  :selected="(index == parseInt(attribute.options.length/2))?'selected':''">{{
-                                        option }}</option>
-                                </select>
-                                <button type="reset" @click="onChangeVarible($event)" class="variation_clear">CLEAR</button>
-                            </div>
-                        </form>
-                        <div class="outofstockmsg" v-if="outofstockmsg == false">Out of stock</div>
-                        <div class="product_detail_addtocart_section">
-                            <label>
-                                <span class="d-none">qty</span>                                
-                                <select id="qty_no" class="product_detail_qty" v-model="product_qty">
-                                    <option value="1" selected="selected">1</option>
-                                    <option v-for="q_no in qty_no" :value="`${q_no}`" :selected="(q_no == 1 || q_no == '1')?'selected':''">{{ q_no }}</option>
-                                </select>
-                            </label>
-                            <button type="button" class="btn product_detail_addtocart_btn text-white"
-                                @click="addToCart(product, product.type, $event)" v-if="outofstockmsg == true">ADD TO
-                                CART</button>
-                            <button type="button" class="btn product_detail_addtocart_btn text-white" v-else disabled>ADD TO
-                                CART</button>
-                            <input type="hidden" id="selected_product_variation" v-model="variation_id">
-                            <input type="hidden" id="selected_product_id" v-bind:value="product_id" />
-                            <input type="hidden" id="selected_product_type" v-bind:value="product.type" />
-                        </div>                        
-                        <div class="row product-price-box-logo align-items-center">
-                            <div class="col-4">
-                                <div class="side-logo">
-                                    <img v-if="product.ACF.customer_favorite_image && product.ACF.customer_favorite_image != ''" :src="replaceSizeImg(product.ACF.customer_favorite_image,'h_110,q_auto')" alt="kratom favorite" width="110" height="110">
-                                    <img src="/img/kratom/logo1.png" alt="kratom favorite" width="110" height="110" v-else>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div>
-                                    <img v-if="product.ACF.customer_favorite_image_2 && product.ACF.customer_favorite_image_2 != ''" :src="replaceSizeImg(product.ACF.customer_favorite_image_2,'h_110,q_auto')" alt="kratom favorite" width="110" height="110">
-                                    <img src="/img/kratom/logo2.png" alt="kratom favorite" width="110" height="110" v-else>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="side-logo">
-                                    <span class="side-logo-text" v-html="(product.ACF.customer_favorite_text)?product.ACF.customer_favorite_text:'1.37% MIT'"></span>
-                                    <img v-if="product.ACF.customer_favorite_image_3 && product.ACF.customer_favorite_image_3 != ''" :src="replaceSizeImg(product.ACF.customer_favorite_image_3,'h_110,q_auto')" alt="kratom favorite" width="110" height="110">
-                                    <img src="/img/kratom/logo3.png" alt="kratom favorite" width="110" height="110" v-else>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row category-compare-bar">
-                            <div class="bar_box bar_box-1" v-for="attribute in product.ACF.bar_graph">
-                                <div class="bar_box-titel" v-if="product.ACF.bar_graph">
-                                    <span class="bar_title" v-html="attribute.bar_title"></span>
-                                    <span class="bar_percentage">{{ attribute.bar_percentage }}%</span>
-                                </div>
-                                <div class="bar_box-bar">
-                                    <div class="bar_box_inener" :style="`width:${attribute.bar_percentage}%; background-color:${(attribute.bar_background_color)}`"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-     --></section>
+    </section>
 </template>
 
 
@@ -413,7 +213,7 @@ import 'swiper/css'
 
 export default{
     props: ["product", "product_id", "price_html", "description", "product_moreinfo", "product_laberesult"],
-    components: { Swiper, MiniCartPopup },
+    components: { Swiper, SwiperSlide, MiniCartPopup },
     data() {
         return {
             showcartpopup: false,

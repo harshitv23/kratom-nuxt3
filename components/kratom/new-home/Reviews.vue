@@ -1,13 +1,15 @@
 <template>
     <div class="section_reviews text-center pt-60 container">
-        asdfss
+        
         <YotpoReviewTotals />
-        <swiper :options="swiperOption" :pagination="true">
-            <swiper-slide v-if="review_list && review.score == 5 && index < 12" v-for="(review, index) in review_list.slice().reverse() " :key="index">
+        <Swiper :options="swiperOption" :pagination="true" :slidesPerView="4" :spaceBetween="30">
+            <!-- <swiper-slide v-if="review_list && review.score == 5 && index < 12" v-for="(review, index) in review_list.slice().reverse() " :key="index"> -->
+            <swiper-slide v-for="(review, index) in review_list.slice().reverse() " :key="index">
                 <img class="review-star-slider" src="/img/kratom/icons/star-rating-filled.webp" alt="" width="87" height="15" loading="lazy"/>
                 <p class="review-date" v-html="date(review.created_at)"></p><br/>
                 <p class="review-titel" v-html="review.title"></p>
-                <read-more class="review-dis review-content" more-str="Read more" :text="review.content" link="#" less-str="Read less" :max-chars="150"></read-more>
+                <div class="review-dis review-content" v-html="review.content"/>
+                <!-- <ReadMore class="review-dis review-content" more-str="Read more" :text="review.content" link="#" less-str="Read less" :max-chars="150"></ReadMore> -->
                 <p class="review-author-name" v-html="review.name"></p>
             </swiper-slide>
         </swiper>
@@ -15,13 +17,18 @@
 </template>
 
 <script>
-
+//import ReadMore from 'vue-read-more';
 import axios from "axios";
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+//import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import YotpoReviewTotals from "./YotpoReviewTotals.vue";
+import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+import 'swiper/css'
+
 export default {
     components: {
+        //ReadMore,
         Swiper,
+        SwiperSlide,
         YotpoReviewTotals,
     },
     setup(){
