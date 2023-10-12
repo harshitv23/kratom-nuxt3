@@ -204,7 +204,7 @@
 
 
 <script>
-import { Swiper, SwiperSlide } from 'swiper/vue';
+/* import { Swiper, SwiperSlide } from 'swiper/vue'; */
 import { Buffer } from 'buffer';
 import axios from 'axios';
 import $ from "jquery";
