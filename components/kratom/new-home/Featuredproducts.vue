@@ -11,7 +11,23 @@
                     </div>
                     <div class="" :class="loading == true ? 'hidden' : ''">
                         <div class="product-carousel product-carousel-nav-center position-relative">
-                            <swiper class="swiper" :options="swiperOption" :pagination="swiperOption.pagination" :loop="swiperOption.loop" :slides-per-view="swiperOption.slidesPerView" :spaceBetween="swiperOption.spaceBetween" :navigation="swiperOption.navigation">
+                            <swiper class="swiper" 
+                                :options="swiperOption" 
+                                :pagination="swiperOption.pagination" 
+                                :loop="swiperOption.loop" 
+                                :slides-per-view="swiperOption.slidesPerView" 
+                                :spaceBetween="swiperOption.spaceBetween" 
+                                :navigation="swiperOption.navigation"
+                                :creative-effect="{
+                                    prev: {
+                                        shadow: false,
+                                        translate: ['-20%', 0, -1],
+                                    },
+                                    next: {
+                                        translate: ['100%', 0, 0],
+                                    },
+                                    }"
+                            >
                                 <swiper-slide class="slide" v-for="(product, index) in kratom_products_red" :key="index">
                                     <ProductGridItem :yotpoonce="index" :product="product" :layout="layout" :yotpo_reviews_count="yotpo_reviews_count" />
                                 </swiper-slide>

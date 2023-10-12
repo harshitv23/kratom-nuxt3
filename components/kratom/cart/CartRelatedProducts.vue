@@ -25,7 +25,7 @@
 <script>
 import axios from "axios";
 import $ from 'jquery';
-import { Swiper, SwiperSlide } from "vue-awesome-swiper";
+/* import { Swiper, SwiperSlide } from "vue-awesome-swiper"; */
     export default {
         props: ['products'],
         components: {

@@ -235,8 +235,8 @@ export default {
     components: {
         ProductGridItem: () => import("@/components/product/ProductGridItem"),
         KratomTitle: () => import("@/components/kratom/KratomTitle"),
-        Swiper,
-        SwiperSlide
+        /* Swiper,
+        SwiperSlide */
     },
     data() {
         return {

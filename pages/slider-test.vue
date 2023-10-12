@@ -8,7 +8,7 @@
   
   <script>
     import SwiperClass, { Pagination } from 'swiper'
-    import { Swiper, SwiperSlide } from 'vue-awesome-swiper'
+    /* import { Swiper, SwiperSlide } from 'vue-awesome-swiper' */
   
     // import swiper module styles
     import 'swiper/css'
