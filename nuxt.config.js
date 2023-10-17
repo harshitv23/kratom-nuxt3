@@ -120,10 +120,10 @@ export default {
             src: '~/plugins/vue-js-modal', 
             mode: 'client'
         },
-        { 
+        /* { 
             src: '~/plugins/notifications-client.js', 
             mode: 'client' 
-        },
+        }, */
         {   
             src : '~/plugins/readmore.js', 
             mode: 'client'
@@ -148,6 +148,7 @@ export default {
     // Modules (https://go.nuxtjs.dev/config-modules)
     modules: [
         '@pinia/nuxt',
+        'nuxt-swiper',
         /* '@nuxtjs/style-resources', */
         /* '@nuxtjs/axios', */
         /* '@nacelle/nacelle-yotpo-nuxt-module' */

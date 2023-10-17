@@ -37,6 +37,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 import axios from "axios";
 import $ from 'jquery';
+/* import { Swiper, SwiperSlide } from "vue-awesome-swiper"; */
     export default {
         props: ['products'],
         components: {
@@ -83,6 +84,9 @@ import $ from 'jquery';
                         },
                         992: {
                             slidesPerView: 4
+                        },
+                        1200: {
+                            slidesPerView: 4  
                         }
                     }
                 },

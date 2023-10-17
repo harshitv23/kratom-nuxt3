@@ -239,6 +239,12 @@ import 'swiper/css'
 //import 'bootsrtrap/dist/js/bootstrap.bundle.js';
 
 export default{
+    setup() {
+        const add_item = useKratom_cartStore();
+        const toast = useToast();
+
+        return { add_item, toast }
+    },
     props: ["product", "product_id", "price_html", "description", "product_moreinfo", "product_laberesult"],
     components: { Swiper, SwiperSlide, MiniCartPopup, Carousel, Slide, Pagination, Navigation },
     data() {
@@ -316,8 +322,6 @@ export default{
             yith: '',
             qty_no: []
         };
-    },
-    setup(props){                
     },
     methods: {
         slideTo(val) {
@@ -414,10 +418,11 @@ export default{
                 }
             });
             if (!option_valid) {
-                this.$notify({
+                this.toast.error('Please select product options before adding this product to your cart.');
+                /* this.$notify({
                     title: "Please select product options before adding this product to your cart.",
                     type: "error"
-                });
+                }); */
                 $(event.target).removeClass("btn-loading-icon");
                 return 0;
             }
@@ -444,6 +449,7 @@ export default{
             };
             axios(config)
                 .then((result) => {
+                    this.add_item.kratom_cart = result.data;
                     this.added_cart_item.qty = this.product_qty;
                     this.added_cart_item.name = this.product.name;
                     if (this.variation_price) {
@@ -460,10 +466,13 @@ export default{
                         behavior: "smooth",
                     });
                     this.cross_sell_products = result.data.cross_sells;
-                    this.$notify({ title: "Product added to cart successfully!" });
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    /* this.$notify({ title: "Product added to cart successfully!" }); */
+                    this.toast.success('Product added to cart successfully!');
+                    /* this.$store.dispatch("addToCartItemKratom", result.data); */
+                    
                 }, (error) => {
-                    this.$notify({ title: error.response.data.message, type: "error" });
+                    this.toast.error(error.response.data.message);
+                    /* this.$notify({ title: error.response.data.message, type: "error" }); */
                 }).finally((result) => {
                     $(event.target).removeClass("btn-loading-icon");
                 });            
