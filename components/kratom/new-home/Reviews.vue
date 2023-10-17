@@ -2,21 +2,25 @@
     <div class="section_reviews text-center pt-60 container">
         
         <YotpoReviewTotals />
-        <Swiper :options="swiperOption" :pagination="true" :slidesPerView="4" :spaceBetween="30">
+        
+
+        <Carousel v-bind="settings" :breakpoints="breakpoints_new">
             <!-- <swiper-slide v-if="review_list && review.score == 5 && index < 12" v-for="(review, index) in review_list.slice().reverse() " :key="index"> -->
-            <swiper-slide v-for="(review, index) in review_list.slice().reverse() " :key="index">
+            <Slide v-for="(review, index) in review_list.slice().reverse() " :key="index">
                 <img class="review-star-slider" src="/img/kratom/icons/star-rating-filled.webp" alt="" width="87" height="15" loading="lazy"/>
                 <p class="review-date" v-html="date(review.created_at)"></p><br/>
                 <p class="review-titel" v-html="review.title"></p>
                 <div class="review-dis review-content" v-html="review.content"/>
                 <!-- <ReadMore class="review-dis review-content" more-str="Read more" :text="review.content" link="#" less-str="Read less" :max-chars="150"></ReadMore> -->
                 <p class="review-author-name" v-html="review.name"></p>
-            </swiper-slide>
-        </swiper>
+            </Slide>
+        </Carousel>
    </div>
 </template>
 
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 //import ReadMore from 'vue-read-more';
 import axios from "axios";
 //import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
@@ -30,12 +34,28 @@ export default {
         Swiper,
         SwiperSlide,
         YotpoReviewTotals,
+        Carousel, Slide, Pagination, Navigation
     },
     setup(){
         
     },
     data() {
         return {
+            settings: {
+                    itemsToShow: 1,
+                    snapAlign: 'start',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
+                },
+
             review_list: [],
             review_total: "",
             swiperOption: {
@@ -104,7 +124,7 @@ export default {
     },
 
     created() {
-        console.log('----------');
+        //console.log('----------');
         this.fetch(this.todaysdate(8));
     },
 };

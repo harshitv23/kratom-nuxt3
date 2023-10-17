@@ -3445,3 +3445,7 @@ img {
 .kratom_collapse + hr {
     opacity: 0;
 }
+body .carousel__slide {
+    padding: 10px;
+    display: unset;
+}

@@ -11,18 +11,27 @@
                     </div>
                     <div class="" :class="loading == true ? 'hidden' : ''">
                         <div class="product-carousel product-carousel-nav-center position-relative">
-                            <swiper class="swiper" :options="swiperOption" :pagination="swiperOption.pagination" :loop="swiperOption.loop" :slides-per-view="swiperOption.slidesPerView" :spaceBetween="swiperOption.spaceBetween" :navigation="swiperOption.navigation">
+                            <Carousel v-bind="settings" :breakpoints="breakpoints_new">
+                  <Slide v-for="(product, index) in kratom_products_red" :key="index">
+                      <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
+                  </Slide>              
+                  <template #addons>
+                    <Pagination />
+                    <Navigation />
+                  </template>
+                </Carousel>
+                            <!-- <swiper class="swiper" :options="swiperOption" :pagination="swiperOption.pagination" :loop="swiperOption.loop" :slides-per-view="swiperOption.slidesPerView" :spaceBetween="swiperOption.spaceBetween" :navigation="swiperOption.navigation">
                                 <swiper-slide class="slide" v-for="(product, index) in kratom_products_red" :key="index">
                                     <ProductGridItem :yotpoonce="index" :product="product" :layout="layout" :yotpo_reviews_count="yotpo_reviews_count" />
                                 </swiper-slide>
-                            </swiper>
+                            </swiper> -->
                             <!-- Swiper Navigation Start -->
-                            <div class="product-carousel-nav swiper-button-prev swiper-button-prev5">
+                            <!-- <div class="product-carousel-nav swiper-button-prev swiper-button-prev5">
                                 <i class="pe-7s-angle-left"></i>
                             </div>
                             <div class="product-carousel-nav swiper-button-next swiper-button-next5">
                                 <i class="pe-7s-angle-right"></i>
-                            </div>
+                            </div> -->
                             <!-- Swiper Navigation End -->
                         </div>
                         <div class="slider-btn btn-hover btn_yellow text-center mt-40 mt-sm-20">
@@ -38,6 +47,8 @@
 </template>
 
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 import axios from "axios";
 import KratomTitle from "../KratomTitle.vue";
@@ -51,10 +62,26 @@ export default {
         ProductGridItem: () => import("@/components/product/ProductGridItem"),
         KratomTitle,
         Swiper,
-        SwiperSlide
+        SwiperSlide,
+        Carousel, Slide, Pagination, Navigation
     },
     data() {
         return {
+            settings: {
+                    itemsToShow: 1,
+                    snapAlign: 'start',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
+                },
+
             swiperOption: {
                 loop: false,
                 speed: 200,

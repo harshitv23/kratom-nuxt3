@@ -12,6 +12,7 @@
   "devDependencies": {
     "@nuxt/bridge": "npm:@nuxt/bridge-edge@^3.0.0-rc.1-28271265.8fa71e1",
     "@nuxt/devtools": "latest",
+    "@types/bootstrap": "^5.2.7",
     "nuxt": "^3.7.4",
     "sass": "^1.68.0",
     "vue": "^3.3.4",
@@ -29,6 +30,7 @@
     "pinia": "^2.1.6",
     "v-pagination-3": "^0.1.7",
     "vue-awesome-swiper": "^5.0.1",
-    "vue-observe-visibility": "^1.0.0"
+    "vue-observe-visibility": "^1.0.0",
+    "vue3-carousel": "^0.3.1"
   }
 }

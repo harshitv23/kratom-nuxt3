@@ -14,10 +14,10 @@
                             <div class="col-lg-4 col-md-6 col-sm-12" v-for="blog in blogs" v-else>                                
                                 <blogItem :blog="blog" />
                             </div>
-                        </div>
-                        <div v-if="getPaginateCount > 1">
+                        </div>                        
+                        <div v-show="getPaginateCount > 1">
                             <pagination class="pro-pagination-style shop-pagination mt-30" @click="scrollToTop"
-                                v-model="currentPage" :per-page="perPage" :records="totalCount"
+                            v-model="currentPage" :per-page="perPage" :records="totalCount"
                                 @paginate="paginateClickCallback" :page-count="getPaginateCount" />
                         </div>
                     </div>

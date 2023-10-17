@@ -4,6 +4,7 @@
 
 export default defineNuxtConfig({
   modules: [
+    '@pinia/nuxt'
     /* '@nuxt/image', */
     /* '@nacelle/nacelle-yotpo-nuxt-module' */
   ],

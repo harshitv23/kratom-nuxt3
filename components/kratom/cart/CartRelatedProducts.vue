@@ -3,18 +3,27 @@
         <div class="container position-relative">
             <KratomTitle title="You may be" subTitle="Interested In..." class="mb-40 with_arrows"/>
             <div class="product-carousel product-carousel-nav-center">
-                <swiper :options="swiperOption" :pagination="true">
+                <Carousel v-bind="settings" :breakpoints="breakpoints_new">
+                  <Slide v-for="(product, index) in products" :key="index">
+                      <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
+                  </Slide>              
+                  <template #addons>
+                    <Pagination />
+                    <Navigation />
+                  </template>
+                </Carousel>
+                <!-- <swiper :options="swiperOption" :pagination="true">
                     <swiper-slide v-for="(product, index) in products" :key="index">
                         <ProductGridItemCrossSell :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
                     </swiper-slide>
-                </swiper>
+                </swiper> -->
                 <!-- Swiper Navigation Start -->
-                <div class="product-carousel-nav swiper-button-prev">
+                <!-- <div class="product-carousel-nav swiper-button-prev">
                     <i class="pe-7s-angle-left"></i>
                 </div>
                 <div class="product-carousel-nav swiper-button-next">
                     <i class="pe-7s-angle-right"></i>
-                </div>
+                </div> -->
                 <!-- Swiper Navigation End -->
             </div>
         </div>
@@ -23,14 +32,32 @@
 </template>
 
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
 import axios from "axios";
 import $ from 'jquery';
     export default {
         props: ['products'],
         components: {
+            Carousel, Slide, Pagination, Navigation
         },
         data() {
             return {
+                settings: {
+                    itemsToShow: 1,
+                    snapAlign: 'start',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
+                },
                 swiperOption: {
                     loop: false,
                     speed: 750,

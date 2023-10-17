@@ -149,7 +149,7 @@
 
 import axios from 'axios';
 import $ from 'jquery';
-
+import { Buffer } from 'buffer';
 export default {
 
     data() {
@@ -191,7 +191,7 @@ export default {
         fatch_red_vein_products() {
             this.loading = true;
             const product_ids = this.landing_page_data.red_vein_products;
-            const Buffer = require('buffer').Buffer;
+            //const Buffer = require('buffer').Buffer;
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
 
 

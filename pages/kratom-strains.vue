@@ -43,7 +43,7 @@
                             href="/what-is-white-vein-kratom-and-where-does-it-come-from"><span
                                 style="font-weight: 400;">White vein kratom</span></a><span style="font-weight: 400;"> may
                             be harvested while the leaves of the kratom tree are still young and the veins are white
-                            (similarly to how </span><a href="/different-types-of-teas-a-beginners-guide"><span
+                            (similarly to how </span><a href="/the-types-of-teas-a-beginners-guide-to-tea-pairings"><span
                                 style="font-weight: 400;">white teas</span></a><span style="font-weight: 400;"> are
                             harvested from younger tea leaves). After harvesting, the leaves are dried entirely indoors with
                             no light on them.</span></p>
@@ -195,7 +195,7 @@
                         that these tips have helped you get started with your selection, there's simply no substitute for
                         first-hand experience.</p>
 
-                    <p>Luckily, our <a href="https://kratomspot.com/special">kratom strain sample packs</a> are the perfect
+                    <p>Luckily, our <a href="https://kratomspot.com/bundleandsave">kratom strain sample packs</a> are the perfect
                         way to try all the world's best kratom strains for yourself!</p>
 
                     <p>Until then, please reach out to our amazing <a

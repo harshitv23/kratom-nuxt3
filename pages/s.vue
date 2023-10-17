@@ -10,7 +10,7 @@
 import axios from "axios";
 import TitleBar from '../components/kratom/product-category/TitleBar.vue';
 import CategoryList from '../components/kratom/product-category/CategoryList.vue';
-
+import { Buffer } from "buffer";
 export default {
     components: {
         
@@ -61,7 +61,7 @@ export default {
     },   
     methods: {
         sortby(event) {
-            const Buffer = require('buffer').Buffer;
+            //const Buffer = require('buffer').Buffer;
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
             this.loading = true;
             var sortby = event.target.value;

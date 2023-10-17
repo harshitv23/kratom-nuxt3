@@ -1,8 +1,28 @@
 <template>    
     <section class="category_section_2 pb-60 " v-if="hasReviews(yotpo_reviews)">
         <div class="container">
-            <YotpoReviewTotals/>            
-            <swiper :options="swiperOption" :pagination="true">
+            <YotpoReviewTotals/>
+            <Carousel v-bind="swiperOption" :breakpoints="breakpoints_new">
+                <Slide v-if="yotpo_reviews && review.bottomline.total_review > 0" v-for="(review, index) in yotpo_reviews" :key="index">
+                    <div class="row" v-if="review.bottomline.total_review > 0 && review.reviews[0].score == 5">
+                        <div class="col-3 pr-0">
+                            <a class="carousel-product-image-container" :href="`${review.products[0].product_link}`">
+                                <img class="carousel-product-image" :src="`${review.products[0].image_url}`" :alt="`${review.products[0].name}`" />
+                                <p class="carousel-product-name" v-html="review.products[0].name"></p>
+                            </a>
+                        </div>
+                        <div class="col-9 pr-5">
+                            <img class="review-star-slider" src="/img/kratom/icons/star-rating-filled.webp" alt="" width="87" height="15"/>
+                            <p class="review-date-cat" v-html="date(review.reviews[0].created_at)"></p>
+                            <p class="review-titel" v-html="review.reviews[0].title"></p>
+                            <read-more class="review-dis review-content" more-str="Read more" :text="review.reviews[0].content" link="#" less-str="Read less" :max-chars="150"></read-more>
+                            <p class="review-author-name" v-html="review.reviews[0].user.display_name"></p>
+                        </div>
+                    </div>
+                </Slide>
+            </Carousel>
+
+            <!-- <swiper :options="swiperOption" :pagination="true">
                 <swiper-slide v-if="yotpo_reviews && review.bottomline.total_review > 0" v-for="(review, index) in yotpo_reviews" :key="index">
                     <div class="row" v-if="review.bottomline.total_review > 0 && review.reviews[0].score == 5">
                         <div class="col-3 pr-0">
@@ -20,12 +40,14 @@
                         </div>
                     </div>
                 </swiper-slide>
-            </swiper>
+            </swiper> -->
         </div>
     </section>
 </template>
 
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 import axios from "axios";
 import $ from "jquery";
@@ -33,12 +55,28 @@ import YotpoReviewTotals from "./YotpoReviewTotals.vue";
 
 export default {
     components: {
-        YotpoReviewTotals
+        YotpoReviewTotals,
+        Carousel, Slide, Pagination, Navigation
     },
     props: ["yotpo_reviews"],
     data() {
         return {
             swiperOption: {
+                settings: {
+                    itemsToShow: 1,
+                    snapAlign: 'start',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
+                },
+
                 loop: false,
                 speed: 200,
                 spaceBetween: 30,
@@ -83,15 +121,6 @@ export default {
             const date = new Date(created_at);
             return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
         }
-    },
-    mounted() {
-
-    },
-    beforeCreate() {
-
-    },
-    created() {
-
     }
 }
 </script>

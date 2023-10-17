@@ -7,9 +7,9 @@
                 class="section_bg_div" alt="Kratom Spot Category Background" />
         </picture>
         <!-- <h2 class="text-center mb-40">Shop by category</h2> -->
-        <div class="container position-relative">
-            <swiper :options="blog_cta_options">
-                <div class="single-blog-cta swiper-slide">
+        <div class="container position-relative" style="z-index: 1;">
+            <Carousel v-bind="settings" :breakpoints="breakpoints_new">
+                <Slide class="single-blog-cta swiper-slide">
                     <div class="shop_category_col"><div to="/kratom-powder"
                             class="shop-category px-4 py-4 text-center p-3 "><img
                                 src="https://res.cloudinary.com/dv8z5nr6r/images/f_auto,q_auto/v1682677044/kratom-powder/kratom-powder.webp?_i=AA"
@@ -21,8 +21,8 @@
                             </div>
 
                     </div>
-                </div>
-                <div class="single-blog-cta swiper-slide">
+                </Slide>
+                <Slide class="single-blog-cta swiper-slide">
                     <div class="shop_category_col"><div to="/kratom-capsules-for-sale"
                             class="shop-category px-4 py-4 text-center p-3 "><img
                                 src="https://res.cloudinary.com/dv8z5nr6r/images/f_auto,q_auto/v1682677042/kratom-capsules_2245827e5f8/kratom-capsules_2245827e5f8.webp?_i=AA"
@@ -33,8 +33,8 @@
                                     Shop Now
                                 </NuxtLink></div>
                             </div></div>
-                </div>
-                <div class="single-blog-cta swiper-slide">
+                </Slide>
+                <Slide class="single-blog-cta swiper-slide">
                     <div class="shop_category_col"><div href="/maeng-da-kratom-powders-capsules"
                             class="shop-category px-4 py-4 text-center p-3"><img
                                 src="https://res.cloudinary.com/dv8z5nr6r/images/f_auto,q_auto/v1682508502/maegda-kratom/maegda-kratom.webp?_i=AA"
@@ -45,23 +45,41 @@
                                     Shop Now
                                 </NuxtLink></div>
                             </div></div>
-                </div>
-            </swiper>
-            <div class="quickview-nav swiper-button-prev">
+                </Slide>
+            </Carousel>
+            <!-- <div class="quickview-nav swiper-button-prev">
                 <i class="pe-7s-angle-left"></i>
             </div>
             <div class="quickview-nav swiper-button-next">
                 <i class="pe-7s-angle-right"></i>
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel' 
+
 import $ from "jquery";
 export default {
+    components: { Carousel, Slide, Pagination, Navigation },
     data() {
         return {
-            blog_cta_options: {
+            settings: {
+                    itemsToShow: 1,
+                    snapAlign: 'start',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                },
+            /* blog_cta_options: {
                 speed: 750,
                 spaceBetween: 20,
                 slidesPerView: 3,
@@ -84,7 +102,7 @@ export default {
                         slidesPerView: 3
                     }
                 }
-            }
+            } */
         }
     },
     methods: {

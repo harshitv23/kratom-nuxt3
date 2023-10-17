@@ -129,15 +129,15 @@
                         <div class="outofstockmsg" v-if="outofstockmsg == false">Out of stock</div>
                         <div class="product_detail_addtocart_section">
                             <label><span class="d-none">qty</span><input type="number" class="product_detail_qty" value="1"
-                                    min="1" v-model="product_qty"></label>
+                                    min="1" v-bind:value="product_qty"></label>
                             <button type="button" class="btn product_detail_addtocart_btn text-white"
                                 @click="addToCart(product, product.type, $event)" v-if="outofstockmsg == true">ADD TO
                                 CART</button>
                             <button type="button" class="btn product_detail_addtocart_btn text-white" v-else disabled>ADD TO
                                 CART</button>
-                            <input type="hidden" id="selected_product_variation" v-model="variation_id">
-                            <input type="hidden" id="selected_product_id" v-model="product_id" />
-                            <input type="hidden" id="selected_product_type" v-model="product.type" />
+                            <input type="hidden" id="selected_product_variation" v-bind:value="variation_id">
+                            <input type="hidden" id="selected_product_id" v-bind:value="product_id" />
+                            <input type="hidden" id="selected_product_type" v-bind:value="product.type" />
                         </div>
                         <!-- <div class="yith_product mt-20" v-html="yith.product_points" v-if="yith.product_points"></div> -->
                         

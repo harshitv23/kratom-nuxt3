@@ -641,7 +641,7 @@ useHead({
         <TitleBar :title="pagetitle" v-if="yoast_head_json && content_type && content_type == 'post'" />
         <TitleBar :title="pagetitle" v-else-if="loading == false && content_type == 'post'" />
         <postDetail :blog='kratom_post' v-if="kratom_post && loading == false && content_type == 'post'" />
-        <blogCTA v-if="showall && kratom_post && loading == false && content_type == 'post'"/>
+        <blogCTA v-if="kratom_post && loading == false && content_type == 'post'"/>
 
         <!-- Page -->
         <TitleBar :title="pagetitle" v-if="loading == false && content_type == 'page'" />

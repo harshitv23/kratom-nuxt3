@@ -10,18 +10,27 @@
                 <p class="text-center kratom_spcials_subtitle mb-30" v-html="kratom_header_data.kratom_specials_section[0].kratom_specials_section_text"></p>
                 <div class="rowx">
                     <div class="product-carousel product-carousel-nav-center">
-                        <swiper :options="swiperOption" :pagination="true">
+                        <Carousel v-bind="settings" :breakpoints="breakpoints_new">
+                  <Slide v-for="(product, index) in kratom_products_red" :key="index">
+                      <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
+                  </Slide>              
+                  <template #addons>
+                    <Pagination />
+                    <Navigation />
+                  </template>
+                </Carousel>
+                        <!-- <swiper :options="swiperOption" :pagination="true">
                             <swiper-slide v-for="(product, index) in kratom_products_red" :key="index">
                                 <ProductGridItem :yotpoonce="index" :product="product" :layout="layout" :yotpo_reviews_count = "yotpo_reviews_count"/>
                             </swiper-slide>
-                        </swiper>
+                        </swiper> -->
                         <!-- Swiper Navigation Start -->
-                        <div class="product-carousel-nav swiper-button-prev swiper-button-prev1">
+                        <!-- <div class="product-carousel-nav swiper-button-prev swiper-button-prev1">
                             <i class="pe-7s-angle-left"></i>
                         </div>
                         <div class="product-carousel-nav swiper-button-next swiper-button-next1">
                             <i class="pe-7s-angle-right"></i>
-                        </div>
+                        </div> -->
                         <!-- Swiper Navigation End -->
                     </div>
                     <div class="slider-btn btn-hover btn_yellow text-center mt-40">
@@ -42,16 +51,33 @@ import axios from "axios";
 import KratomTitle from "./KratomTitle.vue";
 import $ from 'jquery';
 
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 export default {
     components: {
         
         ProductGridItem: () => import("@/components/product/ProductGridItem"),
         
-        KratomTitle
+        KratomTitle,
+        Carousel, Slide, Pagination, Navigation
     },
     data() {
         return {
+            settings: {
+                    itemsToShow: 1,
+                    snapAlign: 'start',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
+                },
             kratom_header_data: {
                 "kratom_specials_section": [
                     {

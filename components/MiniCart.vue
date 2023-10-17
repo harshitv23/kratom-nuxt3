@@ -191,7 +191,6 @@ export default {
                 console.log('Remove');
         },
         fetch() {
-            console.log('sdf');
             this.loading = 'loading';
             const kratom_token_c = useCookie('kratom_token')
             if (kratom_token_c.value && kratom_token_c.value != "" && this.cartload) {
@@ -219,7 +218,6 @@ export default {
                     this.cartdata = result.data;
                     /* this.$store.dispatch("addToCartItemKratom", result.data); */
                     this.Kratom_cartitem.kratom_cart = result.data;
-                    console.log(result.data); 
                     this.kratom_cart = result.data;
                     this.loading = '';
                 }, (error) => {
@@ -344,7 +342,7 @@ export default {
             }
         }
     }, mounted() {
-        console.log(this.Kratom_cartitem.kratom_cart.length)
+        
         this.fetch()
     },
 };

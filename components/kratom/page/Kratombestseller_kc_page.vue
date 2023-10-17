@@ -42,18 +42,27 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption" :pagination="true">
+                                <Carousel v-bind="settings" :breakpoints="breakpoints_new">
+                  <Slide v-for="(product, index) in kratom_products_red" :key="index">
+                      <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" />
+                  </Slide>              
+                  <template #addons>
+                    <Pagination />
+                    <Navigation />
+                  </template>
+                </Carousel>
+								<!-- <swiper :options="swiperOption" :pagination="true">
 									<swiper-slide v-for="(product, index) in kratom_products_red" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
 									</swiper-slide>
-								</swiper>
+								</swiper> -->
 								<!-- Swiper Navigation Start -->
-								<div class="product-carousel-nav swiper-button-prev swiper-button-prev1">
+								<!-- <div class="product-carousel-nav swiper-button-prev swiper-button-prev1">
 									<i class="pe-7s-angle-left"></i>
 								</div>
 								<div class="product-carousel-nav swiper-button-next swiper-button-next1">
 									<i class="pe-7s-angle-right"></i>
-								</div>
+								</div> -->
 								<!-- Swiper Navigation End -->
 							</div> 
                             <div class="slider-btn btn-hover btn_yellow text-center mt-20">
@@ -173,10 +182,14 @@
 ``
 
 <script>    
-    import axios from "axios";
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
+    import axios from "axios";  
 //import KratomTitle from "../KratomTitle.vue";    
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import $ from "jquery";
+import { Buffer } from "buffer";
 
     export default {
         components: {
@@ -188,6 +201,20 @@ import $ from "jquery";
 }        ,
         data() {
             return {
+                settings: {
+                    itemsToShow: 1,
+                    snapAlign: 'start',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
+                },
                 swiperOption: {
                     loop: true,
                     speed: 200,
@@ -343,7 +370,7 @@ import $ from "jquery";
         },
         methods: {  
             tab_click($event, clicktype = 'tab'){
-                const Buffer = require('buffer').Buffer;
+                //const Buffer = require('buffer').Buffer;
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 if(clicktype == 'tab'){
                     var cat_id = $event.target.getAttribute('category_id');
@@ -406,7 +433,7 @@ import $ from "jquery";
 
             }   ,       
             fetch() {
-                const Buffer = require('buffer').Buffer;
+                //const Buffer = require('buffer').Buffer;
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 axios.get( 
                     useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',

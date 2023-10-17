@@ -42,15 +42,15 @@
                                     <a :href="`/${submenu.menu_slug_}`" v-if="submenu.menu_slug_ == 'kratom-spot-affiliate-program'">{{ submenu.menu_text }}</a>
                                     <a :href="`/${submenu.menu_slug_}`" v-else>{{ submenu.menu_text }}</a>
                                 </li>
-                                <li class="d-none"><NuxtLink to="/kratom-information">Kratom Buying Information</NuxtLink>
+                                <!-- <li class="d-none"><NuxtLink to="/kratom-information">Kratom Buying Information</NuxtLink>
                                 </li>
                                 <li class="d-none"><NuxtLink to="/shipping">Kratom Shipping</NuxtLink></li>
                                 <li class="d-none"><NuxtLink to="/what-is-kratom">What is kratom?</NuxtLink></li>
                                 <li class="d-none"><NuxtLink to="/wholesale-thank-you">Thank you</NuxtLink></li>
-                                <!-- <li class="d-none"><NuxtLink to="/xshop/blog-data">Blog Data</NuxtLink></li> -->
+                                <li class="d-none"><NuxtLink to="/xshop/blog-data">Blog Data</NuxtLink></li>
                                 <li class="d-none"><NuxtLink to="/contact-form-thank-you">Contact form thank you</NuxtLink></li>
                                 <li class="d-none"><NuxtLink to="/shop2">Shop Full</NuxtLink></li>                                
-                                <li class="d-none"><NuxtLink to="/edibles">Edibles</NuxtLink></li>                                
+                                <li class="d-none"><NuxtLink to="/edibles">Edibles</NuxtLink></li>      -->                           
                             </ul>
                         </div>                        
                         <div class="col-md-4 pl-10 pl-sm-15">
@@ -83,11 +83,11 @@
                             <h3>Subscribe Now</h3>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" placeholder="Name" name="nl_name" v-model="nl_name" />
+                            <input type="text" placeholder="Name" name="nl_name" v-bind:value="nl_name" />
                             <div class="omni_msg"></div>
                         </div>
                         <div class="col-md-5 position-relative">
-                            <input type="text" placeholder="Email" name="nl_email" v-model="nl_email" />
+                            <input type="text" placeholder="Email" name="nl_email" v-bind:value="nl_email" />
                             <button class="footer_subscribe_submit" v-on:click="newsletter_subscribe" aria-label="Menu"><i
                                     class="fa fa-paper-plane" aria-hidden="true"></i></button>
                         </div>

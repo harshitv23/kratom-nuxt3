@@ -431,6 +431,15 @@ export default {
         
     },
     methods: {
+        async fetch() {
+            const configs = useRuntimeConfig() //configs.public.
+            await axios.get(
+                configs.public.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
+                    this.kratom_header_data = result.data;
+                }, (error) => {
+                    console.log(error);
+                })
+        },
         copyToClipboard(text) {
             var sampleTextarea = document.createElement("textarea");
             document.body.appendChild(sampleTextarea);
@@ -511,7 +520,7 @@ export default {
                 })
         },
     created() {
-        //this.fetch()
+        this.fetch()
     }
 };
 </script>

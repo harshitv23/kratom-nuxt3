@@ -3,18 +3,28 @@
         <div class="container position-relative">
             <KratomTitle title="Related" subTitle="Products" class="mb-40"/>
             <div class="product-carousel product-carousel-nav-center">
-                <Swiper :options="swiperOption" :pagination="true" :loop="false" :slides-per-view="4" :spaceBetween="30">
+                <Carousel v-bind="settings" :breakpoints="breakpoints_new">
+                  <Slide v-for="(product, index) in kratom_products" :key="index">
+                      <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
+                  </Slide>              
+                  <template #addons>
+                    <Pagination />
+                    <Navigation />
+                  </template>
+                </Carousel>
+
+                <!-- <Swiper :options="swiperOption" :pagination="true" :loop="false" :slides-per-view="4" :spaceBetween="30">
                     <SwiperSlide v-for="(product, index) in kratom_products" :key="index">
                         <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
                     </SwiperSlide>
-                </swiper>
+                </swiper> -->
                 <!-- Swiper Navigation Start -->
-                <div class="product-carousel-nav swiper-button-prev">
+                <!-- <div class="product-carousel-nav swiper-button-prev">
                     <i class="pe-7s-angle-left"></i>
                 </div>
                 <div class="product-carousel-nav swiper-button-next">
                     <i class="pe-7s-angle-right"></i>
-                </div>
+                </div> -->
                 <!-- Swiper Navigation End -->
             </div>
         </div>
@@ -22,6 +32,8 @@
 </template>
 
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 import axios from "axios";
 import $ from 'jquery';
@@ -32,11 +44,26 @@ import 'swiper/css'
         props: ['product_related'],
         components: {
             Swiper,
-            SwiperSlide            
+            SwiperSlide,
+            Carousel, Slide, Pagination, Navigation     
         },
 
         data() {
             return {
+                settings: {
+                    itemsToShow: 1,
+                    snapAlign: 'center',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'center',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
+                },
                 swiperOption: {
                     loop: false,
                     speed: 750,
