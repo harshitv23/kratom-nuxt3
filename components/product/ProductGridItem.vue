@@ -4,8 +4,7 @@
             <NuxtLink :to="`/${product.slug}`">
                 <img format="webp" loading="lazy" width="250" height="250" class="default-img" v-if="product.images[0] !== undefined" :src="replaceSizeImg(product.images[0].src)" :alt="product.name"/>
             </NuxtLink>
-            <div class="product-badges">
-                <!--<span class="product-label pink" v-if="product.new">New</span>-->
+            <div class="product-badges">                
                 <span class="product-label purple" v-if="product.on_sale">SALE</span>
                 <span class="sold_in_day" v-if="is_landing && is_landing == 'yes'">{{product.order_count_last_day}} Sold in past 24 hours!</span>
             </div>
@@ -14,73 +13,45 @@
             <h3>
                 <NuxtLink :to="`/${product.slug}`">{{ product.name }}</NuxtLink>
             </h3>
-            <!-- <StarRating :id="`${product.id+''}`" v-if="yotpo_reviews_count == null || yotpo_reviews_count == undefined"/> -->
-            <!-- index == product.id && review_count.total_review > 0 && yotpo_reviews_count -->
             <div class="yotpo-reviews-bottom-line" v-for="(review_count, index) in yotpo_reviews_count" :key="index" :absc="index" :ppp="product.id">
                 <div class="starttttt" :style="`--ratingwidth: ${review_count.average_score * 20}%`" v-if="index == product.id && review_count.total_review > 0 && yotpo_reviews_count">
                     <img src="/img/kratom/icons/star-rating-empty.webp" alt="Review Stars" width="87" height="15" loading="lazy"/>
                 </div>
                 <p class="yotpo-cat-review-text" v-html="`${review_count.total_review} Reviews`" v-if="index == product.id && review_count.total_review > 0 && yotpo_reviews_count"></p>
             </div>
-            <!-- <div class="yotpo bottomLine" :data-product-id="product.id" /> -->
-
-            
-<!-- <div class="yotpo bottomLine"
-:data-product-id="`${product.id+''}`"
-data-url="The url to the page where the product is url escaped">
-</div> -->
             <div class="product-price">
-                <span v-html="product.price_html"></span>
-                    <!--<span class="old" v-if="product.sale_price != ''">${{ product.regular_price }}</span>-->
+                <span v-html="product.price_html"></span>                    
             </div>
-            <!-- <div class="product-content__list-view" v-if="layout === 'list'">
-                <p v-html="product.description"></p>
-                </div> -->
             <div class="pro-same-action pro-cart btn-hover">
                 <NuxtLink :to="`/${product.slug}`" class="btn" v-if="product.type == 'variable'">
                     + Select Options
                 </NuxtLink>
-                <button class="btn" title="Add To Cart" @click="addToCart(product,$event)" v-else>
+                <button class="btn" title="Add To Cart" @click="addToCart(product,$event)"  :class="button_loading_class" v-else>
                     <i class="pe-7s-cart"></i> 
                     Add to cart
                 </button>
-            </div>
-           <!--  <div class="product-content__list-view" v-if="layout === 'list'">
-                <p v-html="product.description"></p>
-                <div class="pro-action d-flex align-items-center" >
-                    <div class="pro-cart btn-hover">
-                        <NuxtLink :to="`/${product.slug}`" class="btn" v-if="product.type == 'variable'">
-                            + Select Options
-                        </NuxtLink>
-                        <button class="btn" title="Add To Cart" @click="addToCart(product,$event)" v-else>
-                            <i class="pe-7s-cart"></i> 
-                            Add to cart
-                        </button>
-                    </div>                    
-                </div>
-            </div> -->
+            </div>           
         </div>
     </div>
 </template>
 
 <script>
-//import StarRating from "@nacelle/nacelle-yotpo-nuxt-module/lib/components/StarRating.vue";
 import axios from "axios";  
 import * as $ from "jquery";
 import { useKratom_cartStore } from "~/stores/index";
+import { useToast } from 'vue-toast-notification';
 
 export default {
         setup() {
             const add_item = useKratom_cartStore() 
-            /* console.log(notify);
-            notify({ title: "Product added to cart successfully!" });  */
-            return { add_item }
+            const toast = useToast();
+            return { add_item, toast }
         },
     props: ["product", "layout", "yotpoonce", "yotpo_reviews_count", "is_landing"],
 
     data() {
         return {
-            
+            button_loading_class: ''
         }
     },
     methods: {
@@ -91,26 +62,12 @@ export default {
             return img;
         },
         addToCart(product, event) {
-            $(event.target).addClass("btn-loading-icon");
-            if (useCookie("kratom_token") && useCookie("kratom_token") != "") {
-                var kratom_token = useCookie("kratom_token");
-                var headers = {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + kratom_token
-                };
-            }
-            else {
-                var headers = {
-                    "Content-Type": "application/json"
-                };
-            }
-            if (useCookie("cart_key") && useCookie("cart_key") != "") {
-                var cart_key = useCookie("cart_key");
-                var data = { "id": "" + product.id, "quantity": "" + 1, "cart_key": cart_key };
-            }
-            else {
-                var data = { "id": "" + product.id, "quantity": "" + 1 };
-            }
+            this.button_loading_class = 'btn-loading-icon';
+            //$(event.target).addClass("btn-loading-icon");
+            var headers = {
+                "Content-Type": "application/json"
+            };            
+            var data = { "id": "" + product.id, "quantity": "" + 1 };            
             var config = {
                 method: "post",
                 url: useRuntimeConfig().public.api_url + "/wp-json/wc/store/v1/cart/add-item",
@@ -120,35 +77,15 @@ export default {
             };
             axios(config)
                 .then((result) => {
-                /* this.$store.dispatch("addToCartItemKratom", result.data);
-                this.$notify({ title: "Product added to cart successfully!" }); */
-                /* this.cartstate.items = result.data.items; */
+                    this.toast.success("Product added to cart successfully!");
                 this.add_item.kratom_cart = result.data;
-                /* this.$notify({ title: "Product added to cart successfully!" }); */
                 
             }, (error) => {
                 console.log(error);
-            }).finally(() => $(event.target).removeClass("btn-loading-icon"));
-            /*  var list = [];
-             const children = this.$el.querySelectorAll(".kratom_product_variations select");
-             children.forEach((value, index) => {
-                 list[value.getAttribute("name")] = value.value;
-             });
-             var list = { ...list };
-             const prod = { ...product, cartQuantity: this.singleQuantity, selectedVariation: this.variation_id, selectedVariationPrice: this.variation_price, display_variations: list };
-             // for notification
-             if (this.$store.state.cart.find(el => product.id === el.id)) {
-                 this.$notify(
-                     {
-                         title: "Already added to cart update with one",
-                         type: 'error'
-                     }
-                 );
-             }
-             else {
-                 this.$notify({ title: "Add to cart successfully!" });
-             }
-             this.$store.dispatch("addToCartItem", prod); */
+            }).finally(() => 
+                this.button_loading_class = ''
+                //$(event.target).removeClass("btn-loading-icon")
+            );
         },                
     },
     components: { /* StarRating */ }

@@ -65,6 +65,26 @@ import Pagination from 'v-pagination-3';
 
 
 export default {
+    setup(){
+        useHead({
+                htmlAttrs: { lang: 'en-US' },
+                title: "Shop All Kratom Products | Kratom Spot",
+                meta: [
+            
+            {
+                    hid: 'description',
+                    name: 'description',
+                    content: 'Looking for high-quality kratom products? Kratom Spot has a wide range of strains and blends available for purchase. Shop now and enjoy fast shipping!'
+                }],
+            link: [
+            {
+                href: 'https://kratomspot.com/shop',
+                rel: 'canonical'
+            },
+            
+        ],
+            })
+    },
     components: {
         
         ProductGridItem: () => import("@/components/product/ProductGridItem"),
@@ -183,8 +203,6 @@ export default {
                     orderby: 'price',
                     status: 'publish',
                     search: useRoute().query.s,
-                    /* consumer_key: useRuntimeConfig().public.consumer_key,
-                    consumer_secret: useRuntimeConfig().public.secret_key, */
                 }
             } else if (sortby == 'price') {
                 var params = {
@@ -192,9 +210,7 @@ export default {
                     order: 'asc',
                     orderby: 'price',
                     status: 'publish',
-                    search: useRoute().query.s,
-                    /* consumer_key: useRuntimeConfig().public.consumer_key,
-                    consumer_secret: useRuntimeConfig().public.secret_key, */
+                    search: useRoute().query.s
                 }
 
             } else {
@@ -203,9 +219,7 @@ export default {
                     order: 'asc',
                     orderby: sortby,
                     status: 'publish',
-                    search: useRoute().query.s,
-                    /* consumer_key: useRuntimeConfig().public.consumer_key,
-                    consumer_secret: useRuntimeConfig().public.secret_key, */
+                    search: useRoute().query.s
                 }
             }
 
@@ -409,7 +423,7 @@ export default {
         }   
         /* this.productCount(); */     
     },
-    head() {
+    /* head() {
             return {
                 htmlAttrs: { lang: 'en-US' },
                 title: "Shop All Kratom Products | Kratom Spot",
@@ -428,7 +442,7 @@ export default {
             
         ],
             }
-        },
+        }, */
     /* head() {
         return {
             title: "Buy Kratom Online"

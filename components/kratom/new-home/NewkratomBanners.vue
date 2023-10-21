@@ -36,16 +36,23 @@
 <script>
 
 import axios from "axios";
-/* const var1 = useState('user', () => ({
-    id : 3,
-    name: 'Michael',
-    profile: '...',
-})); */
 export default {
-    
+    async setup(){        
+        let kratom_header_data = '';
+        await axios.get(
+            useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=homebanner').then((result) => {
+                kratom_header_data = result.data;
+        }, (error) => {
+            console.log(error);
+        });        
+        return {
+            kratom_header_data
+        }
+
+    },
     data() {
         return {
-            kratom_header_data: {}
+            //kratom_header_data: {}
             /* kratom_header_data: {
               "new_home_page_banner_background_image": "https://res.cloudinary.com/dv8z5nr6r/images/v1692093518/2023_012_Web-homepage-Banner-8_11-2-1-1/2023_012_Web-homepage-Banner-8_11-2-1-1.webp?_i=AA",
               "new_home_page_banner_background_image_mobile": "https://res.cloudinary.com/dv8z5nr6r/images/v1692081637/2023_012_Web-homepage-Banner-Mobile-8_11/2023_012_Web-homepage-Banner-Mobile-8_11.webp?_i=AA",
@@ -57,10 +64,8 @@ export default {
     },
 
     methods: {
-        async fetch() {
-            
-            const configs = useRuntimeConfig() //configs.public.
-            
+        async fetch() {            
+            const configs = useRuntimeConfig()
             await axios.get(
                 configs.public.api_url + '/wp-json/acf/v3/header?data_type=homebanner').then((result) => {
                     this.kratom_header_data = result.data;
@@ -71,7 +76,7 @@ export default {
     },
     
     created() {
-        this.fetch();
+        //this.fetch();
     },
 };
 </script>

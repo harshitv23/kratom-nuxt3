@@ -43,11 +43,12 @@
 <script>
 import axios from "axios";
 import { useKratom_cartStore } from "../stores/index";
+import { useToast } from "vue-toast-notification";
 export default {
     setup() {
         const Kratom_cartitem = useKratom_cartStore()
-
-        return { Kratom_cartitem }
+        const toast = useToast();
+        return { Kratom_cartitem, toast }
     },
     props: ["miniCart"],
 
@@ -181,7 +182,8 @@ export default {
 
             axios(config)
                 .then((result) => {
-                    this.loading = '';                    
+                    this.loading = '';    
+                    this.toast.success("Item remove from cart!");
                     /* this.$notify({ title: 'Item remove from cart!' }) */
                     this.fetchcart();
                 }, (error) => {

@@ -8,7 +8,7 @@
         </picture>
         <!-- <h2 class="text-center mb-40">Shop by category</h2> -->
         <div class="container position-relative" style="z-index: 1;">
-            <Carousel v-bind="settings" :breakpoints="breakpoints_new">
+            <Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
                 <Slide class="single-blog-cta swiper-slide">
                     <div class="shop_category_col"><div to="/kratom-powder"
                             class="shop-category px-4 py-4 text-center p-3 "><img
@@ -47,12 +47,12 @@
                             </div></div>
                 </Slide>
             </Carousel>
-            <!-- <div class="quickview-nav swiper-button-prev">
+            <div class="quickview-nav swiper-button-prev" @click="carousel_prev()">
                 <i class="pe-7s-angle-left"></i>
             </div>
-            <div class="quickview-nav swiper-button-next">
+            <div class="quickview-nav swiper-button-next" @click="carousel_next()">
                 <i class="pe-7s-angle-right"></i>
-            </div> -->
+            </div>
         </div>
     </div>
 </template>
@@ -62,6 +62,21 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 import $ from "jquery";
 export default {
+    setup(){
+            const carousel = ref(null);
+            const carousel_next = () => {
+                carousel.value.next();
+            };
+            const carousel_prev = () => {
+                carousel.value.prev();
+            };
+
+            return {
+                carousel,
+                carousel_next,
+                carousel_prev
+            };            
+        },
     components: { Carousel, Slide, Pagination, Navigation },
     data() {
         return {

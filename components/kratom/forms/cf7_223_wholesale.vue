@@ -18,38 +18,38 @@
                 <input type="hidden" name="_wpcf7_posted_data_hash" value="">
             </div>
             <p>Your Name (required)<br>
-                <span class="wpcf7-form-control-wrap" data-name="your-name"><input type="text" v-bind:value="name" name="your-name" 
+                <span class="wpcf7-form-control-wrap" data-name="your-name"><input type="text" v-model="name" name="your-name" 
                         size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true"
                         aria-invalid="false"></span>
             </p>
             <p>Your Email (required)<br>
-                <span class="wpcf7-form-control-wrap" data-name="your-email"><input type="email" v-bind:value="email" name="your-email"
+                <span class="wpcf7-form-control-wrap" data-name="your-email"><input type="email" v-model="email" name="your-email"
                          size="40"
                         class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"
                         aria-required="true" aria-invalid="false"></span>
             </p>
             <p>Company Name (required)<br>
-                <span class="wpcf7-form-control-wrap" data-name="text-969"><input type="text" v-bind:value="company" name="text-969" 
+                <span class="wpcf7-form-control-wrap" data-name="text-969"><input type="text" v-model="company" name="text-969" 
                         size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true"
                         aria-invalid="false"></span>
             </p>
             <p>Phone Number (required)<br>
-                <span class="wpcf7-form-control-wrap" data-name="tel-547"><input type="tel" v-bind:value="phone" name="tel-547" 
+                <span class="wpcf7-form-control-wrap" data-name="tel-547"><input type="tel" v-model="phone" name="tel-547" 
                         size="40"
                         class="wpcf7-form-control wpcf7-text wpcf7-tel wpcf7-validates-as-required wpcf7-validates-as-tel"
                         aria-required="true" aria-invalid="false"></span>
             </p>
             <p>Address (required)<br>
-                <span class="wpcf7-form-control-wrap" data-name="text-696"><input type="text" v-bind:value="address" name="text-696" 
+                <span class="wpcf7-form-control-wrap" data-name="text-696"><input type="text" v-model="address" name="text-696" 
                         size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true"
                         aria-invalid="false"></span>
             </p>
             <p>Tax ID/EIN # (required) <br>
-                <span class="wpcf7-form-control-wrap" data-name="text-289"><input type="text" v-bind:value="tax" name="text-289" 
+                <span class="wpcf7-form-control-wrap" data-name="text-289"><input type="text" v-model="tax" name="text-289" 
                         size="40" class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true"
                         aria-invalid="false"></span></p>
             <p>Message (required)<br><br>
-                <span class="wpcf7-form-control-wrap" data-name="textarea-167"><textarea v-bind:value="message" name="textarea-167" cols="40"
+                <span class="wpcf7-form-control-wrap" data-name="textarea-167"><textarea v-model="message" name="textarea-167" cols="40"
                         rows="10" class="wpcf7-form-control wpcf7-textarea wpcf7-validates-as-required"
                         aria-required="true" aria-invalid="false"></textarea></span>
             </p>            

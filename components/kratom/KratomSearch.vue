@@ -50,6 +50,12 @@ import CategoryList from '@/components/kratom/product-category/CategoryList.vue'
 import $ from 'jquery';
 import { Buffer } from "buffer";
 export default {
+    async setup(){
+        const title =  'Search: '+ useRoute().query.s;
+        return {
+            title
+        }
+    },
     components: {        
         ProductGridItem: () => import("@/components/product/ProductGridItem"),        
         TitleBar,
@@ -68,7 +74,7 @@ export default {
             selectedPrice: 'default',
             kratom_products: '',
             category_id: '',
-            title: 'Search: '+useRoute().query.s,
+            //title: '',
             loading : true,
             yotpo_reviews_count : []
         }
@@ -166,6 +172,7 @@ export default {
     },    
     created() {
         this.fetch();
+        this.title = 'Search: '+ useRoute().query.s;
     },
     head() {
         return {

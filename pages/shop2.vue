@@ -3,7 +3,7 @@
         <div v-if="s != undefined && s != ''">
             <KratomSearch />
         </div>
-        <div v-else>
+        <div v-else>            
             <TitleBar :title="title" />
             <div class="shop-area pt-100 pb-100 pt-sm-0">
                 <div class="container">
@@ -64,16 +64,41 @@ import CategoryList from '../components/kratom/product-category/CategoryList.vue
 import { Buffer } from "buffer";
 
 export default {
+    async setup(){
+        const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
+        let kratom_products = '';
+        await axios.get(
+            useRuntimeConfig().public.api_url + '/wp-json/wc/v3/products',
+            {
+                params: {
+                    per_page: 100,
+                    orderby: 'popularity',
+                    status: 'publish',
+                },
+                headers: {
+                    authorization: 'Basic ' + encodedCredentials
+                }
+            }
+        ).then((result) => {
+            kratom_products = result.data;
+        }, (error) => {
+            console.log(error);
+        });
+        
+        return {
+            kratom_products
+        }
+
+    },
     components: {
-
         ProductGridItem: () => import("@/components/product/ProductGridItem"),
-
         TitleBar,
         CategoryList
     },
 
     data() {
         return {
+            async_test: '',
             layout: "threeColumn",
             filterItems: [],
             prevSelectedCategoryName: '',
@@ -84,20 +109,20 @@ export default {
             perPage: 100,
             selectedPrice: 'default',
             slug: useRoute().params.slug,
-            kratom_products: '',
+            //kratom_products: '',
             category_id: '',
             title: 'Buy Kratom Online',
             s: useRoute().query.s,
-            loading: true,
+            loading: false,
             totalCount: '',
             sorted: 'popularity'
         }
     },
 
     computed: {
-        products() {
+        /* products() {
             return this.$store.getters.getProducts
-        },
+        }, */
 
         getItems() {
             let start = (this.currentPage - 1) * this.perPage;
@@ -116,7 +141,7 @@ export default {
     mounted() {
         /* this.updateProductData() */
     },
-    async fetch() {
+    /* async fetch() {
         //const Buffer = require('buffer').Buffer;
         const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
         await axios.get(
@@ -137,7 +162,7 @@ export default {
             console.log(error);
         }).finally(() => { this.loading = false });
 
-    },
+    }, */
     methods: {
         sortby(event) {
             //const Buffer = require('buffer').Buffer;
@@ -294,10 +319,7 @@ export default {
 
     },
     created() {
-        this.fetch();
-        if (!(this.s != undefined && this.s != '')) {
-
-        }
+        //this.fetch();
     },
     head() {
         return {

@@ -202,11 +202,7 @@ import axios from "axios";
 import { useKratom_cartStore } from "~/stores/index"
 
 export default {
-    setup() {
-        const Kratom_cartitem = useKratom_cartStore()
-
-        return { Kratom_cartitem }
-    },
+    
     components: {
         Navigation: () => import("@/components/Navigation"),
         MiniCart: () => import("@/components/MiniCart"),
@@ -224,6 +220,7 @@ export default {
     data() {
         return {
             isSticky: false,
+            Kratom_cartitem: {},
             isOpenSearch: false, 
             isOpenAccountSettings: false,
             openCart: false,
@@ -394,8 +391,21 @@ export default {
                   "footer_email": "info@kratomspot.com"
                 }
         }
+        
     },
+    async setup(){
+        let kratom_header_data = '';
+            await axios.get(
+                useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
+                    kratom_header_data = result.data;
+                }, (error) => {
+                    console.log(error);
+                })
+        return {
+            kratom_header_data
+        }
 
+    },
     mounted() {
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
@@ -431,7 +441,12 @@ export default {
         
     },
     methods: {
-        async fetch() {
+        fetch_cart(){
+            const Kratom_cartitem = useKratom_cartStore()
+            this.Kratom_cartitem = Kratom_cartitem;
+            //return { Kratom_cartitem }
+        },
+        /* async fetch() {
             const configs = useRuntimeConfig() //configs.public.
             await axios.get(
                 configs.public.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
@@ -439,7 +454,7 @@ export default {
                 }, (error) => {
                     console.log(error);
                 })
-        },
+        }, */
         copyToClipboard(text) {
             var sampleTextarea = document.createElement("textarea");
             document.body.appendChild(sampleTextarea);
@@ -510,7 +525,7 @@ export default {
 
         
     },
-    fetch() {
+    /* fetch() {
         const configs = useRuntimeConfig() //configs.public.
             axios.get(
                 configs.public.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
@@ -518,9 +533,10 @@ export default {
                 }, (error) => {
                     console.log(error);
                 })
-        },
+        }, */
     created() {
-        this.fetch()
+        //this.fetch()
+        this.fetch_cart()
     }
 };
 </script>

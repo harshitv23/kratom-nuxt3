@@ -294,14 +294,163 @@ export default {
     components: {
 
     },
-
+    setup(){
+        const yoast_head_json = head_json["rewards"]        
+        const schema_scripts = []
+        //console.log(this.yoast_head_json);
+        if (yoast_head_json && yoast_head_json.meta.schema) {
+            schema_scripts.push({
+                type: 'application/ld+json',
+                json: yoast_head_json && yoast_head_json.meta.schema
+                    ? yoast_head_json.meta.schema
+                    : ''
+            });
+        }
+        if (yoast_head_json && yoast_head_json.product_schema) {
+            schema_scripts.push({
+                type: 'application/ld+json',
+                json: yoast_head_json && yoast_head_json.product_schema
+                    ? yoast_head_json.product_schema
+                    : ''
+            });
+        }
+        if (yoast_head_json && yoast_head_json.review_schema) {
+            schema_scripts.push({
+                type: 'application/ld+json',
+                json: yoast_head_json && yoast_head_json.review_schema
+                    ? yoast_head_json.review_schema
+                    : ''
+            });
+        }
+        var robots = 'noindex, nofollow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+        if (yoast_head_json && yoast_head_json.meta.robots) {
+            if (yoast_head_json.meta.robots.index == 'noindex' && yoast_head_json.meta.robots.follow == 'nofollow') {
+                robots = 'noindex, nofollow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+            } else if (yoast_head_json.meta.robots.index == 'noindex') {
+                robots = 'noindex, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+            } else if (yoast_head_json.meta.robots.follow == 'nofollow') {
+                robots = 'index, nofollow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
+            }
+        }
+        useHead({
+            htmlAttrs: { lang: 'en-US' },
+            title: yoast_head_json && yoast_head_json.meta.title ? yoast_head_json.meta.title : 'Kratom Spot',
+            link: [{
+                href: yoast_head_json.meta.permalink ? yoast_head_json.meta.permalink : yoast_head_json && yoast_head_json.meta.canonical
+                    ? yoast_head_json.meta.canonical
+                    : '',
+                rel: 'canonical'
+            },
+            
+            ],
+            meta: [
+                
+                {
+                    hid: 'description',
+                    name: 'description',
+                    content: yoast_head_json && yoast_head_json.meta.description
+                        ? yoast_head_json.meta.description
+                        : 'Kratom Spot'
+                },
+                {
+                    hid: 'robots',
+                    name: 'robots',
+                    content: robots
+                },
+                {
+                    hid: 'og:locale',
+                    name: 'og:locale',
+                    content: yoast_head_json && yoast_head_json.meta.og_locale
+                        ? yoast_head_json.meta.og_locale
+                        : 'en_US'
+                },
+                {
+                    hid: 'og:type',
+                    name: 'og:type',
+                    content: yoast_head_json && yoast_head_json.meta.og_type
+                        ? yoast_head_json.meta.og_type
+                        : 'page'
+                },
+                {
+                    hid: 'og:title',
+                    name: 'og:title',
+                    content: yoast_head_json && yoast_head_json.meta.title ? yoast_head_json.meta.title : 'Kratom Spot'
+                },
+                {
+                    hid: 'og:description',
+                    name: 'og:description',
+                    content: yoast_head_json && yoast_head_json.meta.og_description
+                        ? yoast_head_json.meta.og_description
+                        : 'Kratom Spot'
+                },
+                {
+                    hid: 'og:url',
+                    name: 'og:url',
+                    content: yoast_head_json.meta.permalink ? yoast_head_json.meta.permalink : yoast_head_json && yoast_head_json.meta.og_url
+                        ? yoast_head_json.meta.og_url
+                        : ''
+                },
+                {
+                    hid: 'og:site_name',
+                    name: 'og:site_name',
+                    content: yoast_head_json && yoast_head_json.meta.og_site_name
+                        ? yoast_head_json.meta.og_site_name
+                        : 'Buy Kratom Online'
+                },
+                {
+                    hid: 'article:publisher',
+                    name: 'article:publisher',
+                    content: yoast_head_json && yoast_head_json.meta.article_publisher
+                        ? yoast_head_json.meta.article_publisher
+                        : 'https://www.facebook.com/KSPOTNaturalCo'
+                },
+                {
+                    hid: 'article:modified_time',
+                    name: 'article:modified_time',
+                    content: yoast_head_json && yoast_head_json.meta.article_modified_time
+                        ? yoast_head_json.meta.article_modified_time
+                        : ''
+                },
+                {
+                    hid: 'og:image',
+                    name: 'og:image',
+                    content: yoast_head_json && yoast_head_json.meta && yoast_head_json.meta.og_image
+                        ? yoast_head_json.meta.og_image[0].url
+                        : ''
+                },
+                {
+                    hid: 'og:image:width',
+                    name: 'og:image:width',
+                    content: yoast_head_json && yoast_head_json.meta && yoast_head_json.meta.og_image
+                        ? yoast_head_json.meta.og_image[0].width
+                        : ''
+                },
+                {
+                    hid: 'og:image:height',
+                    name: 'og:image:height',
+                    content: yoast_head_json && yoast_head_json.meta && yoast_head_json.meta.og_image
+                        ? yoast_head_json.meta.og_image[0].height
+                        : ''
+                },
+                {
+                    hid: 'og:image:type',
+                    name: 'og:image:type',
+                    content: yoast_head_json && yoast_head_json.meta && yoast_head_json.meta.og_image
+                        ? yoast_head_json.meta.og_image[0].og_type
+                        : ''
+                },
+                
+            ],
+            script: schema_scripts
+        })
+    },
     data() {
         return {
             user_display_name: '',
             loggedin: false,
             yith: '',
             page_content: [],
-            yoast_head_json: head_json["rewards"],
+            //yoast_head_json: head_json["rewards"],
             loading: true,
         }
     },
@@ -309,10 +458,10 @@ export default {
 
     },
     mounted() {
-        if (this.$cookies.isKey('user_display_name') && this.$cookies.get('user_display_name') != "") {
+        const user_display_name = useCookie('user_display_name')
+        if (user_display_name.value && user_display_name.value != "") {
             this.loggedin = true;
-            let user_display_name = this.$cookies.get('user_display_name')
-            this.username = user_display_name.split(" ")[0]
+            this.username = user_display_name.value.split(" ")[0]
         } else {
             this.loggedin = false;
         }
@@ -372,7 +521,7 @@ export default {
         ],
             }
         }, */
-    head() {
+    /* head() {
         const schema_scripts = []
         //console.log(this.yoast_head_json);
         if (this.yoast_head_json && this.yoast_head_json.meta.schema) {
@@ -520,7 +669,7 @@ export default {
             ],
             script: schema_scripts
         }
-    },
+    }, */
     /* head() {
         return {
             title: "Rewards"

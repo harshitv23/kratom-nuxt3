@@ -3,14 +3,11 @@
         <div class="container position-relative">
             <KratomTitle title="Related" subTitle="Products" class="mb-40"/>
             <div class="product-carousel product-carousel-nav-center">
-                <Carousel v-bind="settings" :breakpoints="breakpoints_new">
+                <Carousel v-bind="settings" :breakpoints="breakpoints_new" v-model="currentSlide" ref="carousel">
                   <Slide v-for="(product, index) in kratom_products" :key="index">
                       <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
                   </Slide>              
-                  <template #addons>
-                    <Pagination />
-                    <Navigation />
-                  </template>
+                  
                 </Carousel>
 
                 <!-- <Swiper :options="swiperOption" :pagination="true" :loop="false" :slides-per-view="4" :spaceBetween="30">
@@ -19,12 +16,13 @@
                     </SwiperSlide>
                 </swiper> -->
                 <!-- Swiper Navigation Start -->
-                <!-- <div class="product-carousel-nav swiper-button-prev">
+                <div class="product-carousel-nav swiper-button-prev" @click="carousel_prev()">
                     <i class="pe-7s-angle-left"></i>
                 </div>
-                <div class="product-carousel-nav swiper-button-next">
+                <div class="product-carousel-nav swiper-button-next" @click="carousel_next()">
                     <i class="pe-7s-angle-right"></i>
-                </div> -->
+                </div>
+                <input type="hidden" v-model="currentSlide" />
                 <!-- Swiper Navigation End -->
             </div>
         </div>
@@ -40,6 +38,7 @@ import $ from 'jquery';
 import { Buffer } from "buffer";
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import 'swiper/css'
+
     export default {
         props: ['product_related'],
         components: {
@@ -47,11 +46,26 @@ import 'swiper/css'
             SwiperSlide,
             Carousel, Slide, Pagination, Navigation     
         },
+        setup(){
+            const carousel = ref(null);
+            const carousel_next = () => {
+                carousel.value.next();
+            };
+            const carousel_prev = () => {
+                carousel.value.prev();
+            };
 
+            return {
+                carousel,
+                carousel_next,
+                carousel_prev
+            };            
+        },
         data() {
             return {
+                currentSlide: 1,
                 settings: {
-                    itemsToShow: 1,
+                    itemsToShow: 2,
                     snapAlign: 'center',
                 },
                 breakpoints_new: {
@@ -104,6 +118,7 @@ import 'swiper/css'
             },            
         },
         methods : {
+            
             fetch() {
                 
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');

@@ -45,14 +45,11 @@
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
                                 
-<Carousel v-bind="settings" :breakpoints="breakpoints_new">
+<Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
                   <Slide v-for="(product, index) in kratom_products_red" :key="index">
                       <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
                   </Slide>              
-                  <template #addons>
-                    <Pagination />
-                    <Navigation />
-                  </template>
+                  
                 </Carousel>
 								<!-- <swiper :options="swiperOption" :pagination="true">
 									<swiper-slide v-for="(product, index) in kratom_products_red" :key="index">
@@ -60,12 +57,12 @@
 									</swiper-slide>
 								</swiper> -->
 								<!-- Swiper Navigation Start -->
-								<!-- <div class="product-carousel-nav swiper-button-prev swiper-button-prev1">
+								<div class="product-carousel-nav swiper-button-prev swiper-button-prev1" @click="carousel_prev">
 									<i class="pe-7s-angle-left"></i>
 								</div>
-								<div class="product-carousel-nav swiper-button-next swiper-button-next1">
+								<div class="product-carousel-nav swiper-button-next swiper-button-next1" @click="carousel_next">
 									<i class="pe-7s-angle-right"></i>
-								</div> -->
+								</div>
 								<!-- Swiper Navigation End -->
 							</div> 
                             <div class="slider-btn btn-hover btn_yellow text-center mt-20">
@@ -245,6 +242,21 @@ import $ from "jquery";
 import { Buffer } from "buffer";
 
     export default {
+        setup(){
+            const carousel = ref(null);
+            const carousel_next = () => {
+                carousel.value.next();
+            };
+            const carousel_prev = () => {
+                carousel.value.prev();
+            };
+
+            return {
+                carousel,
+                carousel_next,
+                carousel_prev
+            };            
+        },
         components: {
     
     ProductGridItem: () => import("@/components/product/ProductGridItem"),
@@ -256,7 +268,7 @@ import { Buffer } from "buffer";
         data() {
             return {
                 settings: {
-                    itemsToShow: 1,
+                    itemsToShow: 2,
                     snapAlign: 'start',
                 },
                 breakpoints_new: {

@@ -21,24 +21,24 @@
             </div>
             <p>Your Name (required)<br>
                 <span class="wpcf7-form-control-wrap" data-name="your-name">
-                    <input type="text" v-bind:value="name" name="your-name" value="" size="40"
+                    <input type="text" v-model="name" name="your-name" size="40"
                         class="wpcf7-form-control wpcf7-text wpcf7-validates-as-required" aria-required="true"
                         aria-invalid="false">
                 </span>
             </p>
             <p>Your Email (required)<br>
-                <span class="wpcf7-form-control-wrap" data-name="your-email"><input v-bind:value="email" type="email"
-                        name="your-email" value="" size="40"
+                <span class="wpcf7-form-control-wrap" data-name="your-email"><input v-model="email"  type="email"
+                        name="your-email" size="40"
                         class="wpcf7-form-control wpcf7-text wpcf7-email wpcf7-validates-as-required wpcf7-validates-as-email"
                         aria-required="true" aria-invalid="false"></span>
             </p>
             <p>Subject<br>
-                <span class="wpcf7-form-control-wrap" data-name="your-subject"><input v-bind:value="subject" type="text"
-                        name="your-subject" value="" size="40" class="wpcf7-form-control wpcf7-text"
+                <span class="wpcf7-form-control-wrap" data-name="your-subject"><input v-model="subject" type="text"
+                        name="your-subject" size="40" class="wpcf7-form-control wpcf7-text"
                         aria-invalid="false"></span>
             </p>
             <p>Your Message<br>
-                <span class="wpcf7-form-control-wrap" data-name="your-message"><textarea v-bind:value="message"
+                <span class="wpcf7-form-control-wrap" data-name="your-message"><textarea v-model="message"
                         name="your-message" cols="40" rows="10" class="wpcf7-form-control wpcf7-textarea"
                         aria-invalid="false"></textarea></span>
             </p>
@@ -75,10 +75,10 @@ export default {
         },
         checkForm: function (e) {
             e.preventDefault();
-            this.errors = [];
+            this.errors = [];            
             if (!this.name) {
                 this.errors.push("Name required.");
-            }
+            }            
             if (!this.email) {
                 this.errors.push("Email required.");
             }else if (!this.validEmail(this.email)) {

@@ -83,11 +83,11 @@
                             <h3>Subscribe Now</h3>
                         </div>
                         <div class="col-md-4">
-                            <input type="text" placeholder="Name" name="nl_name" v-bind:value="nl_name" />
+                            <input type="text" placeholder="Name" name="nl_name" v-model="nl_name" />
                             <div class="omni_msg"></div>
                         </div>
                         <div class="col-md-5 position-relative">
-                            <input type="text" placeholder="Email" name="nl_email" v-bind:value="nl_email" />
+                            <input type="text" placeholder="Email" name="nl_email" v-model="nl_email" />
                             <button class="footer_subscribe_submit" v-on:click="newsletter_subscribe" aria-label="Menu"><i
                                     class="fa fa-paper-plane" aria-hidden="true"></i></button>
                         </div>
@@ -339,14 +339,27 @@ export default {
         },
         
     },
-    async fetch() {
+    async setup(){
+        let kratom_header_data = '';
+        await axios.get(
+            useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=footer').then((result) => {
+                kratom_header_data = result.data;
+            }, (error) => {
+                console.log(error);
+            })        
+        return {
+            kratom_header_data
+        }
+
+    },
+    /* async fetch() {
         await axios.get(
                 useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=footer').then((result) => {
                     this.kratom_header_data = result.data;
                 }, (error) => {
                     console.log(error);
                 })
-        },
+        }, */
     created() {
         //this.fatch();
     },

@@ -25,6 +25,26 @@ import BuyKratomOnline from "../components/kratom/page/buyKratomOnline.vue";
 import { Buffer } from "buffer";
 
 export default {
+    setup(){
+        useHead({
+            htmlAttrs: { lang: 'en-US' },
+            title: "Buy Kratom Online at Kratom Spot",
+            meta: [
+            
+            {
+                    hid: 'description',
+                    name: 'description',
+                    content: 'Get the best kratom products online from Kratom Spot. Our premium kratom powder and capsules are 100% natural, organic, and lab-tested. Shop now!'
+                },],
+            link: [
+            {
+                href: 'https://kratomspot.com/buy-kratom-online',
+                rel: 'canonical'
+            },
+                
+            ],
+        })
+    },
     components: {
         TitleBar,
         CategoryList,
@@ -74,7 +94,7 @@ export default {
     created() {
         this.fetch();
     },
-    head() {
+    /* head() {
         return {
             htmlAttrs: { lang: 'en-US' },
             title: "Buy Kratom Online at Kratom Spot",
@@ -93,7 +113,7 @@ export default {
                 
             ],
         }
-    },
+    }, */
     /* head() {
         return {
             title: "Buy Kratom Online"

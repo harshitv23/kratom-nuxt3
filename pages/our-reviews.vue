@@ -31,6 +31,26 @@
             components: {                        
                 TitleBar,        
             },
+            setup(){
+                useHead({
+                        htmlAttrs: { lang: 'en-US' },
+                        title: "Our Reviews",
+                        meta: [
+                    
+                    {
+                            hid: 'description',
+                            name: 'description',
+                            content: 'Discover what our customers have to say about Kratom Spot\'s quality products, excellent customer service, and fast shipping. See what your friends think now!'
+                        }],
+                    link: [
+                    {
+                        href: 'https://kratomspot.com/our-reviews',
+                        rel: 'canonical'
+                    },
+                    
+                ],
+                    })
+            },
         
             data() {
                 return {
@@ -66,9 +86,18 @@
         
             watch: {                
             },
-            created() {        
+            created() { 
+                if (process.client) {
+                    const script = document.createElement('script')
+                script.src = 'https://staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js'
+                script.async = true;        
+                script.onload = function() {
+                    yotpo.refreshWidgets()
+                }
+                document.head.appendChild(script)
+                }                               
             },
-            head() {
+            /* head() {
                     return {
                         htmlAttrs: { lang: 'en-US' },
                         title: "Our Reviews",
@@ -87,7 +116,7 @@
                     
                 ],
                     }
-                },
+                }, */
             /* head() {
                 return {
                     title: "Our Reviews"

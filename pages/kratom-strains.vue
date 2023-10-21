@@ -217,6 +217,19 @@
 import TitleBar from '../components/kratom/product-category/TitleBar.vue';
 import ProductsByCategory from '../components/kratom/ProductsByCategory.vue';
 export default {
+    setup(){
+        useHead({
+            htmlAttrs: {
+                lang: 'en-US'
+            },
+            title: "Types of Kratom Strains and Effects | Kratom Spot",
+            meta: [
+            ],
+            link: [
+                
+            ],
+        })
+    },
     components: {
         TitleBar,
         ProductsByCategory
@@ -241,7 +254,7 @@ export default {
     created() {
 
     },
-    head() {
+    /* head() {
         return {
             htmlAttrs: {
                 lang: 'en-US'
@@ -253,7 +266,7 @@ export default {
                 
             ],
         }
-    },
+    }, */
     /* head() {
         return {
             title: "Buy Kratom Online"

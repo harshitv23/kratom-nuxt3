@@ -61,14 +61,10 @@
                                 :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"/></div>
                         <div class="" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-                                <Carousel v-bind="settings" :breakpoints="breakpoints_new">
+                                <Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
                   <Slide v-for="(product, index) in kratom_products_red" :key="index">
                       <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
-                  </Slide>              
-                  <template #addons>
-                    <Pagination />
-                    <Navigation />
-                  </template>
+                  </Slide>
                 </Carousel>
                                 <!-- <swiper :options="swiperOption" :pagination="true">
                                     <swiper-slide v-for="(product, index) in kratom_products_red" :key="index">
@@ -275,7 +271,7 @@ export default {
     data() {
         return {
             settings: {
-                    itemsToShow: 1,
+                    itemsToShow: 2,
                     snapAlign: 'start',
                 },
                 breakpoints_new: {

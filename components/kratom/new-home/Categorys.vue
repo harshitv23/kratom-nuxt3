@@ -137,17 +137,26 @@ export default {
             }
         };
     },
-    methods: {
-        
+    async setup(){
+        let kratom_category_data = '';
+        await axios.get(
+                useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=homecategory').then((result) => {
+                    kratom_category_data = result.data;
+                }, (error) => {
+                    console.log(error);
+                })        
+        return {
+            kratom_category_data
+        }
     },
-    async fetch() {
+    /* async fetch() {
         await axios.get(
                 useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=homecategory').then((result) => {
                     this.kratom_category_data = result.data;
                 }, (error) => {
                     console.log(error);
                 })
-        },
+        }, */
     created() {
         //this.fetch();
     },

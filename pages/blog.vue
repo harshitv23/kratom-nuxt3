@@ -42,7 +42,63 @@ export default {
         blogItem,
         pagination
     },
-
+    setup(){
+        useHead({
+                htmlAttrs: { lang: 'en-US' },
+            title: 'Kratom Spot News &amp; Information | Kratom Spot Blog',
+            link : [{
+                href: 'https://kratomspot.com/blog'
+                       ,
+                        rel:'canonical'},
+                        ],
+            meta: [
+                {
+                    hid: 'description',
+                    name: 'description',
+                    content: 'Find the latest kratom news, information &amp; helpful guides about kratom on the Kratom Spot blog. Our goal is to educate as many people about its benefits.'
+                },
+                {
+                    hid: 'robots',
+                    name: 'robots',
+                    content: 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+                },
+                {
+                    hid: 'og:locale',
+                    name: 'og:locale',
+                    content: 'en_US'
+                },
+                {
+                    hid: 'og:type',
+                    name: 'og:type',
+                    content: 'article'
+                },
+                {
+                    hid: 'og:title',
+                    name: 'og:title',
+                    content: 'Blog'
+                },
+                {
+                    hid: 'og:description',
+                    name: 'og:description',
+                    content: 'Find the latest kratom news, information &amp; helpful guides about kratom on the Kratom Spot blog. Our goal is to educate as many people about its benefits.'
+                },
+                {
+                    hid: 'og:url',
+                    name: 'og:url',
+                    content: 'https://kratomspot.com/blog'
+                },
+                {
+                    hid: 'og:site_name',
+                    name: 'og:site_name',
+                    content: 'Buy Kratom Online'
+                },
+            ] ,
+            script : [{
+        type: 'application/ld+json',
+        json: {"@context":"https://schema.org","@graph":[{"@type":["WebPage","CollectionPage"],"@id":"https://kratomspot.com/blog","url":"https://kratomspot.com/blog","name":"Kratom Spot News & Information | Kratom Spot Blog","isPartOf":{"@id":"https://kratomspot.com/#website"},"datePublished":"2013-11-20T21:47:55+00:00","dateModified":"2020-05-29T19:21:43+00:00","description":"Find the latest kratom news, information & helpful guides about kratom on the Kratom Spot blog. Our goal is to educate as many people about its benefits.","breadcrumb":{"@id":"https://kratomspot.com/blog#breadcrumb"},"inLanguage":"en-US"},{"@type":"BreadcrumbList","@id":"https://kratomspot.com/blog#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kratomspot.com/"},{"@type":"ListItem","position":2,"name":"Blog"}]},{"@type":"WebSite","@id":"https://kratomspot.com/#website","url":"https://kratomspot.com/","name":"Buy Kratom Online","description":"All natural, premium Kratom","publisher":{"@id":"https://kratomspot.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://kratomspot.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://kratomspot.com/#organization","name":"Kratom Spot","url":"https://kratomspot.com/","logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://kratomspot.com/#/schema/logo/image/","url":"https://res.cloudinary.com/dv8z5nr6r/images/f_auto,q_auto/v1652852928/logo-1-new_1987509f70c/logo-1-new_1987509f70c.png?_i=AA","contentUrl":"https://res.cloudinary.com/dv8z5nr6r/images/f_auto,q_auto/v1652852928/logo-1-new_1987509f70c/logo-1-new_1987509f70c.png?_i=AA","width":93,"height":93,"caption":"Kratom Spot"},"image":{"@id":"https://kratomspot.com/#/schema/logo/image/"},"sameAs":["https://www.facebook.com/KSPOTNaturalCo","https://twitter.com/kspot_naturals"]}]}
+      }]
+            })
+    },
     data() {
         return {
             blogs: '',
@@ -174,7 +230,7 @@ export default {
         this.fetch();
         this.productCount();
     },
-    head() {
+    /* head() {
             return {
                 htmlAttrs: { lang: 'en-US' },
             title: 'Kratom Spot News &amp; Information | Kratom Spot Blog',
@@ -230,7 +286,7 @@ export default {
         json: {"@context":"https://schema.org","@graph":[{"@type":["WebPage","CollectionPage"],"@id":"https://kratomspot.com/blog","url":"https://kratomspot.com/blog","name":"Kratom Spot News & Information | Kratom Spot Blog","isPartOf":{"@id":"https://kratomspot.com/#website"},"datePublished":"2013-11-20T21:47:55+00:00","dateModified":"2020-05-29T19:21:43+00:00","description":"Find the latest kratom news, information & helpful guides about kratom on the Kratom Spot blog. Our goal is to educate as many people about its benefits.","breadcrumb":{"@id":"https://kratomspot.com/blog#breadcrumb"},"inLanguage":"en-US"},{"@type":"BreadcrumbList","@id":"https://kratomspot.com/blog#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://kratomspot.com/"},{"@type":"ListItem","position":2,"name":"Blog"}]},{"@type":"WebSite","@id":"https://kratomspot.com/#website","url":"https://kratomspot.com/","name":"Buy Kratom Online","description":"All natural, premium Kratom","publisher":{"@id":"https://kratomspot.com/#organization"},"potentialAction":[{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://kratomspot.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}],"inLanguage":"en-US"},{"@type":"Organization","@id":"https://kratomspot.com/#organization","name":"Kratom Spot","url":"https://kratomspot.com/","logo":{"@type":"ImageObject","inLanguage":"en-US","@id":"https://kratomspot.com/#/schema/logo/image/","url":"https://res.cloudinary.com/dv8z5nr6r/images/f_auto,q_auto/v1652852928/logo-1-new_1987509f70c/logo-1-new_1987509f70c.png?_i=AA","contentUrl":"https://res.cloudinary.com/dv8z5nr6r/images/f_auto,q_auto/v1652852928/logo-1-new_1987509f70c/logo-1-new_1987509f70c.png?_i=AA","width":93,"height":93,"caption":"Kratom Spot"},"image":{"@id":"https://kratomspot.com/#/schema/logo/image/"},"sameAs":["https://www.facebook.com/KSPOTNaturalCo","https://twitter.com/kspot_naturals"]}]}
       }]
             }
-        },
+        }, */
     /* head() {
         return {
             title: "Blog"
