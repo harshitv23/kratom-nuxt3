@@ -148,7 +148,6 @@ export default {
     // Modules (https://go.nuxtjs.dev/config-modules)
     modules: [
         '@pinia/nuxt',
-        'nuxt-swiper',
         /* '@nuxtjs/style-resources', */
         /* '@nuxtjs/axios', */
         /* '@nacelle/nacelle-yotpo-nuxt-module' */

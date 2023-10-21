@@ -174,7 +174,7 @@ export default {
             showcartpopup: false,
             outofstockmsg: true,
             singleQuantity: 1,
-            swiperOptionTop: {
+            /* swiperOptionTop: {
                 loop: false,
                 slidesPerView: 1,
                 // spaceBetween: 10,
@@ -203,7 +203,7 @@ export default {
                         topSwiper.slideTo(activeIndex);
                     }
                 }
-            },
+            }, */
             variations: [],
             variation_id: "",
             variation_price: "",

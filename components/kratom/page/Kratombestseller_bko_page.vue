@@ -51,11 +51,7 @@
                   </Slide>              
                   
                 </Carousel>
-								<!-- <swiper :options="swiperOption" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_red" :key="index">
-										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
-								</swiper> -->
+								
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev1" @click="carousel_prev">
 									<i class="pe-7s-angle-left"></i>
@@ -76,11 +72,11 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption2" :pagination="swiperOption2.pagination" :loop="swiperOption2.loop" :slides-per-view="swiperOption2.slidesPerView" :spaceBetween="swiperOption2.spaceBetween" :navigation="swiperOption2.navigation">
-									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_green" :key="index">
+								<Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+									<Slide class="slide" v-for="(product, index) in kratom_products_green" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</SwiperSlide>
-								</swiper>
+                                    </Slide>
+								</Carousel>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev2">
 									<i class="pe-7s-angle-left"></i>
@@ -101,11 +97,11 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption3" :pagination="swiperOption3.pagination" :loop="swiperOption3.loop" :slides-per-view="swiperOption3.slidesPerView" :spaceBetween="swiperOption3.spaceBetween" :navigation="swiperOption3.navigation">
-									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_white" :key="index">
+								<Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+									<Slide class="slide" v-for="(product, index) in kratom_products_white" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</SwiperSlide>
-								</swiper>
+                                    </Slide>
+								</Carousel>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev3">
 									<i class="pe-7s-angle-left"></i>
@@ -126,11 +122,11 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption4" :pagination="swiperOption4.pagination" :loop="swiperOption4.loop" :slides-per-view="swiperOption4.slidesPerView" :spaceBetween="swiperOption4.spaceBetween" :navigation="swiperOption4.navigation">
-									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_extracts" :key="index">
+								<Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+									<Slide class="slide" v-for="(product, index) in kratom_products_extracts" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</SwiperSlide>
-								</swiper>
+                                    </Slide>
+								</Carousel>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev4">
 									<i class="pe-7s-angle-left"></i>
@@ -151,11 +147,11 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption5" :pagination="swiperOption5.pagination" :loop="swiperOption5.loop" :slides-per-view="swiperOption5.slidesPerView" :spaceBetween="swiperOption5.spaceBetween" :navigation="swiperOption5.navigation">
-									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_capsules" :key="index">
+								<Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+									<Slide class="slide" v-for="(product, index) in kratom_products_capsules" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</SwiperSlide >
-								</swiper>
+                                    </Slide>
+								</Carousel>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev5">
 									<i class="pe-7s-angle-left"></i>
@@ -176,11 +172,11 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption6" :pagination="swiperOption6.pagination" :loop="swiperOption6.loop" :slides-per-view="swiperOption6.slidesPerView" :spaceBetween="swiperOption6.spaceBetween" :navigation="swiperOption6.navigation">
-									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_drinks" :key="index">
+								<Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+									<Slide class="slide" v-for="(product, index) in kratom_products_drinks" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</SwiperSlide>
-								</swiper>
+                                    </Slide>
+								</Carousel>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev6">
 									<i class="pe-7s-angle-left"></i>
@@ -201,11 +197,11 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption7" :pagination="swiperOption7.pagination" :loop="swiperOption7.loop" :slides-per-view="swiperOption7.slidesPerView" :spaceBetween="swiperOption7.spaceBetween" :navigation="swiperOption7.navigation">
-									<SwiperSlide class="slide" v-for="(product, index) in kratom_products_kratom_leaves" :key="index">
+								<Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+									<Slide class="slide" v-for="(product, index) in kratom_products_kratom_leaves" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</SwiperSlide>
-								</swiper>
+                                    </Slide>
+								</Carousel>
 								<!-- Swiper Navigation Start -->
 								<div class="product-carousel-nav swiper-button-prev swiper-button-prev7">
 									<i class="pe-7s-angle-left"></i>
@@ -237,7 +233,6 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
     import axios from "axios";
 //import KratomTitle from "../KratomTitle.vue";    
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import $ from "jquery";
 import { Buffer } from "buffer";
 
@@ -257,14 +252,11 @@ import { Buffer } from "buffer";
                 carousel_prev
             };            
         },
-        components: {
-    
-    ProductGridItem: () => import("@/components/product/ProductGridItem"),
-    
-    KratomTitle: () => import("@/components/kratom/KratomTitle"),
-    Swiper,
-    Carousel, Slide, Pagination, Navigation
-}        ,
+        components: {    
+            ProductGridItem: () => import("@/components/product/ProductGridItem"),    
+            KratomTitle: () => import("@/components/kratom/KratomTitle"),    
+            Carousel, Slide, Pagination, Navigation
+        },
         data() {
             return {
                 settings: {
@@ -280,223 +272,6 @@ import { Buffer } from "buffer";
                     itemsToShow: 4,
                     snapAlign: 'start',
                   },
-                },
-                swiperOption: {
-                    loop: true,
-                    speed: 200,
-                    spaceBetween: 30,
-                    slidesPerView: 3,
-                    autoplay: {
-                        delay: 6000
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next1',
-                        prevEl: '.swiper-button-prev1',
-                    },
-                    breakpoints: {
-                        320: {
-                            slidesPerView: 2,
-                        spaceBetween: 20,
-                        },
-                        480: {
-                            slidesPerView: 2
-                        },
-                        768: {
-                            slidesPerView: 3
-                        },
-                        992: {
-                            slidesPerView: 3
-                        },
-                        1200: {
-                            slidesPerView: 4
-                        }
-                    }
-                },
-                swiperOption2: {
-                    loop: true,
-                    speed: 200,
-                    spaceBetween: 30,
-                    slidesPerView: 3,
-                    autoplay: {
-                        delay: 6000
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next2',
-                        prevEl: '.swiper-button-prev2',
-                    },
-                    breakpoints: {
-                        320: {
-                            slidesPerView: 2,
-                        spaceBetween: 20,
-                        },
-                        480: {
-                            slidesPerView: 2
-                        },
-                        768: {
-                            slidesPerView: 3
-                        },
-                        992: {
-                            slidesPerView: 3
-                        },
-                        1200: {
-                            slidesPerView: 4
-                        }
-                    }
-                },
-                swiperOption3: {
-                    loop: true,
-                    speed: 200,
-                    spaceBetween: 30,
-                    slidesPerView: 3,
-                    autoplay: {
-                        delay: 6000
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next3',
-                        prevEl: '.swiper-button-prev3',
-                    },
-                    breakpoints: {
-                        320: {
-                            slidesPerView: 2,
-                        spaceBetween: 20,
-                        },
-                        480: {
-                            slidesPerView: 2
-                        },
-                        768: {
-                            slidesPerView: 3
-                        },
-                        992: {
-                            slidesPerView: 3
-                        },
-                        1200: {
-                            slidesPerView: 4
-                        }
-                    }
-                },
-                swiperOption4: {
-                    loop: true,
-                    speed: 200,
-                    spaceBetween: 30,
-                    slidesPerView: 3,
-                    autoplay: {
-                        delay: 6000
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next4',
-                        prevEl: '.swiper-button-prev4',
-                    },
-                    breakpoints: {
-                        320: {
-                            slidesPerView: 2,
-                        spaceBetween: 20,
-                        },
-                        480: {
-                            slidesPerView: 2
-                        },
-                        768: {
-                            slidesPerView: 3
-                        },
-                        992: {
-                            slidesPerView: 3
-                        },
-                        1200: {
-                            slidesPerView: 4
-                        }
-                    }
-                },
-                swiperOption5: {
-                    loop: true,
-                    speed: 200,
-                    spaceBetween: 30,
-                    slidesPerView: 3,
-                    autoplay: {
-                        delay: 6000
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next5',
-                        prevEl: '.swiper-button-prev5',
-                    },
-                    breakpoints: {
-                        320: {
-                            slidesPerView: 2,
-                        spaceBetween: 20,
-                        },
-                        480: {
-                            slidesPerView: 2
-                        },
-                        768: {
-                            slidesPerView: 3
-                        },
-                        992: {
-                            slidesPerView: 3
-                        },
-                        1200: {
-                            slidesPerView: 4
-                        }
-                    }
-                },
-                swiperOption6: {
-                    loop: true,
-                    speed: 200,
-                    spaceBetween: 30,
-                    slidesPerView: 3,
-                    autoplay: {
-                        delay: 6000
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next6',
-                        prevEl: '.swiper-button-prev6',
-                    },
-                    breakpoints: {
-                        320: {
-                            slidesPerView: 2,
-                        spaceBetween: 20,
-                        },
-                        480: {
-                            slidesPerView: 2
-                        },
-                        768: {
-                            slidesPerView: 3
-                        },
-                        992: {
-                            slidesPerView: 3
-                        },
-                        1200: {
-                            slidesPerView: 4
-                        }
-                    }
-                },
-                swiperOption7: {
-                    loop: true,
-                    speed: 200,
-                    spaceBetween: 30,
-                    slidesPerView: 3,
-                    autoplay: {
-                        delay: 6000
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next7',
-                        prevEl: '.swiper-button-prev7',
-                    },
-                    breakpoints: {
-                        320: {
-                            slidesPerView: 2,
-                            spaceBetween: 20,
-                        },
-                        480: {
-                            slidesPerView: 2
-                        },
-                        768: {
-                            slidesPerView: 3
-                        },
-                        992: {
-                            slidesPerView: 3
-                        },
-                        1200: {
-                            slidesPerView: 4
-                        }
-                    }
                 },
                 kratom_products_red: '',
                 kratom_products_green: '',
@@ -700,18 +475,6 @@ import { Buffer } from "buffer";
 
     },created () {
         this.fetch()
-    },
-
-    computed: {
-        newProducts() {                
-            return this.$store.getters.getNewProducts.filter((item) => item.category.includes("cosmetics"))
-        },
-        bestProducts() {
-            return this.$store.getters.getBestProducts.filter((item) => item.category.includes("cosmetics"))
-        },
-        saleProducts() {
-            return this.$store.getters.getSaleProducts.filter((item) => item.category.includes("cosmetics"))
-        },
     }
 };
 </script>

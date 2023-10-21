@@ -94,42 +94,8 @@ export default {
                     snapAlign: 'start',
                   },
                 },
-            /* blog_cta_options: {
-                speed: 750,
-                spaceBetween: 20,
-                slidesPerView: 3,
-                navigation: {
-                    nextEl: ".swiper-button-next",
-                    prevEl: ".swiper-button-prev"
-                },
-                // Responsive breakpoints
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1
-                    },
-                    480: {
-                        slidesPerView: 1
-                    },
-                    768: {
-                        slidesPerView: 2
-                    },
-                    992: {
-                        slidesPerView: 3
-                    }
-                }
-            } */
         }
     },
-    methods: {
-
-    },
-    created(){
-/*         
-$(".main-menu nav ul li ul.mega-menu>li ul li a").each(function() {
-    console.log($(this).attr("href"));
-	console.log($(this).attr("cimg"));
-}); */
-    }
 }
 
 </script>

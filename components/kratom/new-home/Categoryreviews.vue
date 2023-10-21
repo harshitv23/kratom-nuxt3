@@ -39,26 +39,7 @@
                     </div>
                 </Slide>
             </Carousel>
-
-            <!-- <swiper :options="swiperOption" :pagination="true">
-                <swiper-slide v-if="yotpo_reviews && review.bottomline.total_review > 0" v-for="(review, index) in yotpo_reviews" :key="index">
-                    <div class="row" v-if="review.bottomline.total_review > 0 && review.reviews[0].score == 5">
-                        <div class="col-3 pr-0">
-                            <a class="carousel-product-image-container" :href="`${review.products[0].product_link}`">
-                                <img class="carousel-product-image" :src="`${review.products[0].image_url}`" :alt="`${review.products[0].name}`" />
-                                <p class="carousel-product-name" v-html="review.products[0].name"></p>
-                            </a>
-                        </div>
-                        <div class="col-9 pr-5">
-                            <img class="review-star-slider" src="/img/kratom/icons/star-rating-filled.webp" alt="" width="87" height="15"/>
-                            <p class="review-date-cat" v-html="date(review.reviews[0].created_at)"></p>
-                            <p class="review-titel" v-html="review.reviews[0].title"></p>
-                            <read-more class="review-dis review-content" more-str="Read more" :text="review.reviews[0].content" link="#" less-str="Read less" :max-chars="150"></read-more>
-                            <p class="review-author-name" v-html="review.reviews[0].user.display_name"></p>
-                        </div>
-                    </div>
-                </swiper-slide>
-            </swiper> -->
+            
         </div>
     </section>
 </template>
@@ -109,36 +90,6 @@ export default {
                     snapAlign: 'start',
                   },
                 },
-            swiperOption: {
-                
-
-                loop: false,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 4,
-                autoplay: {
-                    delay: 3000
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next2',
-                    prevEl: '.swiper-button-prev2',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 20,
-                    },
-                    480: {
-                        slidesPerView: 1
-                    },
-                    768: {
-                        slidesPerView: 2
-                    },
-                    992: {
-                        slidesPerView: 3
-                    }
-                }
-            },
         }
     }, 
     methods: {

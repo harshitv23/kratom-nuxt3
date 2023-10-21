@@ -125,20 +125,7 @@
         <img format="webp" loading="lazy" class="img-fluid" @click="slideTo(index)"
                                     :src="replaceSizeImg(image.src, 'h_122,w_122')" :alt="image.alt" height="120" width="120"/>
     </Slide>
-  </Carousel>
-                        
-                        <!-- <Swiper :options="swiperOptionTop" ref="swiperTop" :loop="false" :slides-per-view="1" :spaceBetween="0">
-                            <SwiperSlide class="large-img swiper-slide" v-for="(image, index) in product.images" :key="index">
-                                <img format="webp" height="800" width="800" preload class="img-fluid"
-                                    :src="replaceSizeImg(image.src, 'h_500,w_500')" :alt="image.alt" />
-                            </SwiperSlide>                            
-                        </Swiper>
-                        <Swiper  :options="swiperOptionThumbs" ref="swiperThumbs" :loop="false" :slides-per-view="3" :spaceBetween="20">
-                            <SwiperSlide class="thumb-img swiper-slide" v-for="(image, index) in product.images" :key="index">
-                                <img format="webp" loading="lazy" class="img-fluid"
-                                    :src="replaceSizeImg(image.src, 'h_122,w_122')" :alt="image.alt" height="120" width="120"/>
-                            </SwiperSlide>
-                        </Swiper> -->
+  </Carousel>                                               
                     </div>
                 </div>
 
@@ -231,12 +218,12 @@
 import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
-import { Swiper, SwiperSlide } from 'swiper/vue';
+
 import { Buffer } from 'buffer';
 import axios from 'axios';
 import $ from "jquery";
 import MiniCartPopup from './MiniCartPopup.vue';
-import 'swiper/css'
+
 
 import { useKratom_cartStore } from '~/stores';
 import { useToast } from 'vue-toast-notification';
@@ -252,7 +239,7 @@ export default{
         return { add_item, toast }
     },
     props: ["product", "product_id", "price_html_1", "description", "product_moreinfo", "product_laberesult"],
-    components: { Swiper, SwiperSlide, MiniCartPopup, Carousel, Slide, Pagination, Navigation, CartRelatedProducts },
+    components: { MiniCartPopup, Carousel, Slide, Pagination, Navigation, CartRelatedProducts },
     data() {
         return {
             currentSlide: 0,

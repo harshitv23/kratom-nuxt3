@@ -36,14 +36,10 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 import axios from "axios";
 import $ from 'jquery';
 import { Buffer } from "buffer";
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
-import 'swiper/css'
 
     export default {
         props: ['product_related'],
-        components: {
-            Swiper,
-            SwiperSlide,
+        components: {            
             Carousel, Slide, Pagination, Navigation     
         },
         setup(){
@@ -78,7 +74,7 @@ import 'swiper/css'
                     snapAlign: 'start',
                   },
                 },
-                swiperOption: {
+                /* swiperOption: {
                     loop: false,
                     speed: 750,
                     spaceBetween: 30,
@@ -105,7 +101,7 @@ import 'swiper/css'
                             slidesPerView: 4
                         }
                     }
-                },
+                }, */
                 kratom_products: '',
                 layout: 'twoColumn',
                 yotpo_reviews_count: []

@@ -16,11 +16,7 @@
                   </Slide>              
                   
                 </Carousel>
-                        <!-- <swiper :options="swiperOption" :pagination="true">
-                            <swiper-slide v-for="(product, index) in kratom_products_red" :key="index">
-                                <ProductGridItem :yotpoonce="index" :product="product" :layout="layout" :yotpo_reviews_count = "yotpo_reviews_count"/>
-                            </swiper-slide>
-                        </swiper> -->
+                        
                         <!-- Swiper Navigation Start -->
                         <div class="product-carousel-nav swiper-button-prev swiper-button-prev1" @click="carousel_prev()">
                             <i class="pe-7s-angle-left"></i>
@@ -102,35 +98,7 @@ const carousel = ref(null);
                     }
                     }
                 ]
-            },
-            swiperOption: {
-                loop: false,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 4,
-                autoplay: {
-                    delay: 6000
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next1',
-                    prevEl: '.swiper-button-prev1',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    480: {
-                        slidesPerView: 2
-                    },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 4
-                    }
-                }
-            },
+            },            
             kratom_products_red: '',
             layout: 'twoColumn',
             yotpo_reviews_count: [],
