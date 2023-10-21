@@ -227,6 +227,13 @@ import { useToast } from 'vue-toast-notification';
 
 export default {
     setup() {
+        useHead({
+        htmlAttrs: { lang: 'en-US' },
+            title: 'Cart',            
+            meta: [
+                
+            ]
+        })
         const cart_item = useKratom_cartStore();
         const toast = useToast();
 
@@ -639,7 +646,6 @@ export default {
             axios(config)
                 .then((result) => {
                     //this.$store.dispatch("removeProductFromCartKratom");
-                    console.log(result.data);
                     this.toast.success('Item remove from cart!');
                     /* this.$notify({ title: 'Item remove from cart!' }) */
                     this.loading = '';
@@ -740,7 +746,7 @@ export default {
             this.cartload = false;
         }
     },
-    head() {
+    /* head() {
         return {
         htmlAttrs: { lang: 'en-US' },
             title: 'Cart',            
@@ -748,7 +754,7 @@ export default {
                 
             ]
         }
-    },
+    }, */
     /* head() {
         return {
             title: "Cart"

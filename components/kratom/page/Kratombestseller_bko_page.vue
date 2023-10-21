@@ -44,16 +44,23 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption" :pagination="swiperOption.pagination" :loop="swiperOption.loop" :slides-per-view="swiperOption.slidesPerView" :spaceBetween="swiperOption.spaceBetween" :navigation="swiperOption.navigation">
-									<SwiperSlide  class="slide" v-for="(product, index) in kratom_products_red" :key="index">
+                                
+<Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+                  <Slide v-for="(product, index) in kratom_products_red" :key="index">
+                      <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
+                  </Slide>              
+                  
+                </Carousel>
+								<!-- <swiper :options="swiperOption" :pagination="true">
+									<swiper-slide v-for="(product, index) in kratom_products_red" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</SwiperSlide>
-								</swiper>
+									</swiper-slide>
+								</swiper> -->
 								<!-- Swiper Navigation Start -->
-								<div class="product-carousel-nav swiper-button-prev swiper-button-prev1">
+								<div class="product-carousel-nav swiper-button-prev swiper-button-prev1" @click="carousel_prev">
 									<i class="pe-7s-angle-left"></i>
 								</div>
-								<div class="product-carousel-nav swiper-button-next swiper-button-next1">
+								<div class="product-carousel-nav swiper-button-next swiper-button-next1" @click="carousel_next">
 									<i class="pe-7s-angle-right"></i>
 								</div>
 								<!-- Swiper Navigation End -->
@@ -225,36 +232,70 @@
 
 
 <script>    
-import axios from "axios";
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
+    import axios from "axios";
 //import KratomTitle from "../KratomTitle.vue";    
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import $ from "jquery";
 import { Buffer } from "buffer";
 
-export default {
-    components: {
-        ProductGridItem: () => import("@/components/product/ProductGridItem"),
-        KratomTitle: () => import("@/components/kratom/KratomTitle"),
-        /* Swiper,
-        SwiperSlide */
-    },
-    data() {
-        return {
-            swiperOption: {
-                loop: true,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 4    ,
-                autoplay: {
-                    delay: 6000
+    export default {
+        setup(){
+            const carousel = ref(null);
+            const carousel_next = () => {
+                carousel.value.next();
+            };
+            const carousel_prev = () => {
+                carousel.value.prev();
+            };
+
+            return {
+                carousel,
+                carousel_next,
+                carousel_prev
+            };            
+        },
+        components: {
+    
+    ProductGridItem: () => import("@/components/product/ProductGridItem"),
+    
+    KratomTitle: () => import("@/components/kratom/KratomTitle"),
+    Swiper,
+    Carousel, Slide, Pagination, Navigation
+}        ,
+        data() {
+            return {
+                settings: {
+                    itemsToShow: 2,
+                    snapAlign: 'start',
                 },
-                navigation: {
-                    nextEl: '.swiper-button-next1',
-                    prevEl: '.swiper-button-prev1',
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
                 },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 2,
+                swiperOption: {
+                    loop: true,
+                    speed: 200,
+                    spaceBetween: 30,
+                    slidesPerView: 3,
+                    autoplay: {
+                        delay: 6000
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next1',
+                        prevEl: '.swiper-button-prev1',
+                    },
+                    breakpoints: {
+                        320: {
+                            slidesPerView: 2,
                         spaceBetween: 20,
                         },
                         480: {

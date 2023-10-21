@@ -42,15 +42,15 @@
                                     <a :href="`/${submenu.menu_slug_}`" v-if="submenu.menu_slug_ == 'kratom-spot-affiliate-program'">{{ submenu.menu_text }}</a>
                                     <a :href="`/${submenu.menu_slug_}`" v-else>{{ submenu.menu_text }}</a>
                                 </li>
-                                <li class="d-none"><NuxtLink to="/kratom-information">Kratom Buying Information</NuxtLink>
+                                <!-- <li class="d-none"><NuxtLink to="/kratom-information">Kratom Buying Information</NuxtLink>
                                 </li>
                                 <li class="d-none"><NuxtLink to="/shipping">Kratom Shipping</NuxtLink></li>
                                 <li class="d-none"><NuxtLink to="/what-is-kratom">What is kratom?</NuxtLink></li>
                                 <li class="d-none"><NuxtLink to="/wholesale-thank-you">Thank you</NuxtLink></li>
-                                <!-- <li class="d-none"><NuxtLink to="/xshop/blog-data">Blog Data</NuxtLink></li> -->
+                                <li class="d-none"><NuxtLink to="/xshop/blog-data">Blog Data</NuxtLink></li>
                                 <li class="d-none"><NuxtLink to="/contact-form-thank-you">Contact form thank you</NuxtLink></li>
                                 <li class="d-none"><NuxtLink to="/shop2">Shop Full</NuxtLink></li>                                
-                                <li class="d-none"><NuxtLink to="/edibles">Edibles</NuxtLink></li>                                
+                                <li class="d-none"><NuxtLink to="/edibles">Edibles</NuxtLink></li>      -->                           
                             </ul>
                         </div>                        
                         <div class="col-md-4 pl-10 pl-sm-15">
@@ -339,14 +339,27 @@ export default {
         },
         
     },
-    async fetch() {
+    async setup(){
+        let kratom_header_data = '';
+        await axios.get(
+            useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=footer').then((result) => {
+                kratom_header_data = result.data;
+            }, (error) => {
+                console.log(error);
+            })        
+        return {
+            kratom_header_data
+        }
+
+    },
+    /* async fetch() {
         await axios.get(
                 useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=footer').then((result) => {
                     this.kratom_header_data = result.data;
                 }, (error) => {
                     console.log(error);
                 })
-        },
+        }, */
     created() {
         //this.fatch();
     },

@@ -1,19 +1,19 @@
 <template>
     <section class="product_effects position-relative mt-40 pt-md-60">
-        <!-- <div class="product_effects_bg pt-20">
+        <div class="product_effects_bg pt-20">
         <div class="container product_effects_inner">
             <h2 class="product_effects_heading">KRATOM EFFECTS</h2>
             <ul class="product_effects_ul">
-                <li class="product_effects_li"><img src="img/kratom/icons/effect_blog_img.png" alt="" width="18" height="18"/><span class="product_effects_span" v-html="(product.ACF.kratome_effects_text_1)?product.ACF.kratome_effects_text_1:'Calming'"></span></li>
-                <li class="product_effects_li"><img src="img/kratom/icons/effect_blog_img.png" alt="" width="18" height="18"/><span class="product_effects_span" v-html="(product.ACF.kratome_effects_text_2)?product.ACF.kratome_effects_text_2:'Relief'"></span></li>
-                <li class="product_effects_li"><img src="img/kratom/icons/effect_blog_img.png" alt="" width="18" height="18"/><span class="product_effects_span" v-html="(product.ACF.kratome_effects_text_3)?product.ACF.kratome_effects_text_3:'Soothing'"></span></li>
+                <li class="product_effects_li"><img src="https://kratomspot.com/img/kratom/icons/effect_blog_img.png" alt="" width="18" height="18"/><span class="product_effects_span" v-html="(product.ACF.kratome_effects_text_1)?product.ACF.kratome_effects_text_1:'Calming'"></span></li>
+                <li class="product_effects_li"><img src="https://kratomspot.com/img/kratom/icons/effect_blog_img.png" alt="" width="18" height="18"/><span class="product_effects_span" v-html="(product.ACF.kratome_effects_text_2)?product.ACF.kratome_effects_text_2:'Relief'"></span></li>
+                <li class="product_effects_li"><img src="https://kratomspot.com/img/kratom/icons/effect_blog_img.png" alt="" width="18" height="18"/><span class="product_effects_span" v-html="(product.ACF.kratome_effects_text_3)?product.ACF.kratome_effects_text_3:'Soothing'"></span></li>
             </ul>
             <div class="product_effects_img">
                 <img :src="replaceSizeImg(product.ACF.kratome_effects_image,'h_180,q_auto')" alt="kratom effects" v-if="product.ACF.kratome_effects_image" width="498" height="180">
-                <img src="img/kratom/product_effect_img.png" alt="kratom effects" width="498" height="180" v-else>
+                <img src="https://kratomspot.com/img/kratom/product_effect_img.png" alt="kratom effects" width="498" height="180" v-else>
             </div>
         </div>
-    </div> -->
+    </div>
     </section>
 </template>
 

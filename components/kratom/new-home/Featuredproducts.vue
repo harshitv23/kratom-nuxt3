@@ -11,32 +11,22 @@
                     </div>
                     <div class="" :class="loading == true ? 'hidden' : ''">
                         <div class="product-carousel product-carousel-nav-center position-relative">
-                            <swiper class="swiper" 
-                                :options="swiperOption" 
-                                :pagination="swiperOption.pagination" 
-                                :loop="swiperOption.loop" 
-                                :slides-per-view="swiperOption.slidesPerView" 
-                                :spaceBetween="swiperOption.spaceBetween" 
-                                :navigation="swiperOption.navigation"
-                                :creative-effect="{
-                                    prev: {
-                                        shadow: false,
-                                        translate: ['-20%', 0, -1],
-                                    },
-                                    next: {
-                                        translate: ['100%', 0, 0],
-                                    },
-                                    }"
-                            >
+                            <Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+                  <Slide v-for="(product, index) in kratom_products_red" :key="index">
+                      <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
+                  </Slide>              
+                  
+                </Carousel>
+                            <!-- <swiper class="swiper" :options="swiperOption" :pagination="swiperOption.pagination" :loop="swiperOption.loop" :slides-per-view="swiperOption.slidesPerView" :spaceBetween="swiperOption.spaceBetween" :navigation="swiperOption.navigation">
                                 <swiper-slide class="slide" v-for="(product, index) in kratom_products_red" :key="index">
                                     <ProductGridItem :yotpoonce="index" :product="product" :layout="layout" :yotpo_reviews_count="yotpo_reviews_count" />
                                 </swiper-slide>
-                            </swiper>
+                            </swiper> -->
                             <!-- Swiper Navigation Start -->
-                            <div class="product-carousel-nav swiper-button-prev swiper-button-prev5">
+                            <div class="product-carousel-nav swiper-button-prev swiper-button-prev5" @click="carousel_prev()">
                                 <i class="pe-7s-angle-left"></i>
                             </div>
-                            <div class="product-carousel-nav swiper-button-next swiper-button-next5">
+                            <div class="product-carousel-nav swiper-button-next swiper-button-next5" @click="carousel_next()">
                                 <i class="pe-7s-angle-right"></i>
                             </div>
                             <!-- Swiper Navigation End -->
@@ -54,6 +44,8 @@
 </template>
 
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 import axios from "axios";
 import KratomTitle from "../KratomTitle.vue";
@@ -63,14 +55,45 @@ import { Buffer } from "buffer";
 import 'swiper/css'
 
 export default {
+    setup(){
+            const carousel = ref(null);
+            const carousel_next = () => {
+                carousel.value.next();
+            };
+            const carousel_prev = () => {
+                carousel.value.prev();
+            };
+
+            return {
+                carousel,
+                carousel_next,
+                carousel_prev
+            };            
+        },
     components: {
         ProductGridItem: () => import("@/components/product/ProductGridItem"),
         KratomTitle,
         Swiper,
-        SwiperSlide
+        SwiperSlide,
+        Carousel, Slide, Pagination, Navigation
     },
     data() {
         return {
+            settings: {
+                    itemsToShow: 2,
+                    snapAlign: 'start',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
+                },
+
             swiperOption: {
                 loop: false,
                 speed: 200,

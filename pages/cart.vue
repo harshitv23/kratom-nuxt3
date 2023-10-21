@@ -14,13 +14,29 @@
 import TitleBar from '../components/kratom/product-category/TitleBar.vue';
 import cart from '~/components/kratom/cart/cart.vue'
 export default {
+    setup(){
+        useHead({
+                htmlAttrs: { lang: 'en-US' },
+                title: "Cart",
+                meta: [
+            
+            {
+                    hid: 'robots',
+                    name: 'robots',
+                    content: 'noindex, nofollow, max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+                },],
+            link: [
+            
+        ],
+            })
+    },
     components: {
         
         cart,
         TitleBar
     },
-    head() {
-            return {
+    /* head() {
+             return {
                 htmlAttrs: { lang: 'en-US' },
                 title: "Cart",
                 meta: [
@@ -34,7 +50,7 @@ export default {
             
         ],
             }
-        },
+        }, */
     /* head() {
         return {
             title: "Cart"

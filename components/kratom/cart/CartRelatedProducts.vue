@@ -3,11 +3,16 @@
         <div class="container position-relative">
             <KratomTitle title="You may be" subTitle="Interested In..." class="mb-40 with_arrows"/>
             <div class="product-carousel product-carousel-nav-center">
-                <swiper :options="swiperOption" :pagination="swiperOption.pagination" :loop="swiperOption.loop" :slides-per-view="swiperOption.slidesPerView" :spaceBetween="swiperOption.spaceBetween" :navigation="swiperOption.navigation">
+                <Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+                  <Slide v-for="(product, index) in products" :key="index">
+                      <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
+                  </Slide>                                
+                </Carousel>
+                <!-- <swiper :options="swiperOption" :pagination="true">
                     <swiper-slide v-for="(product, index) in products" :key="index">
                         <ProductGridItemCrossSell :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
                     </swiper-slide>
-                </swiper>
+                </swiper> -->
                 <!-- Swiper Navigation Start -->
                 <div class="product-carousel-nav swiper-button-prev">
                     <i class="pe-7s-angle-left"></i>
@@ -23,17 +28,48 @@
 </template>
 
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
 import axios from "axios";
 import $ from 'jquery';
 /* import { Swiper, SwiperSlide } from "vue-awesome-swiper"; */
     export default {
+        setup(){
+            const carousel = ref(null);
+            const carousel_next = () => {
+                carousel.value.next();
+            };
+            const carousel_prev = () => {
+                carousel.value.prev();
+            };
+
+            return {
+                carousel,
+                carousel_next,
+                carousel_prev
+            };            
+        },
         props: ['products'],
         components: {
-            Swiper,
-            SwiperSlide
+            Carousel, Slide, Pagination, Navigation
         },
         data() {
             return {
+                settings: {
+                    itemsToShow: 2,
+                    snapAlign: 'start',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
+                },
                 swiperOption: {
                     loop: false,
                     speed: 750,

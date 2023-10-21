@@ -1,25 +1,78 @@
 <template>
-    <div class="shop-page-wrapper">
-        <!-- <KratomTheHeader />         -->
-        <KratomSearch/>
-        <!-- <KratomTheFooter /> -->
+    <div class="shop-page-wrapper">        
+        <TitleBar :title="title" />        
+        <div class="shop-area pt-100 pb-100 pt-sm-0">
+            <div class="container">
+                <div class="row flex-row-reverse">
+                    <div class="col-lg-9">
+                        <div class="mb-20 mt-md-30 mt-sm-30">
+                            <div class="shop-top-bar">
+                                <div class="select-showing-wrap">
+                                    <div class="shop-select">
+                                        <select @change="sortby($event  )">
+                                            <option value="popularity">Sort by Popularity</option>
+                                            <option value="date">Sort by latest</option>
+                                            <option value="price">Price - Low to High</option>
+                                            <option value="price-desc">Price - High to Low</option>
+                                        </select>
+                                    </div>
+                                    <a class="listpage_filter_button d-md-none" @click="scrollToFilter">Filters</a>
+                                    <!-- <p>Showing {{perPage * currentPage - perPage + 1}} to {{perPage * currentPage > filterItems.length ? filterItems.length : perPage * currentPage}} of {{filterItems.length}} result</p> -->
+                                </div>
+                                <div class="shop-tab">
+                                    <button @click="layout = 'threeColumn'" name="grid"
+                                        :class="{ active: layout === 'threeColumn' }">
+                                        <i class="fa fa-th"></i>
+                                    </button>
+                                    <button @click="layout = 'list'" :class="{ active: layout === 'list' }"  name="list">
+                                        <i class="fa fa-list-ul"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div v-if="loading == true" class="pt-140 pb-140 text-center "><img width="120" height="120"
+                :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
+                        <CategoryList :kratom_products="kratom_products" :layout="layout" :yotpo_reviews_count="yotpo_reviews_count" v-else/>
+                    </div>
+                    <div class="col-lg-3">
+                        <ShopSidebar classes="mt-sm-30" id="filter"/>
+                    </div>
+                </div>
+            </div>
+        </div>        
     </div>
 </template>
 
 <script>
 import axios from "axios";
-import TitleBar from '../components/kratom/product-category/TitleBar.vue';
-import CategoryList from '../components/kratom/product-category/CategoryList.vue';
+import TitleBar from '@/components/kratom/product-category/TitleBar.vue';
+import CategoryList from '@/components/kratom/product-category/CategoryList.vue';
+import $ from 'jquery';
+import { Buffer } from "buffer";
 
 export default {
-    components: {
-        
-        ProductGridItem: () => import("@/components/product/ProductGridItem"),
-        
+    setup(){
+        useHead({
+                htmlAttrs: { lang: 'en-US' },
+                title: "Search Kratomspot",
+                meta: [
+            ],
+            link: [
+            
+        ],            
+        })
+        let title = '';        
+        //title = 'Search: '+ useRoute().query.s;
+        title = 'Search';
+        return {
+            title
+        }
+    },
+    components: {        
+        ProductGridItem: () => import("@/components/product/ProductGridItem"),        
         TitleBar,
         CategoryList
     },
-
     data() {
         return {
             layout: "threeColumn",
@@ -31,41 +84,24 @@ export default {
             currentPage: 1,
             perPage: 9,
             selectedPrice: 'default',
-            slug: useRoute().params.slug,
             kratom_products: '',
             category_id: '',
-            title: 'Buy Kratom Online',
-            s: useRoute().query.s,
-            loading: true
+            //title: '',
+            loading : true,
+            yotpo_reviews_count : []
         }
     },
-
-    computed: {
-        products() {
-            return this.$store.getters.getProducts
-        },
-
-        getItems() {
-            let start = (this.currentPage - 1) * this.perPage;
-            let end = this.currentPage * this.perPage;
-            return this.filterItems.slice(start, end);
-        },
-        getPaginateCount() {
-            return Math.ceil(this.filterItems.length / this.perPage);
-        },
-    },
-
-    mounted() {
-        this.updateProductData()
-        omnisend.push(["track", "$pageViewed"]);
-    },   
     methods: {
+        scrollToFilter() { 
+            document.getElementById('filter').scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        },
         sortby(event) {
-            const Buffer = require('buffer').Buffer;
-            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
             this.loading = true;
             var sortby = event.target.value;
-
+            //const Buffer = require('buffer').Buffer;
+            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
             if (sortby == 'price-desc') {
                 var params = {
                     per_page: 100,
@@ -86,9 +122,7 @@ export default {
                     /* consumer_key: useRuntimeConfig().public.consumer_key,
                     consumer_secret: useRuntimeConfig().public.secret_key, */
                 }
-
             }
-
             axios.get(
                 useRuntimeConfig().public.api_url + '/wp-json/wc/v3/products',
                 {
@@ -101,29 +135,71 @@ export default {
                 this.kratom_products = result.data;
             }, (error) => {
                 console.log(error);
-            }).finally(() => { this.loading = false });
+            }).finally(() => {this.loading = false});
 
-        },              
-    },
-
-    watch: {                
-    },
-    created() {        
+        },
+        fetch() {
+            //const Buffer = require('buffer').Buffer;
+            const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
+            axios.get(
+                useRuntimeConfig().public.api_url + '/wp-json/wc/v3/products',
+                {
+                    params: {
+                        per_page: 100,
+                        search: useRoute().query.s,
+                        status: 'publish',
+                        /* consumer_key: useRuntimeConfig().public.consumer_key,
+                        consumer_secret: useRuntimeConfig().public.secret_key, */
+                    },
+                        headers: {
+                            authorization: 'Basic ' + encodedCredentials
+                        }
+                }
+            ).then((result) => {
+                this.kratom_products = result.data;
+                this.yotporeviews(result.data);
+            }, (error) => {
+                console.log(error);
+            }).finally(() => {this.loading = false});
+        },
+        yotporeviews(data) {
+            const product_ids = [];
+            $.each(data, function(i, item) {
+                product_ids.push(data[i].id);
+            });
+            axios.get(
+                useRuntimeConfig().public.api_url + '/wp-json/yotpo/reviews/',
+                {
+                    params: {
+                        product_id: product_ids,
+                        per_page: 2
+                    }
+                }
+            ).then((result) => {
+                this.yotpo_reviews_count = result.data;
+            }, (error) => {
+                console.log(error);
+            }).finally(() => (this.loading = false));
+        }
+    },    
+    created() {
+        this.fetch();        
     },
     head() {
-            return {
-                htmlAttrs: { lang: 'en-US' },
-                title: "Search Kratomspot",
-                meta: [
+        return {
+            htmlAttrs: { lang: 'en-US' },
+            title: 'Buy Kratom Online',
+            meta: [
+
             ],
             link: [
-            
-        ],
-            }
-        },
+
+            ],
+        }
+    },
     /* head() {
         return {
-            title: "Search Kratomspot"
+            title: "Buy Kratom Online"
         }
     }, */
 };

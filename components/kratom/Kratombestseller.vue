@@ -61,11 +61,16 @@
                                 :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"/></div>
                         <div class="" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-                                <swiper :options="swiperOption" :pagination="true">
+                                <Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+                  <Slide v-for="(product, index) in kratom_products_red" :key="index">
+                      <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
+                  </Slide>
+                </Carousel>
+                                <!-- <swiper :options="swiperOption" :pagination="true">
                                     <swiper-slide v-for="(product, index) in kratom_products_red" :key="index">
                                         <ProductGridItem :yotpoonce="index" :product="product" :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
                                     </swiper-slide>
-                                </swiper>
+                                </swiper> -->
                                 <!-- Swiper Navigation Start -->
                                 <div class="product-carousel-nav swiper-button-prev swiper-button-prev1">
                                     <i class="pe-7s-angle-left"></i>
@@ -248,6 +253,9 @@
 
 
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
 import axios from "axios";
 import KratomTitle from "./KratomTitle.vue";
 import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
@@ -257,10 +265,26 @@ export default {
     components: {
         ProductGridItem: () => import("@/components/product/ProductGridItem"),
         KratomTitle,
-        Swiper
+        Swiper,
+        Carousel, Slide, Pagination, Navigation
     },
     data() {
         return {
+            settings: {
+                    itemsToShow: 2,
+                    snapAlign: 'start',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
+                },
+
             yotpo_reviews_count : [],
             swiperOption: {
                 loop: false,

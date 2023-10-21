@@ -115,13 +115,13 @@
 },
         mounted(){
 
-            const script = document.createElement('script')
+           /*  const script = document.createElement('script')
         script.src = 'https://staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js'
         script.async = true;        
         script.onload = function() {
             yotpo.refreshWidgets()
         }
-        document.head.appendChild(script) 
+        document.head.appendChild(script)  */
 
             omnisend.push(["track", "$pageViewed"]);
             $('.sidebar-widget-search input[name="s"]').on('change keyup', function () { 

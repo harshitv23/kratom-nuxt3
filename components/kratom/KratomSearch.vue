@@ -48,8 +48,14 @@ import axios from "axios";
 import TitleBar from '@/components/kratom/product-category/TitleBar.vue';
 import CategoryList from '@/components/kratom/product-category/CategoryList.vue';
 import $ from 'jquery';
-
+import { Buffer } from "buffer";
 export default {
+    async setup(){
+        const title =  'Search: '+ useRoute().query.s;
+        return {
+            title
+        }
+    },
     components: {        
         ProductGridItem: () => import("@/components/product/ProductGridItem"),        
         TitleBar,
@@ -68,7 +74,7 @@ export default {
             selectedPrice: 'default',
             kratom_products: '',
             category_id: '',
-            title: 'Search: '+useRoute().query.s,
+            //title: '',
             loading : true,
             yotpo_reviews_count : []
         }
@@ -82,7 +88,7 @@ export default {
         sortby(event) {
             this.loading = true;
             var sortby = event.target.value;
-            const Buffer = require('buffer').Buffer;
+            //const Buffer = require('buffer').Buffer;
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
             if (sortby == 'price-desc') {
                 var params = {
@@ -121,7 +127,7 @@ export default {
 
         },
         fetch() {
-            const Buffer = require('buffer').Buffer;
+            //const Buffer = require('buffer').Buffer;
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
             axios.get(
                 useRuntimeConfig().public.api_url + '/wp-json/wc/v3/products',
@@ -166,6 +172,7 @@ export default {
     },    
     created() {
         this.fetch();
+        this.title = 'Search: '+ useRoute().query.s;
     },
     head() {
         return {

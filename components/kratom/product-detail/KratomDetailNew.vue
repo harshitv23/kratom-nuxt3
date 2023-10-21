@@ -1,5 +1,8 @@
 <template>
     <section class="py-5 product_detail_section py-sm-0">
+        
+
+
         <div class="minicart_popup_container" v-if="showcartpopup">
             <div class="container" id="addedtocartcontainer">
                 <div class="minicart-wrapper position-relative" :class="minicart_popup_class">
@@ -13,6 +16,7 @@
                 v-if="cross_sell_products != ''" />
         </div>
         <div class="container pt-20">
+            <div class="yith_product mb-20" v-html="replacehttptohttps(yith.product_points)" v-if="yith.product_points"></div>
             <div class="row my-6 pl-15 pr-15">
                 <div class="col-lg-4 col-md-12 col-sm-12 mx-auto pl-0 pr-10 mt-10 pl-md-0 pr-md-0 mt-sm-25 product_detail_silde_rows" id="sm-order3">                    
                     <div class="product_detail_silde_row">
@@ -103,7 +107,27 @@
 
                 <div class="col-lg-4 col-md-12 col-sm-12 mx-auto product-mob-img pl-sm-0 pr-sm-0" id="sm-order1">
                     <div class="product-details-img  ">
-                        <Swiper :options="swiperOptionTop" ref="swiperTop" :loop="false" :slides-per-view="1" :spaceBetween="0">
+                        <Carousel id="gallery" :items-to-show="1" :wrap-around="false" v-model="currentSlide">
+    <Slide v-for="(image, index) in product.images" :key="index">
+        <img format="webp" height="800" width="800" preload class="img-fluid"
+                                    :src="replaceSizeImg(image.src, 'h_500,w_500')" :alt="image.alt" />
+    </Slide>
+  </Carousel>
+
+  <Carousel
+    id="thumbnails"
+    :items-to-show="3"
+    :wrap-around="false"
+    v-model="currentSlide"
+    ref="carousel"
+  >
+    <Slide v-for="(image, index) in product.images" :key="index">
+        <img format="webp" loading="lazy" class="img-fluid" @click="slideTo(index)"
+                                    :src="replaceSizeImg(image.src, 'h_122,w_122')" :alt="image.alt" height="120" width="120"/>
+    </Slide>
+  </Carousel>
+                        
+                        <!-- <Swiper :options="swiperOptionTop" ref="swiperTop" :loop="false" :slides-per-view="1" :spaceBetween="0">
                             <SwiperSlide class="large-img swiper-slide" v-for="(image, index) in product.images" :key="index">
                                 <img format="webp" height="800" width="800" preload class="img-fluid"
                                     :src="replaceSizeImg(image.src, 'h_500,w_500')" :alt="image.alt" />
@@ -114,7 +138,7 @@
                                 <img format="webp" loading="lazy" class="img-fluid"
                                     :src="replaceSizeImg(image.src, 'h_122,w_122')" :alt="image.alt" height="120" width="120"/>
                             </SwiperSlide>
-                        </Swiper>
+                        </Swiper> -->
                     </div>
                 </div>
 
@@ -146,7 +170,7 @@
                         <div class="product_detail_addtocart_section">
                             <label>
                                 <span class="d-none">qty</span>
-                                <!-- <input type="number" class="product_detail_qty" value="1" min="1" v-model="product_qty"> -->
+                                <!-- <input type="number" class="product_detail_qty" value="1" min="1" v-bind:value="product_qty"> -->
                                 <select id="qty_no" class="product_detail_qty" v-model="product_qty">
                                     <option value="1" selected="selected">1</option>
                                     <option v-for="q_no in qty_no" :value="`${q_no}`" :selected="(q_no == 1 || q_no == '1')?'selected':''">{{ q_no }}</option>
@@ -157,7 +181,7 @@
                                 CART</button>
                             <button type="button" class="btn product_detail_addtocart_btn text-white" v-else disabled>ADD TO
                                 CART</button>
-                            <input type="hidden" id="selected_product_variation" v-model="variation_id">
+                            <input type="hidden" id="selected_product_variation" v-bind:value="variation_id">
                             <input type="hidden" id="selected_product_id" v-bind:value="product_id" />
                             <input type="hidden" id="selected_product_type" v-bind:value="product.type" />
                         </div>
@@ -204,14 +228,21 @@
 
 
 <script>
-/* import { Swiper, SwiperSlide } from 'swiper/vue'; */
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
+import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Buffer } from 'buffer';
 import axios from 'axios';
 import $ from "jquery";
 import MiniCartPopup from './MiniCartPopup.vue';
-import 'swiper/css';
+import 'swiper/css'
+
 import { useKratom_cartStore } from '~/stores';
 import { useToast } from 'vue-toast-notification';
+
+import CartRelatedProducts from '../cart/CartRelatedProducts.vue';
+//import 'bootsrtrap/dist/js/bootstrap.bundle.js';
 
 export default{
     setup() {
@@ -220,74 +251,32 @@ export default{
 
         return { add_item, toast }
     },
-    props: ["product", "product_id", "price_html", "description", "product_moreinfo", "product_laberesult"],
-    components: { Swiper, SwiperSlide, MiniCartPopup },
+    props: ["product", "product_id", "price_html_1", "description", "product_moreinfo", "product_laberesult"],
+    components: { Swiper, SwiperSlide, MiniCartPopup, Carousel, Slide, Pagination, Navigation, CartRelatedProducts },
     data() {
         return {
+            currentSlide: 0,
             showcartpopup: false,
             outofstockmsg: true,
             singleQuantity: 1,
-            /*  swiperOptionTop: {
-                 loop: false,
-                 slidesPerView: 1,
-                 spaceBetween: 10,
-                 effect: "fade",
-                 loopedSlides: 5,
-                 navigation: {
-                     nextEl: ".img_next",
-                     prevEl: ".img_prev"
-                 }
-             }, */
+
             swiperOptionTop: {
                 loop: false,
                 slidesPerView: 1,
-                // spaceBetween: 10,
                 effect: "fade",
-                //loopedSlides: 5,
                 navigation: {
                     nextEl: ".detail-swiper-button-next",
                     prevEl: ".detail-swiper-button-prev"
                 }
             },
-            /* swiperOptionThumbs: {
-                loop: false,
-                spaceBetween: 20,
-                centeredSlides: false,
-                slidesPerView: 3,
-                freeMode: true,
-                watchSlidesVisibility: true,
-                watchSlidesProgress: true,
-                slideToClickedSlide: true,
-                loopedSlides: 3, // looped slides should be the same
-            }, */
-            swiperOptionThumbs: {
-                // loop: false,
-                spaceBetween: 20,
-                //centeredSlides: false,
-                slidesPerView: 3,
-                //freeMode: true,
-                //watchSlidesVisibility: true,
-                //watchSlidesProgress: true,
-                slideToClickedSlide: true,
-                //loopedSlides: 5, // looped slides should be the same
-                /* on: {
-                    click: () => {
-                        const topSwiper = this.$refs.swiperTop.$swiper;
-                        const thumbsSwiper = this.$refs.swiperThumbs.$swiper;
-                        const activeIndex = thumbsSwiper.clickedIndex;
-                        topSwiper.slideTo(activeIndex);
-                    }
-                } */
-            },
             variations: [],
             variation_id: "",
             variation_price: "",
-            price_html: this.price_html,
+            price_html: this.price_html_1,
             product_qty: 1,
             kratom_cart: "",
             minicart_popup_class: 'hidden',
             cross_sell_products: '',
-            //from_category: this.$store.state.from_category,
             added_cart_item: {
                 name: '',
                 qty: '',
@@ -298,6 +287,9 @@ export default{
         };
     },
     methods: {
+        slideTo(val) {
+            this.currentSlide = val
+        },
         replacehttptohttps(content){
             content = content.replace('http://', 'https://');
             content = content.replace('http://', 'https://');
@@ -361,15 +353,14 @@ export default{
 
             this.variation_id = variation_id;            
             if (variation_price != undefined && variation_price != "") {
-                variation_price = this.variationwithdiscount(variation_price, this.product.discount_type, this.product.discount_value)                
-                //this.price_html = variation_price;
+                variation_price = this.variationwithdiscount(variation_price, this.product.discount_type, this.product.discount_value)
                 this.price_html = variation_price;               
                 this.variation_price = variation_price;
             }
-            else {                
+            else {
                 this.price_html = this.product.price_html;
                 this.variation_price = "";
-            }
+            }            
             /* if ($(event.target).find(":selected").val() == "") {
                 variation_avail = true;
             } */            
@@ -502,6 +493,13 @@ export default{
     },
     created(){
         this.fetch();
+        this.fetch_yith();
+        /* this.$nextTick(() => {
+            const swiperTop = this.$refs.swiperTop.$swiper;
+            const swiperThumbs = this.$refs.swiperThumbs.$swiper;
+            swiperTop.controller.control = swiperThumbs;
+            swiperThumbs.controller.control = swiperTop;
+        }); */
         var i
         for(i = 2; i < 100; i++) {
              $('select#qty_no').val(i);
@@ -551,9 +549,9 @@ export default{
     padding: 40px 40px 20px 40px;
 } */
 
-.p-40 {
+/* .p-40 {
     padding: 20px;
-}
+} */
 
 .product_detail_breadcrumb {
     width: 100%;
@@ -569,13 +567,16 @@ export default{
     font-size: 22px;
 }
 
-.product-details-img .swiper-slide-active .img-fluid {
+.product-details-img .swiper-slide-active .img-fluid,.product-details-img .carousel__slide img {
     box-shadow: 0 2px 8px 0 #63636333;
 }
 
-.product-details-img .thumb-img .img-fluid {
+.product-details-img .thumb-img .img-fluid,#thumbnails li.carousel__slide img{
     box-shadow: 0 2px 8px 0 #63636333;
     padding: 15px;
+}
+.product-details-img ol.carousel__track {
+    margin-bottom: 0;
 }
 
 .variation_label {

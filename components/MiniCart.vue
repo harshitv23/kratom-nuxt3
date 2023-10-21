@@ -43,11 +43,12 @@
 <script>
 import axios from "axios";
 import { useKratom_cartStore } from "../stores/index";
+import { useToast } from "vue-toast-notification";
 export default {
     setup() {
         const Kratom_cartitem = useKratom_cartStore()
-
-        return { Kratom_cartitem }
+        const toast = useToast();
+        return { Kratom_cartitem, toast }
     },
     props: ["miniCart"],
 
@@ -181,7 +182,8 @@ export default {
 
             axios(config)
                 .then((result) => {
-                    this.loading = '';                    
+                    this.loading = '';    
+                    this.toast.success("Item remove from cart!");
                     /* this.$notify({ title: 'Item remove from cart!' }) */
                     this.fetchcart();
                 }, (error) => {
@@ -191,7 +193,6 @@ export default {
                 console.log('Remove');
         },
         fetch() {
-            console.log('sdf');
             this.loading = 'loading';
             const kratom_token_c = useCookie('kratom_token')
             if (kratom_token_c.value && kratom_token_c.value != "" && this.cartload) {
@@ -219,7 +220,6 @@ export default {
                     this.cartdata = result.data;
                     /* this.$store.dispatch("addToCartItemKratom", result.data); */
                     this.Kratom_cartitem.kratom_cart = result.data;
-                    console.log(result.data); 
                     this.kratom_cart = result.data;
                     this.loading = '';
                 }, (error) => {
@@ -344,7 +344,7 @@ export default {
             }
         }
     }, mounted() {
-        console.log(this.Kratom_cartitem.kratom_cart.length)
+        
         this.fetch()
     },
 };
