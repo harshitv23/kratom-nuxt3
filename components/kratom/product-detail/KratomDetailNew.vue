@@ -16,7 +16,7 @@
                 v-if="cross_sell_products != ''" />
         </div>
         <div class="container pt-20">
-            <div class="yith_product mb-20" v-html="replacehttptohttps(yith.product_points)" v-if="yith.product_points"></div>
+            <div class="yith_product mb-10" v-html="replacehttptohttps(yith.product_points)" v-if="yith.product_points"></div>
             <div class="row my-6 pl-15 pr-15">
                 <div class="col-lg-4 col-md-12 col-sm-12 mx-auto pl-0 pr-10 mt-10 pl-md-0 pr-md-0 mt-sm-25 product_detail_silde_rows" id="sm-order3">                    
                     <div class="product_detail_silde_row">

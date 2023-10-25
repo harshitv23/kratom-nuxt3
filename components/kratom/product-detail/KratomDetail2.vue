@@ -14,7 +14,7 @@
         </div>
         <div class="container pt-40">
 
-            <div class="yith_product mb-20" v-html="replacehttptohttps(yith.product_points)" v-if="yith.product_points"></div>
+            <div class="yith_product mb-10" v-html="replacehttptohttps(yith.product_points)" v-if="yith.product_points"></div>
             <!-- <div class="yith" v-html="yith.yith_cart_total"></div> -->
             <!-- <div class="product_detail_breadcrumb mb-20 mt-30 pt-20 pb-20 pl-10 pr-10">
                 Home

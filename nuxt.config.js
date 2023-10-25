@@ -174,7 +174,10 @@ export default {
         },
     },
 
-    serverMiddleware: [
+    /* serverMiddleware: [
         '~/plugins/prerender-middleware.js'
-    ]
+    ] */
+    serverMiddleware: [
+      '~/middleware/prerender',
+    ],
 }
