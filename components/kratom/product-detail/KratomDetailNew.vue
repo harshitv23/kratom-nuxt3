@@ -109,8 +109,8 @@
                                     :src="replaceSizeImg(image.src, 'h_500,w_500')" :alt="image.alt" />
                             </div>                            
                         </Swiper>
-                        <Swiper  :options="swiperOptionThumbs" ref="swiperThumbs" :loop="false" :slides-per-view="3" spaceBetween="20">
-                            <div class="thumb-img swiper-slide" v-for="(image, index) in product.images" :key="index">
+                        <Swiper  :options="swiperOptionThumbs" ref="swiperThumbs" :loop="false" :slides-per-view="3" :spaceBetween="20">
+                            <div class="thumb-img swiper-slide slide" v-for="(image, index) in product.images" :key="index">
                                 <img format="webp" loading="lazy" class="img-fluid"
                                     :src="replaceSizeImg(image.src, 'h_122,w_122')" :alt="image.alt" height="120" width="120"/>
                             </div>

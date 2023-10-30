@@ -221,4 +221,5 @@ export default {
     display: inline-block;
     bottom: 0;
     padding: 30px;
+    left: 0;
 }</style>
