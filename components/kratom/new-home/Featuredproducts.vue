@@ -49,10 +49,10 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 import axios from "axios";
 import KratomTitle from "../KratomTitle.vue";
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+
 import $ from "jquery";
 import { Buffer } from "buffer";
-import 'swiper/css'
+
 
 export default {
     setup(){
@@ -73,8 +73,6 @@ export default {
     components: {
         ProductGridItem: () => import("@/components/product/ProductGridItem"),
         KratomTitle,
-        Swiper,
-        SwiperSlide,
         Carousel, Slide, Pagination, Navigation
     },
     data() {
@@ -93,38 +91,6 @@ export default {
                     snapAlign: 'start',
                   },
                 },
-
-            swiperOption: {
-                loop: false,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 4,
-                // autoplay: {
-                //     delay: 6000
-                // },
-                navigation: {
-                    nextEl: '.swiper-button-next5',
-                    prevEl: '.swiper-button-prev5',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 2,
-                        spaceBetween: 20,
-                    },
-                    480: {
-                        slidesPerView: 2
-                    },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 3
-                    },
-                    1200: {
-                        slidesPerView: 4
-                    }
-                }
-            },
             kratom_products_red: '',
             layout: 'twoColumn',
             slider: null,

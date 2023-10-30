@@ -41,34 +41,28 @@ import 'vue3-carousel/dist/carousel.css'
 import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 //import ReadMore from 'vue-read-more';
 import axios from "axios";
-//import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
 import YotpoReviewTotals from "./YotpoReviewTotals.vue";
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
-import 'swiper/css'
 
 export default {
     components: {
-        //ReadMore,
-        Swiper,
-        SwiperSlide,
+        //ReadMore,        
         YotpoReviewTotals,
         Carousel, Slide, Pagination, Navigation
     },
     setup(){
-            const carousel = ref(null);
-            const carousel_next = () => {
-                carousel.value.next();
-            };
-            const carousel_prev = () => {
-                carousel.value.prev();
-            };
-
-            return {
-                carousel,
-                carousel_next,
-                carousel_prev
-            };            
-        },
+        const carousel = ref(null);
+        const carousel_next = () => {
+            carousel.value.next();
+        };
+        const carousel_prev = () => {
+            carousel.value.prev();
+        };
+        return {
+            carousel,
+            carousel_next,
+            carousel_prev
+        };            
+    },
     data() {
         return {
             review_total: "",
@@ -88,35 +82,6 @@ export default {
                 },
 
             review_list: [],
-            review_total: "",
-            swiperOption: {
-                loop: false,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 4,
-                autoplay: {
-                    delay: 3000
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next2',
-                    prevEl: '.swiper-button-prev2',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 20,
-                    },
-                    480: {
-                        slidesPerView: 1
-                    },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 4
-                    },
-                }
-            },
         }
     },
 
@@ -154,109 +119,18 @@ export default {
             return date.getFullYear() + '-' +  (date.getMonth() + 1 ) + '-' + date.getDate();
         },
 
-        date(created_at) {
-            //console.log("get : - "+ created_at)
+        date(created_at) {            
             const date = new Date(created_at);
-            //console.log("created : - "+date.getDate() + '/' +  date.getMonth() + '/' + date.getFullYear())
             return date.getDate() + '/' +  (date.getMonth() + 1) + '/' + date.getFullYear();
         }, 
     },
 
     created() {
-        //console.log('----------');
         this.fetch(this.todaysdate(8));
         this.totalReview();
     },
 };
-
 </script>
-<!-- <script>
-
-import axios from "axios";
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
-import YotpoReviewTotals from "./YotpoReviewTotals.vue";
-
-export default {
-    components: {
-        Swiper,
-        YotpoReviewTotals,
-    },
-
-    data() {
-        return {
-            review_list: [],
-            review_total: "",
-            swiperOption: {
-                loop: false,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 4,
-                autoplay: {
-                    delay: 3000
-                },
-                navigation: {
-                    nextEl: '.swiper-button-next2',
-                    prevEl: '.swiper-button-prev2',
-                },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 20,
-                    },
-                    480: {
-                        slidesPerView: 1
-                    },
-                    768: {
-                        slidesPerView: 3
-                    },
-                    992: {
-                        slidesPerView: 4
-                    },
-                }
-            },
-        }
-    },
-
-    methods: {
-        fetch (date) {
-            axios.get("https://api.yotpo.com/v1/apps/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/reviews", {
-                params: {
-                    utoken : "DmBJCjrcRF5U3Jh6KyZQKvVPeXcD0CiPHfC7P5ql",
-                    since_date : date,
-                    count : 50
-                }
-            }).then((result) => {
-                if(result.data.reviews.length < 8){                    
-                    this.fetch(this.todaysdate(16));
-                }else{
-                    this.review_list = result.data.reviews;
-                }                
-            }, (error) => {
-                console.log(error);
-            });
-        },
-
-        todaysdate(interval) {
-            const date = new Date();
-            date.setDate(date.getDate() - interval);
-            //console.log( "date :- "+date.getFullYear() + '-' +  date.getMonth() + '-' + date.getDate());
-            return date.getFullYear() + '-' +  (date.getMonth() + 1 ) + '-' + date.getDate();
-        },
-
-        date(created_at) {
-            //console.log("get : - "+ created_at)
-            const date = new Date(created_at);
-            //console.log("created : - "+date.getDate() + '/' +  date.getMonth() + '/' + date.getFullYear())
-            return date.getDate() + '/' +  (date.getMonth() + 1) + '/' + date.getFullYear();
-        }, 
-    },
-
-    created() {
-        this.fetch(this.todaysdate(8));
-    },
-};
-
-</script> -->
 
 <style>
 

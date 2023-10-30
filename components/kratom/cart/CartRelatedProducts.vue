@@ -8,11 +8,6 @@
                       <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
                   </Slide>                                
                 </Carousel>
-                <!-- <swiper :options="swiperOption" :pagination="true">
-                    <swiper-slide v-for="(product, index) in products" :key="index">
-                        <ProductGridItemCrossSell :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
-                    </swiper-slide>
-                </swiper> -->
                 <!-- Swiper Navigation Start -->
                 <div class="product-carousel-nav swiper-button-prev">
                     <i class="pe-7s-angle-left"></i>
@@ -33,7 +28,7 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 import axios from "axios";
 import $ from 'jquery';
-/* import { Swiper, SwiperSlide } from "vue-awesome-swiper"; */
+
     export default {
         setup(){
             const carousel = ref(null);
@@ -70,37 +65,7 @@ import $ from 'jquery';
                     snapAlign: 'start',
                   },
                 },
-                swiperOption: {
-                    loop: false,
-                    speed: 750,
-                    spaceBetween: 30,
-                    slidesPerView: 4,
-                    autoplay: {
-                        delay: 6000
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                    breakpoints: {
-                        320: {
-                            slidesPerView: 2,
-                        spaceBetween: 20,
-                        },
-                        480: {
-                            slidesPerView: 2
-                        },
-                        768: {
-                            slidesPerView: 3
-                        },
-                        992: {
-                            slidesPerView: 4
-                        },
-                        1200: {
-                            slidesPerView: 4  
-                        }
-                    }
-                },
+                
                 kratom_products: '',
                 layout: 'twoColumn',
                 yotpo_reviews_count : [],

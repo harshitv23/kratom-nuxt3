@@ -41,12 +41,7 @@
                       <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" />
                   </Slide>
                   
-                </Carousel>
-								<!-- <swiper :options="swiperOption" :pagination="true">
-									<Slide v-for="(product, index) in kratom_products_red" :key="index">
-										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</Slide>
-								</swiper> -->
+                </Carousel>								
 								<!-- Swiper Navigation Start -->
 								<!-- <div class="product-carousel-nav swiper-button-prev swiper-button-prev1">
 									<i class="pe-7s-angle-left"></i>
@@ -182,17 +177,14 @@ import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
     import axios from "axios";  
 //import KratomTitle from "../KratomTitle.vue";    
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+
 import $ from "jquery";
 import { Buffer } from "buffer";
 
     export default {
-        components: {
-    
-    ProductGridItem: () => import("@/components/product/ProductGridItem"),
-    
-    KratomTitle: () => import("@/components/kratom/KratomTitle"),
-    Swiper,
+        components: {    
+    ProductGridItem: () => import("@/components/product/ProductGridItem"),    
+    KratomTitle: () => import("@/components/kratom/KratomTitle"),    
     Carousel, Slide, Pagination, Navigation
 }        ,
         data() {
@@ -211,7 +203,7 @@ import { Buffer } from "buffer";
                     snapAlign: 'start',
                   },
                 },
-                swiperOption: {
+                /* swiperOption: {
                     loop: true,
                     speed: 200,
                     spaceBetween: 30,
@@ -350,7 +342,7 @@ import { Buffer } from "buffer";
                             slidesPerView: 3
                         }
                     }
-                },
+                }, */
                 
                 kratom_products_red: '',
                 kratom_products_green: '',
