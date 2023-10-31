@@ -1,9 +1,27 @@
 <template>    
     <section class="category_section_2 pb-60 " v-if="hasReviews(yotpo_reviews)">
         <div class="container">
-            <YotpoReviewTotals/>            
-            <swiper :options="swiperOption" :pagination="true">
-                <swiper-slide v-if="yotpo_reviews && review.bottomline.total_review > 0" v-for="(review, index) in yotpo_reviews" :key="index">
+            <div class="row yotpo-display-wrapper carousel-display-wrapper">
+        <div class="col-md-6 carousel-top-panel" id="carousel-top-panel">
+            <h4 class="headline">Real Reviews From Real Customers</h4>
+        </div>
+        <div class="col-md-6">
+            <div class="carousel-reviews-bottom-line">
+                <span class="yotpo-review-stars">
+                    <img src="/img/kratom/icons/star-rating-filled.webp" alt="Reviwe Star" width="107" height="19" loading="lazy"/>
+                </span>
+                <span class="yotpo-num-of-reviews" v-html="`${(review_total)?review_total:'3075'} Reviews `"> </span>
+                <div class="swiper-button-prev2" @click="carousel_prev()">
+                    <i class="pe-7s-angle-left"></i>
+                </div>
+                <div class="swiper-button-next2" @click="carousel_next()">
+                    <i class="pe-7s-angle-right"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+            <Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+                <Slide v-for="(review, index) in yotpo_reviews" :key="index">
                     <div class="row" v-if="review.bottomline.total_review > 0 && review.reviews[0].score == 5">
                         <div class="col-3 pr-0">
                             <a class="carousel-product-image-container" :href="`${review.products[0].product_link}`">
@@ -15,60 +33,74 @@
                             <img class="review-star-slider" src="/img/kratom/icons/star-rating-filled.webp" alt="" width="87" height="15"/>
                             <p class="review-date-cat" v-html="date(review.reviews[0].created_at)"></p>
                             <p class="review-titel" v-html="review.reviews[0].title"></p>
-                            <read-more class="review-dis review-content" more-str="Read more" :text="review.reviews[0].content" link="#" less-str="Read less" :max-chars="150"></read-more>
+                            <div class="review-dis review-content" v-html="review.reviews[0].content"></div>
                             <p class="review-author-name" v-html="review.reviews[0].user.display_name"></p>
                         </div>
                     </div>
-                </swiper-slide>
-            </swiper>
+                </Slide>
+            </Carousel>
+            
         </div>
     </section>
 </template>
 
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
 
 import axios from "axios";
 import $ from "jquery";
 import YotpoReviewTotals from "./YotpoReviewTotals.vue";
 
 export default {
+    setup(){
+            const carousel = ref(null);
+            const carousel_next = () => {
+                carousel.value.next();
+            };
+            const carousel_prev = () => {
+                carousel.value.prev();
+            };
+
+            return {
+                carousel,
+                carousel_next,
+                carousel_prev
+            };            
+        },
     components: {
-        YotpoReviewTotals
+        YotpoReviewTotals,
+        Carousel, Slide, Pagination, Navigation
     },
     props: ["yotpo_reviews"],
     data() {
         return {
-            swiperOption: {
-                loop: false,
-                speed: 200,
-                spaceBetween: 30,
-                slidesPerView: 4,
-                autoplay: {
-                    delay: 3000
+            review_total: "",
+            settings: {
+                    itemsToShow: 1,
+                    snapAlign: 'start',
                 },
-                navigation: {
-                    nextEl: '.swiper-button-next2',
-                    prevEl: '.swiper-button-prev2',
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
                 },
-                breakpoints: {
-                    320: {
-                        slidesPerView: 1,
-                        spaceBetween: 20,
-                    },
-                    480: {
-                        slidesPerView: 1
-                    },
-                    768: {
-                        slidesPerView: 2
-                    },
-                    992: {
-                        slidesPerView: 3
-                    }
-                }
-            },
         }
-    },
+    }, 
     methods: {
+        totalReview() {
+            axios.get(useRuntimeConfig().public.api_url + "/wp-json/yotpo/bottomline", {
+            }).then((result) => {
+                this.review_total = result.data;
+            }, (error) => {
+                console.log(error);
+            });
+        },
         hasReviews(yotpo_reviews){
             var hasreviews = false;
             $.each(yotpo_reviews, function (index, data) {                
@@ -84,14 +116,8 @@ export default {
             return date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear();
         }
     },
-    mounted() {
-
-    },
-    beforeCreate() {
-
-    },
-    created() {
-
+    created(){
+        this.totalReview();
     }
 }
 </script>
@@ -100,7 +126,7 @@ export default {
 .carousel-product-image {
     border: 1px solid #e1e5ee;
     width: 90px;
-    height: 90px;
+    height: auto;
     border-radius: 4px;
     text-align: center;
     float: right;

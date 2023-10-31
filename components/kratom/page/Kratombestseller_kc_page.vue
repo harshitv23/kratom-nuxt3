@@ -20,12 +20,6 @@
                     <li class="nav-item tab_capsules" role="presentation">
                         <button @click="tab_click($event)" category_id="47" class="nav-link" data-bs-toggle="pill" data-bs-target="#capsules" role="tab"><i class="fa fa-leaf" aria-hidden="true"></i> Capsules</button>
                     </li>
-                    <!-- <li class="nav-item tab_drinks" role="presentation">
-                        <button @click="tab_click($event)" category_id="2763" class="nav-link" data-bs-toggle="pill" data-bs-target="#drinks" role="tab"><i class="fa fa-leaf" aria-hidden="true"></i> Drinks</button>
-                    </li>
-                    <li class="nav-item tab_leaves" role="presentation">
-                        <button @click="tab_click($event)" category_id="2764"   class="nav-link" data-bs-toggle="pill" data-bs-target="#leaves" role="tab"><i class="fa fa-leaf" aria-hidden="true"></i> Kratom Leaves</button>
-                    </li> -->
                 </ul>
 
                 <select name="category_id" @change="tab_click($event,'select')" class="form-select form-control category-dropdown mt-sm-30 mb-sm-30">
@@ -42,18 +36,19 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_red" :key="index">
-										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
-								</swiper>
+                                <Carousel v-bind="settings" :breakpoints="breakpoints_new">
+                  <Slide v-for="(product, index) in kratom_products_red" :key="index">
+                      <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" />
+                  </Slide>
+                  
+                </Carousel>								
 								<!-- Swiper Navigation Start -->
-								<div class="product-carousel-nav swiper-button-prev swiper-button-prev1">
+								<!-- <div class="product-carousel-nav swiper-button-prev swiper-button-prev1">
 									<i class="pe-7s-angle-left"></i>
 								</div>
 								<div class="product-carousel-nav swiper-button-next swiper-button-next1">
 									<i class="pe-7s-angle-right"></i>
-								</div>
+								</div> -->
 								<!-- Swiper Navigation End -->
 							</div> 
                             <div class="slider-btn btn-hover btn_yellow text-center mt-20">
@@ -67,18 +62,19 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption2" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_green" :key="index">
+								<Carousel v-bind="settings" :breakpoints="breakpoints_new">
+									<Slide v-for="(product, index) in kratom_products_green" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
-								</swiper>
+									</Slide>
+                                    
+								</Carousel>
 								<!-- Swiper Navigation Start -->
-								<div class="product-carousel-nav swiper-button-prev swiper-button-prev2">
+								<!-- <div class="product-carousel-nav swiper-button-prev swiper-button-prev2">
 									<i class="pe-7s-angle-left"></i>
 								</div>
 								<div class="product-carousel-nav swiper-button-next swiper-button-next2">
 									<i class="pe-7s-angle-right"></i>
-								</div>
+								</div> -->
 								<!-- Swiper Navigation End -->
 							</div>
                             <div class="slider-btn btn-hover btn_yellow text-center mt-20">
@@ -92,18 +88,19 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption3" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_white" :key="index">
+								<Carousel v-bind="settings" :breakpoints="breakpoints_new">
+									<Slide v-for="(product, index) in kratom_products_white" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
-								</swiper>
+									</Slide>
+                                    
+								</Carousel>
 								<!-- Swiper Navigation Start -->
-								<div class="product-carousel-nav swiper-button-prev swiper-button-prev3">
+								<!-- <div class="product-carousel-nav swiper-button-prev swiper-button-prev3">
 									<i class="pe-7s-angle-left"></i>
 								</div>
 								<div class="product-carousel-nav swiper-button-next swiper-button-next3">
 									<i class="pe-7s-angle-right"></i>
-								</div>
+								</div> -->
 								<!-- Swiper Navigation End -->
 							</div>
                             <div class="slider-btn btn-hover btn_yellow text-center mt-20">
@@ -117,18 +114,19 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption4" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_extracts" :key="index">
+								<Carousel v-bind="settings" :breakpoints="breakpoints_new">
+									<Slide v-for="(product, index) in kratom_products_extracts" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
-								</swiper>
+									</Slide>
+                                    
+								</Carousel>
 								<!-- Swiper Navigation Start -->
-								<div class="product-carousel-nav swiper-button-prev swiper-button-prev4">
+								<!-- <div class="product-carousel-nav swiper-button-prev swiper-button-prev4">
 									<i class="pe-7s-angle-left"></i>
 								</div>
 								<div class="product-carousel-nav swiper-button-next swiper-button-next4">
 									<i class="pe-7s-angle-right"></i>
-								</div>
+								</div> -->
 								<!-- Swiper Navigation End -->
 							</div>
                             <div class="slider-btn btn-hover btn_yellow text-center mt-20">
@@ -142,18 +140,19 @@
                         <div v-if="loading == true" class="pt-30 pb-30 text-center "><img width="120" height="120" :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/Spinner-1s-200px.gif`"></div>
                         <div class="rowx" :class="loading == true ? 'hidden' : ''">
                             <div class="product-carousel product-carousel-nav-center position-relative">
-								<swiper :options="swiperOption5" :pagination="true">
-									<swiper-slide v-for="(product, index) in kratom_products_capsules" :key="index">
+								<Carousel v-bind="settings" :breakpoints="breakpoints_new">
+									<Slide v-for="(product, index) in kratom_products_capsules" :key="index">
 										<ProductGridItem :yotpoonce="index" :product="product"  :layout="layout"/>
-									</swiper-slide>
-								</swiper>
+									</Slide>
+                                    
+								</Carousel>
 								<!-- Swiper Navigation Start -->
-								<div class="product-carousel-nav swiper-button-prev swiper-button-prev5">
+								<!-- <div class="product-carousel-nav swiper-button-prev swiper-button-prev5">
 									<i class="pe-7s-angle-left"></i>
 								</div>
 								<div class="product-carousel-nav swiper-button-next swiper-button-next5">
 									<i class="pe-7s-angle-right"></i>
-								</div>
+								</div> -->
 								<!-- Swiper Navigation End -->
 							</div>
                             <div class="slider-btn btn-hover btn_yellow text-center mt-20">
@@ -173,22 +172,38 @@
 ``
 
 <script>    
-    import axios from "axios";
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
+    import axios from "axios";  
 //import KratomTitle from "../KratomTitle.vue";    
-import { Swiper, SwiperSlide } from 'vue-awesome-swiper';
+
 import $ from "jquery";
+import { Buffer } from "buffer";
 
     export default {
-        components: {
-    
-    ProductGridItem: () => import("@/components/product/ProductGridItem"),
-    
-    KratomTitle: () => import("@/components/kratom/KratomTitle"),
-    Swiper
+        components: {    
+    ProductGridItem: () => import("@/components/product/ProductGridItem"),    
+    KratomTitle: () => import("@/components/kratom/KratomTitle"),    
+    Carousel, Slide, Pagination, Navigation
 }        ,
         data() {
             return {
-                swiperOption: {
+                settings: {
+                    itemsToShow: 2,
+                    snapAlign: 'start',
+                },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 2,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                },
+                /* swiperOption: {
                     loop: true,
                     speed: 200,
                     spaceBetween: 30,
@@ -327,7 +342,7 @@ import $ from "jquery";
                             slidesPerView: 3
                         }
                     }
-                },
+                }, */
                 
                 kratom_products_red: '',
                 kratom_products_green: '',
@@ -343,7 +358,7 @@ import $ from "jquery";
         },
         methods: {  
             tab_click($event, clicktype = 'tab'){
-                const Buffer = require('buffer').Buffer;
+                //const Buffer = require('buffer').Buffer;
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 if(clicktype == 'tab'){
                     var cat_id = $event.target.getAttribute('category_id');
@@ -406,7 +421,7 @@ import $ from "jquery";
 
             }   ,       
             fetch() {
-                const Buffer = require('buffer').Buffer;
+                //const Buffer = require('buffer').Buffer;
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
                 axios.get( 
                     useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products',

@@ -62,7 +62,14 @@
 <script>
 import axios from "axios";
 import $ from "jquery";
+import { useKratom_cartStore } from '~/stores';
+import { useToast } from "vue-toast-notification";
 export default {
+    setup() {
+        const add_item = useKratom_cartStore();
+        const toast = useToast();
+        return { add_item, toast }
+    },
     props: ["product", "layout", "yotpoonce", "yotpo_reviews_count"],
 
     methods: {
@@ -100,8 +107,10 @@ export default {
             };
             axios(config)
                 .then((result) => {
-                    this.$store.dispatch("addToCartItemKratom", result.data);
-                    this.$notify({ title: "Product added to cart successfully!" });
+                    this.add_item.kratom_cart = result.data;
+                    /* this.$store.dispatch("addToCartItemKratom", result.data); */
+                    this.toast.success("Product added to cart successfully!");
+                    /* this.$notify({ title: "Product added to cart successfully!" }); */
 
                 }, (error) => {
                     console.log(error);

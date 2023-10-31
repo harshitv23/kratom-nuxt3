@@ -222,7 +222,23 @@
 import axios from "axios";
 import $ from "jquery";
 import CartRelatedProducts from "./CartRelatedProducts.vue";
+import { useKratom_cartStore } from "~/stores";
+import { useToast } from 'vue-toast-notification';
+
 export default {
+    setup() {
+        useHead({
+        htmlAttrs: { lang: 'en-US' },
+            title: 'Cart',            
+            meta: [
+                
+            ]
+        })
+        const cart_item = useKratom_cartStore();
+        const toast = useToast();
+
+        return { cart_item, toast }
+    },
     components: {
         
         CartRelatedProducts
@@ -231,48 +247,49 @@ export default {
         return {
             singleQuantity: 1,
             cartdata: '',
-            kratom_cart: this.$store.state.kratom_cart,
+            kratom_cart: this.cart_item.kratom_cart,
             cartload: true,
             loading: 'loading',
-            cart_type: this.$store.state.cart_type // loggedin , guest
+            /* cart_type: this.$store.state.cart_type // loggedin , guest */
+            cart_type: '',
         }
     },
 
     computed: {
         items_count() {
-            return this.$store.state.kratom_cart.items_count;
+            return this.cart_item.kratom_cart.items_count;
         },
         total_items() {
-            return this.formatprice(this.$store.state.kratom_cart.totals.total_items, this.$store.state.kratom_cart.currency_minor_unit);
+            return this.formatprice(this.cart_item.kratom_cart.totals.total_items, this.cart_item.kratom_cart.currency_minor_unit);
         },
         total_price() {
-            return this.formatprice(this.$store.state.kratom_cart.totals.total_price,
-                this.$store.state.kratom_cart.currency_minor_unit)
+            return this.formatprice(this.cart_item.kratom_cart.totals.total_price,
+                this.cart_item.kratom_cart.currency_minor_unit)
         },
         total_tax() {
-            if(this.$store.state.kratom_cart.totals.total_tax > 0){
-                return this.formatprice(this.$store.state.kratom_cart.totals.total_tax,
-                this.$store.state.kratom_cart.currency_minor_unit)
+            if(this.cart_item.kratom_cart.totals.total_tax > 0){
+                return this.formatprice(this.cart_item.kratom_cart.totals.total_tax,
+                this.cart_item.kratom_cart.currency_minor_unit)
             }else{
                 return 0;
             }
         },
         products() {
-            if (this.$store.state.kratom_cart.items == undefined) {
+            if (this.cart_item.kratom_cart.items == undefined) {
                 return ''
             } else {
-                return this.$store.state.kratom_cart.items
+                return this.cart_item.kratom_cart.items
             }
         },
         cross_sell_products() {
-            if (this.$store.state.kratom_cart.cross_sells == undefined) {
+            if (this.cart_item.kratom_cart.cross_sells == undefined) {
                 return ''
             } else {
-                return this.$store.state.kratom_cart.cross_sells
+                return this.cart_item.kratom_cart.cross_sells
             }
         },
         shippingRate() {
-            var shipping_rates = this.$store.state.kratom_cart.shipping_rates[0].shipping_rates;
+            var shipping_rates = this.cart_item.kratom_cart.shipping_rates[0].shipping_rates;
             var selected_shipping_rate = '';
             shipping_rates.map(function (value, key) {
                 var price = value.price;
@@ -306,8 +323,8 @@ export default {
         fetchcart() {
             console.log('fetch cart');
             this.loading = 'loading';
-            if (this.$cookies.isKey('kratom_token') && this.$cookies.get('kratom_token') != "" && this.cartload) {
-                var kratom_token = this.$cookies.get('kratom_token');
+            if (useCookie('kratom_token') && useCookie('kratom_token') != "" && this.cartload) {
+                var kratom_token = useCookie('kratom_token');
                 var headers = {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + kratom_token
@@ -331,7 +348,8 @@ export default {
                     /* console.log(result.data); */
                     this.cartdata = result.data;
                     this.cart_type = 'loggedin';
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    this.cart_item.kratom_cart = result.data;
+                    /* this.$store.dispatch("addToCartItemKratom", result.data); */
                     this.kratom_cart = result.data;
                     this.loading = '';
                 }, (error) => {
@@ -360,8 +378,8 @@ export default {
             var coupon_code = $('input[name=coupon_code]').val();
             /* console.log(coupon_code); */
 
-            if (this.$cookies.isKey('kratom_token') && this.$cookies.get('kratom_token') != "") {
-                var kratom_token = this.$cookies.get('kratom_token');
+            if (useCookie('kratom_token') && useCookie('kratom_token') != "") {
+                var kratom_token = useCookie('kratom_token');
                 var headers = {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + kratom_token
@@ -373,12 +391,12 @@ export default {
             }
 
 
-            if (this.$cookies.isKey('kratom_token')) {
+            if (useCookie('kratom_token')) {
                 var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons';
                 var data = { "code": coupon_code };
-            } else if (this.$cookies.isKey('cart_key') && this.$cookies.get('cart_key') != "") {
+            } else if (useCookie('cart_key') && useCookie('cart_key') != "") {
                 var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons';
-                var cart_key = this.$cookies.get('cart_key');
+                var cart_key = useCookie('cart_key');
                 var data = { "code": coupon_code, "cart_key": cart_key };
             } else {
                 var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons';
@@ -401,18 +419,20 @@ export default {
                 }, (error) => {
                     /* console.log(error.response.data.message); */
                     if (error.response.code == "rest_invalid_param") {
-                        this.$notify(
+                        this.toast.warning('Invalid Couopon Code');
+                        /* this.$notify(
                             {
                                 title: "Invalid Couopon Code",
                                 type: 'error'
-                            });
+                            }); */
                     } else {
-                        this.$notify(
+                        /* this.$notify(
                             {
                                 title: error.response.data.message,
                                 type: 'error'
                             }
-                        );
+                        ); */
+                        this.toast.error(error.response.data.message);
                     }
                 }).finally(() => {
 
@@ -422,8 +442,8 @@ export default {
         },
         remove_coupon(coupon_code) {
 
-            if (this.$cookies.isKey('kratom_token') && this.$cookies.get('kratom_token') != "") {
-                var kratom_token = this.$cookies.get('kratom_token');
+            if (useCookie('kratom_token') && useCookie('kratom_token') != "") {
+                var kratom_token = useCookie('kratom_token');
                 var headers = {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + kratom_token
@@ -435,12 +455,12 @@ export default {
             }
 
 
-            if (this.$cookies.isKey('kratom_token')) {
+            if (useCookie('kratom_token')) {
                 var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons/' + coupon_code;
                 var data = {};
-            } else if (this.$cookies.isKey('cart_key') && this.$cookies.get('cart_key') != "") {
+            } else if (useCookie('cart_key') && useCookie('cart_key') != "") {
                 var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons';
-                var cart_key = this.$cookies.get('cart_key');
+                var cart_key = useCookie('cart_key');
                 var data = { "code": coupon_code, "cart_key": cart_key };
             } else {
                 var url = useRuntimeConfig().public.api_url + '/wp-json/wc/store/v1/cart/coupons';
@@ -461,12 +481,13 @@ export default {
                     this.fetchcart();
                 }, (error) => {
                     console.log(error.response.data.message);
-                    this.$notify(
+                    this.toast.error(error.response.data.message);
+                    /* this.$notify(
                         {
                             title: error.response.data.message,
                             type: 'error'
                         }
-                    );
+                    ); */
                 }).finally(() => {
 
                 });
@@ -476,8 +497,8 @@ export default {
         getProductName(product) {
             var pkey = product.key;
             var pname = '';
-            if (this.$store.state.kratom_cart.shipping_rates[0] != undefined && this.$store.state.kratom_cart.shipping_rates[0].items != undefined) {
-                this.$store.state.kratom_cart.shipping_rates[0].items.map(function (value, key) {
+            if (this.cart_item.kratom_cart.shipping_rates[0] != undefined && this.cart_item.kratom_cart.shipping_rates[0].items != undefined) {
+                this.cart_item.kratom_cart.shipping_rates[0].items.map(function (value, key) {
                     if (pkey == value.key) {
                         pname = value.name;
                     }
@@ -491,8 +512,8 @@ export default {
 
         fetch() {
             this.loading = 'loading';
-            if (this.$cookies.isKey('kratom_token') && this.$cookies.get('kratom_token') != "" && this.cartload) {
-                var kratom_token = this.$cookies.get('kratom_token');
+            if (useCookie('kratom_token') && useCookie('kratom_token') != "" && this.cartload) {
+                var kratom_token = useCookie('kratom_token');
                 var headers = {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + kratom_token
@@ -561,7 +582,8 @@ export default {
                     /* console.log(result.data); */
                     this.cartdata = result.data;
                     this.cart_type = 'loggedin';
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    this.cart_item.kratom_cart = result.data;
+                    /* this.$store.dispatch("addToCartItemKratom", result.data); */
                     this.kratom_cart = result.data;
                     
                 }, (error) => {
@@ -583,7 +605,7 @@ export default {
                 console.log(error);
             }); */
 
-            this.$store.state.kratom_cart = this.kratom_cart;
+            this.cart_item.kratom_cart = this.kratom_cart;
         },
         incrementProduct(qty_class) {
             var new_qty = parseInt($('.' + qty_class).val()) + 1;
@@ -603,8 +625,8 @@ export default {
 
         removeProduct(product_key) {
             this.loading = 'loading';
-            if (this.$cookies.isKey('kratom_token') && this.$cookies.get('kratom_token') != "") {
-                var kratom_token = this.$cookies.get('kratom_token');
+            if (useCookie('kratom_token') && useCookie('kratom_token') != "") {
+                var kratom_token = useCookie('kratom_token');
                 var headers = {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + kratom_token
@@ -624,8 +646,8 @@ export default {
             axios(config)
                 .then((result) => {
                     //this.$store.dispatch("removeProductFromCartKratom");
-                    console.log(result.data);
-                    this.$notify({ title: 'Item remove from cart!' })
+                    this.toast.success('Item remove from cart!');
+                    /* this.$notify({ title: 'Item remove from cart!' }) */
                     this.loading = '';
                     this.fetchcart();
                 }, (error) => {
@@ -675,8 +697,8 @@ export default {
         updateCartItem(key, qty_class) {
             this.loading = 'loading';
             var quantity = $('.' + qty_class).val();
-            if (this.$cookies.isKey('kratom_token') && this.$cookies.get('kratom_token') != "") {
-                var kratom_token = this.$cookies.get('kratom_token');
+            if (useCookie('kratom_token') && useCookie('kratom_token') != "") {
+                var kratom_token = useCookie('kratom_token');
                 var headers = {
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + kratom_token
@@ -698,7 +720,8 @@ export default {
             })
                 .then((result) => {
                     /* console.log(result.data); */
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    this.cart_item.kratom_cart = result.data;
+                    /* this.$store.dispatch("addToCartItemKratom", result.data); */
                     
                 }, (error) => {
                     console.log(error);
@@ -723,7 +746,7 @@ export default {
             this.cartload = false;
         }
     },
-    head() {
+    /* head() {
         return {
         htmlAttrs: { lang: 'en-US' },
             title: 'Cart',            
@@ -731,7 +754,7 @@ export default {
                 
             ]
         }
-    },
+    }, */
     /* head() {
         return {
             title: "Cart"

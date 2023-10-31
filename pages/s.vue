@@ -9,7 +9,7 @@
                             <div class="shop-top-bar">
                                 <div class="select-showing-wrap">
                                     <div class="shop-select">
-                                        <select @change="sortby($event)">
+                                        <select @change="sortby($event  )">
                                             <option value="popularity">Sort by Popularity</option>
                                             <option value="date">Sort by latest</option>
                                             <option value="price">Price - Low to High</option>
@@ -49,9 +49,21 @@ import TitleBar from '@/components/kratom/product-category/TitleBar.vue';
 import CategoryList from '@/components/kratom/product-category/CategoryList.vue';
 import $ from 'jquery';
 import { Buffer } from "buffer";
+
 export default {
-    async setup(){
-        const title =  'Search: '+ useRoute().query.s;
+    setup(){
+        useHead({
+                htmlAttrs: { lang: 'en-US' },
+                title: "Search Kratomspot",
+                meta: [
+            ],
+            link: [
+            
+        ],            
+        })
+        let title = '';        
+        //title = 'Search: '+ useRoute().query.s;
+        title = 'Search';
         return {
             title
         }
@@ -171,8 +183,7 @@ export default {
         }
     },    
     created() {
-        this.fetch();
-        this.title = 'Search: '+ useRoute().query.s;
+        this.fetch();        
     },
     head() {
         return {

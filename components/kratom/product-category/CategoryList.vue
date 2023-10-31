@@ -45,7 +45,7 @@
     props: ['kratom_products','layout','empty_message', 'yotpo_reviews_count'],
     data() {
         return {
-            slug: this.$route.params.slug,
+            slug: useRoute().params.slug,
             category_id : ''
         }
     },
@@ -70,7 +70,7 @@
         methods: {
             /* async fetch() {
                 console.log(this.slug);
-                console.log(this.$route.params);
+                console.log(useRoute().params);
                 await axios.get( 
                     useRuntimeConfig().public.api_url+'/wp-json/wc/v3/products/categories',
                     {
@@ -115,13 +115,13 @@
 },
         mounted(){
 
-            const script = document.createElement('script')
+           /*  const script = document.createElement('script')
         script.src = 'https://staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js'
         script.async = true;        
         script.onload = function() {
             yotpo.refreshWidgets()
         }
-        document.head.appendChild(script) 
+        document.head.appendChild(script)  */
 
             omnisend.push(["track", "$pageViewed"]);
             $('.sidebar-widget-search input[name="s"]').on('change keyup', function () { 

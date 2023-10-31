@@ -8,13 +8,13 @@
                         :minicart_popup_class="minicart_popup_class" />
                     <i class="close_addedcart fa fa-times" aria-hidden="true" @click="close_addedcart()"></i>
                 </div>
-            </div>
+            </div>            
             <CartRelatedProducts class="" :class="minicart_popup_class" :products='cross_sell_products'
                 v-if="cross_sell_products != ''" />
         </div>
         <div class="container pt-40">
 
-            <div class="yith_product mb-20" v-html="replacehttptohttps(yith.product_points)" v-if="yith.product_points"></div>
+            <div class="yith_product mb-10" v-html="replacehttptohttps(yith.product_points)" v-if="yith.product_points"></div>
             <!-- <div class="yith" v-html="yith.yith_cart_total"></div> -->
             <!-- <div class="product_detail_breadcrumb mb-20 mt-30 pt-20 pb-20 pl-10 pr-10">
                 Home
@@ -41,17 +41,17 @@
                     </div> -->
                     <div class="mb-30 d-inline-block">
                             <div class="text-black green_vein_item mb-10" v-if="product.ACF.first_icon_text">
-                                <NuxtImg format="webp" loading="lazy" class="w-10" height="45" width="45"
+                                <img format="webp" loading="lazy" class="w-10" height="45" width="45"
                                     :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_1.png`" alt="image_2.png" />
                                 <span> {{ product.ACF.first_icon_text }} </span>
                             </div>
                             <div class="text-black green_vein_item mb-10" v-if="product.ACF.second_icon_text">
-                                <NuxtImg format="webp" loading="lazy" class="w-10" height="45" width="45"
+                                <img format="webp" loading="lazy" class="w-10" height="45" width="45"
                                     :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_2.png`" alt="image_2.png" />
                                 <span> {{ product.ACF.second_icon_text }} </span>
                             </div>
                             <div class="text-black green_vein_item mb-10" v-if="product.ACF.third_icon_text">
-                                <NuxtImg format="webp" loading="lazy" class="w-10" height="45" width="45"
+                                <img format="webp" loading="lazy" class="w-10" height="45" width="45"
                                     :src="`${useRuntimeConfig().public.site_url}/img/kratom/icons/green_vein_3.png`" alt="image_2.png" />
                                 <span> {{ product.ACF.third_icon_text }} </span>
                             </div>
@@ -78,25 +78,26 @@
 
                 <div class="col-lg-4 col-md-12 col-sm-12 mx-auto product-mob-img pl-sm-0 pr-sm-0" id="sm-order1">
                     <div class="product-details-img">
-                        <swiper :options="swiperOptionTop" ref="swiperTop">
-                            <div class="large-img swiper-slide" v-for="(image, index) in product.images" :key="index">
-                                <NuxtImg format="webp" height="800" width="800" preload class="img-fluid"
-                                    :src="replaceSizeImg(image.src, 'h_800,w_800')" :alt="image.alt" />
-                            </div>
-                            <!-- <div class="quickview-nav swiper-button-prev2 img_prev">
-                                <i class="pe-7s-angle-left"></i>
-                            </div>
-                            <div class="quickview-nav swiper-button-next2 img_next">
-                                <i class="pe-7s-angle-right"></i>
-                            </div> -->
-                        </swiper>
-                        <swiper class="mt-2" :options="swiperOptionThumbs" ref="swiperThumbs">
-                            <div class="thumb-img swiper-slide" v-for="(image, index) in product.images" :key="index"
-                                v-if="product.images.length > 1">
-                                <NuxtImg format="webp" loading="lazy" class="img-fluid"
-                                    :src="replaceSizeImg(image.src, 'h_300,w_300')" :alt="image.alt" />
-                            </div>
-                        </swiper>
+                        <Carousel id="gallery" :items-to-show="1" :wrap-around="false" v-model="currentSlide">
+    <Slide v-for="(image, index) in product.images" :key="index">
+        <img format="webp" height="800" width="800" preload class="img-fluid"
+                                    :src="replaceSizeImg(image.src, 'h_500,w_500')" :alt="image.alt" />
+    </Slide>
+  </Carousel>
+
+  <Carousel
+    id="thumbnails"
+    :items-to-show="3"
+    :wrap-around="false"
+    v-model="currentSlide"
+    snapAlign="start"
+    ref="carousel"
+  >
+    <Slide v-for="(image, index) in product.images" :key="index">
+        <img format="webp" loading="lazy" class="img-fluid" @click="slideTo(index)"
+                                    :src="replaceSizeImg(image.src, 'h_122,w_122')" :alt="image.alt" height="120" width="120"/>
+    </Slide>
+  </Carousel>
                     </div>
                 </div>
 
@@ -128,16 +129,16 @@
                         </form>
                         <div class="outofstockmsg" v-if="outofstockmsg == false">Out of stock</div>
                         <div class="product_detail_addtocart_section">
-                            <label><span class="d-none">qty</span><input type="number" class="product_detail_qty" value="1"
+                            <label><span class="d-none">qty</span><input type="number" class="product_detail_qty"
                                     min="1" v-model="product_qty"></label>
                             <button type="button" class="btn product_detail_addtocart_btn text-white"
                                 @click="addToCart(product, product.type, $event)" v-if="outofstockmsg == true">ADD TO
                                 CART</button>
                             <button type="button" class="btn product_detail_addtocart_btn text-white" v-else disabled>ADD TO
                                 CART</button>
-                            <input type="hidden" id="selected_product_variation" v-model="variation_id">
-                            <input type="hidden" id="selected_product_id" v-model="product_id" />
-                            <input type="hidden" id="selected_product_type" v-model="product.type" />
+                            <input type="hidden" id="selected_product_variation" v-bind:value="variation_id">
+                            <input type="hidden" id="selected_product_id" v-bind:value="product_id" />
+                            <input type="hidden" id="selected_product_type" v-bind:value="product.type" />
                         </div>
                         <!-- <div class="yith_product mt-20" v-html="yith.product_points" v-if="yith.product_points"></div> -->
                         
@@ -150,30 +151,30 @@
 
 
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
 import axios from "axios";
 import $ from "jquery";
 import KratomTitleProduct from "../KratomTitleProduct.vue";
 import MiniCartPopup from "./MiniCartPopup.vue";
-
+import { useKratom_cartStore } from "~/stores";
+import { Buffer } from "buffer";
+import { useToast } from 'vue-toast-notification';
 export default {
+    setup() {
+        const add_item = useKratom_cartStore();
+        const toast = useToast();
+        return { add_item, toast }
+    },
     props: ["product", "product_id", "product_price"],
     data() {
         return {
+            currentSlide: 0,
             showcartpopup: false,
             outofstockmsg: true,
             singleQuantity: 1,
-            /*  swiperOptionTop: {
-                 loop: false,
-                 slidesPerView: 1,
-                 spaceBetween: 10,
-                 effect: "fade",
-                 loopedSlides: 5,
-                 navigation: {
-                     nextEl: ".img_next",
-                     prevEl: ".img_prev"
-                 }
-             }, */
-            swiperOptionTop: {
+            /* swiperOptionTop: {
                 loop: false,
                 slidesPerView: 1,
                 // spaceBetween: 10,
@@ -184,17 +185,6 @@ export default {
                     prevEl: ".img_prev"
                 }
             },
-            /* swiperOptionThumbs: {
-                loop: false,
-                spaceBetween: 20,
-                centeredSlides: false,
-                slidesPerView: 3,
-                freeMode: true,
-                watchSlidesVisibility: true,
-                watchSlidesProgress: true,
-                slideToClickedSlide: true,
-                loopedSlides: 3, // looped slides should be the same
-            }, */
             swiperOptionThumbs: {
                 // loop: false,
                 spaceBetween: 20,
@@ -213,7 +203,7 @@ export default {
                         topSwiper.slideTo(activeIndex);
                     }
                 }
-            },
+            }, */
             variations: [],
             variation_id: "",
             variation_price: "",
@@ -222,7 +212,7 @@ export default {
             kratom_cart: "",
             minicart_popup_class: 'hidden',
             cross_sell_products: '',
-            from_category: this.$store.state.from_category,
+            //from_category: this.$store.state.from_category,
             added_cart_item: {
                 name: '',
                 qty: '',
@@ -233,12 +223,12 @@ export default {
     },
     mounted() {
         //this.fetch();
-        this.$nextTick(() => {
+        /* this.$nextTick(() => {
             const swiperTop = this.$refs.swiperTop.$swiper;
             const swiperThumbs = this.$refs.swiperThumbs.$swiper;
             swiperTop.controller.control = swiperThumbs;
             swiperThumbs.controller.control = swiperTop;
-        });        
+        });   */      
         
 
         /* omnisend.push(["track", "$productViewed",{
@@ -277,7 +267,7 @@ export default {
                 return this.price_html;
             }
         },
-        from_category_fun() {
+        /* from_category_fun() {
             var is_valid = false;
             var from_category = this.from_category;
             if (this.from_category && this.product.categories.length > 0) {
@@ -296,13 +286,16 @@ export default {
             } else {
                 return '';
             }
-        }
+        } */
     },
     created() {
         this.fetch();
         this.fetch_yith();
     },
     methods: {
+        slideTo(val) {
+            this.currentSlide = val
+        },
         replacehttptohttps(content){
             content = content.replace('http://', 'https://');
             content = content.replace('http://', 'https://');
@@ -397,25 +390,27 @@ export default {
                 }
             });
             if (!option_valid) {
-                this.$notify({
+                this.toast.error("Please select product options before adding this product to your cart.");
+                /* this.$notify({
                     title: "Please select product options before adding this product to your cart.",
                     type: "error"
-                });
+                }); */
                 $(event.target).removeClass("btn-loading-icon");
                 return 0;
             }
+            /* const kratom_token_c = useCookie('kratom_token')
             if (this.$cookies.isKey("kratom_token") && this.$cookies.get("kratom_token") != "") {
                 var kratom_token = this.$cookies.get("kratom_token");
                 var headers = {
                     "Content-Type": "application/json",
                     "Authorization": "Bearer " + kratom_token
                 };
-            } else {
+            } else { */
                 var headers = {
                     "Content-Type": "application/json",
                 };
-            }
-            if (this.$cookies.isKey("kratom_token")) {
+            /* } */
+            /* if (this.$cookies.isKey("kratom_token")) {
                 var url = useRuntimeConfig().public.api_url + "/wp-json/wc/store/v1/cart/add-item";
                 if (ptype == "variable") {
                     var data = { "id": "" + this.variation_id, "quantity": "" + this.product_qty };
@@ -423,7 +418,7 @@ export default {
                 else {
                     var data = { "id": "" + this.product_id, "quantity": "" + this.product_qty };
                 }
-            } /* else if (this.$cookies.isKey('cart_key') && this.$cookies.get('cart_key') != "") {
+            } */ /* else if (this.$cookies.isKey('cart_key') && this.$cookies.get('cart_key') != "") {
                 var url = useRuntimeConfig().public.api_url+'/wp-json/cocart/v2/cart/add-item';
                 var cart_key = this.$cookies.get('cart_key');
                 if (ptype == 'variable') {
@@ -432,7 +427,7 @@ export default {
                     var data = { "id": '' + this.product_id, "quantity": '' + this.product_qty, "cart_key": cart_key };
                 }
             } */
-            else {
+            /* else { */
                 //var url = useRuntimeConfig().public.api_url+'/wp-json/cocart/v2/cart/add-item';
                 var url = useRuntimeConfig().public.api_url + "/wp-json/wc/store/v1/cart/add-item";
                 if (ptype == "variable") {
@@ -441,7 +436,7 @@ export default {
                 else {
                     var data = { "id": "" + this.product_id, "quantity": "" + this.product_qty };
                 }
-            }
+            /* } */
             /*  var config = {
                  method: 'post',
                  //url: useRuntimeConfig().public.api_url+'/wp-json/wc/store/v1/cart/add-item',
@@ -492,8 +487,10 @@ export default {
                     } else {
                         this.added_cart_item.price = this.product.price;
                     }
-                    this.$store.dispatch("addToCartItemKratom", result.data);
-                    this.$notify({ title: "Product added to cart successfully!" });
+                    this.add_item.kratom_cart = result.data;
+                    /* this.$store.dispatch("addToCartItemKratom", result.data); */
+                    /* this.$notify({ title: "Product added to cart successfully!" }); */
+                    
                     this.minicart_popup_class = "show";
                     this.showcartpopup = true;
                     window.scroll({
@@ -501,8 +498,10 @@ export default {
                         behavior: "smooth",
                     });
                     this.cross_sell_products = result.data.cross_sells;
+                    this.toast.success("Product added to cart successfully!");
                 }, (error) => {
-                    this.$notify({ title: error.response.data.message, type: "error" });
+                    this.toast.error(error.response.data.message);
+                    /* this.$notify({ title: error.response.data.message, type: "error" }); */
                 }).finally((result) => {
                     $(event.target).removeClass("btn-loading-icon");
                 });
@@ -548,7 +547,7 @@ export default {
                 this.singleQuantity--;
         },
         fetch() {
-            const Buffer = require('buffer').Buffer;
+            //const Buffer = require('buffer').Buffer;
             const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64');
             //axios.get(useRuntimeConfig().public.api_url+"/wp-json/wc/v3/products/" + this.product_id + "/variations/", {
             axios.get(useRuntimeConfig().public.api_url + "/wp-json/wc/v3/products/" + this.product_id + "/variations/", {
@@ -650,9 +649,9 @@ export default {
             };
             axios(config)
                 .then((result) => {
-
+                    this.add_item.kratom_cart = result.data;
                     this.cartdata = result.data;
-                    this.$store.dispatch("addToCartItemKratom", result.data);
+                    /* this.$store.dispatch("addToCartItemKratom", result.data); */
                     this.kratom_cart = result.data;
                     this.loading = "";
                 }, (error) => {
@@ -672,7 +671,9 @@ export default {
             this.$store.state.kratom_cart = this.kratom_cart;
         }
     },
-    components: { MiniCartPopup, CartRelatedProducts: () => import("@/components/kratom/cart/CartRelatedProducts"), KratomTitleProduct }
+    components: { MiniCartPopup, CartRelatedProducts: () => import("@/components/kratom/cart/CartRelatedProducts"), KratomTitleProduct ,
+    Carousel, Slide, Pagination, Navigation
+}
 };
 </script>
 

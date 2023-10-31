@@ -4,6 +4,9 @@ export default {
     /* configureWebpack: {
         plugins: [new BundleAnalyzerPlugin()]
     }, */
+    routeRules: {
+      '/special': { prerender: false }
+    },
     router: {
         routes: [
           {
@@ -97,11 +100,11 @@ export default {
 
     // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
     plugins: [
-        { 
+        /* { 
             src: '~/plugins/yotposcript.js', 
             mode: 'client'
-        },
-        '~/plugins/vue-awesome-swiper.js',
+        }, */
+       /*  '~/plugins/vue-awesome-swiper.js', */
         '~/plugins/vuejs-pagiante.js',
         '~/plugins/observe-visibility.js',
         /* '~/plugins/persistedState.client.js', */
@@ -117,10 +120,10 @@ export default {
             src: '~/plugins/vue-js-modal', 
             mode: 'client'
         },
-        { 
+        /* { 
             src: '~/plugins/notifications-client.js', 
             mode: 'client' 
-        },
+        }, */
         {   
             src : '~/plugins/readmore.js', 
             mode: 'client'
@@ -171,7 +174,10 @@ export default {
         },
     },
 
-    serverMiddleware: [
+    /* serverMiddleware: [
         '~/plugins/prerender-middleware.js'
-    ]
+    ] */
+    serverMiddleware: [
+      '~/middleware/prerender',
+    ],
 }

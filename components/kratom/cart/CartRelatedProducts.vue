@@ -3,11 +3,11 @@
         <div class="container position-relative">
             <KratomTitle title="You may be" subTitle="Interested In..." class="mb-40 with_arrows"/>
             <div class="product-carousel product-carousel-nav-center">
-                <swiper :options="swiperOption" :pagination="true">
-                    <swiper-slide v-for="(product, index) in products" :key="index">
-                        <ProductGridItemCrossSell :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
-                    </swiper-slide>
-                </swiper>
+                <Carousel v-bind="settings" :breakpoints="breakpoints_new" ref="carousel">
+                  <Slide v-for="(product, index) in products" :key="index">
+                      <ProductGridItem :yotpoonce="index" :product="product"  :layout="layout" :yotpo_reviews_count="yotpo_reviews_count"/>
+                  </Slide>                                
+                </Carousel>
                 <!-- Swiper Navigation Start -->
                 <div class="product-carousel-nav swiper-button-prev">
                     <i class="pe-7s-angle-left"></i>
@@ -23,42 +23,49 @@
 </template>
 
 <script>
+import 'vue3-carousel/dist/carousel.css'
+import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+
 import axios from "axios";
 import $ from 'jquery';
+
     export default {
+        setup(){
+            const carousel = ref(null);
+            const carousel_next = () => {
+                carousel.value.next();
+            };
+            const carousel_prev = () => {
+                carousel.value.prev();
+            };
+
+            return {
+                carousel,
+                carousel_next,
+                carousel_prev
+            };            
+        },
         props: ['products'],
         components: {
+            Carousel, Slide, Pagination, Navigation
         },
         data() {
             return {
-                swiperOption: {
-                    loop: false,
-                    speed: 750,
-                    spaceBetween: 30,
-                    slidesPerView: 4,
-                    autoplay: {
-                        delay: 6000
-                    },
-                    navigation: {
-                        nextEl: '.swiper-button-next',
-                        prevEl: '.swiper-button-prev',
-                    },
-                    breakpoints: {
-                        320: {
-                            slidesPerView: 2,
-                        spaceBetween: 20,
-                        },
-                        480: {
-                            slidesPerView: 2
-                        },
-                        768: {
-                            slidesPerView: 3
-                        },
-                        992: {
-                            slidesPerView: 4
-                        }
-                    }
+                settings: {
+                    itemsToShow: 2,
+                    snapAlign: 'start',
                 },
+                breakpoints_new: {
+                  700: {
+                    itemsToShow: 3,
+                    snapAlign: 'start',
+                  },
+                  1024: {
+                    itemsToShow: 4,
+                    snapAlign: 'start',
+                  },
+                },
+                
                 kratom_products: '',
                 layout: 'twoColumn',
                 yotpo_reviews_count : [],

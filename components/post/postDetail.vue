@@ -76,7 +76,7 @@ export default {
     data() {
         return {
             //blog : post,
-            //slug: this.$route.params.slug            
+            //slug: useRoute().params.slug            
             pop_products: ref(pop_products)
         }
     },    

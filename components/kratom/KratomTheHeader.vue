@@ -110,7 +110,7 @@
                                                 <input type="text" name="s" placeholder="Search"
                                                     @keyup="searchkeychange($event)" autocomplete="off" />
                                                 <!-- <input type="text" name="s" placeholder="Search"
-                                                    :value="this.$route.query.s" @keyup="searchkeychange($event)" /> -->
+                                                    :value="useRoute().query.s" @keyup="searchkeychange($event)" /> -->
                                                 <button class="button-search" type="submit"><i
                                                         class="pe-7s-search"></i></button>
                                             </form>
@@ -148,7 +148,7 @@
                                                 <input type="text" name="s" placeholder="Search"
                                                     @keyup="searchkeychange($event)" autocomplete="off" />
                                                 <!-- <input type="text" name="s" placeholder="Search"
-                                                    :value="this.$route.query.s" @keyup="searchkeychange($event)" /> -->
+                                                    :value="useRoute().query.s" @keyup="searchkeychange($event)" /> -->
                                                 <button class="button-search" type="submit"><i
                                                         class="pe-7s-search"></i></button>
                                             </form>
@@ -202,11 +202,7 @@ import axios from "axios";
 import { useKratom_cartStore } from "~/stores/index"
 
 export default {
-    setup() {
-        const Kratom_cartitem = useKratom_cartStore()
-
-        return { Kratom_cartitem }
-    },
+    
     components: {
         Navigation: () => import("@/components/Navigation"),
         MiniCart: () => import("@/components/MiniCart"),
@@ -224,6 +220,7 @@ export default {
     data() {
         return {
             isSticky: false,
+            Kratom_cartitem: {},
             isOpenSearch: false, 
             isOpenAccountSettings: false,
             openCart: false,
@@ -394,8 +391,21 @@ export default {
                   "footer_email": "info@kratomspot.com"
                 }
         }
+        
     },
+    async setup(){
+        let kratom_header_data = '';
+            await axios.get(
+                useRuntimeConfig().public.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
+                    kratom_header_data = result.data;
+                }, (error) => {
+                    console.log(error);
+                })
+        return {
+            kratom_header_data
+        }
 
+    },
     mounted() {
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
@@ -412,7 +422,7 @@ export default {
             }
         })
         const user_display_name = useCookie('user_display_name')
-        console.log(user_display_name.value);
+        
         if (user_display_name.value && user_display_name.value != "") {
             this.loggedin = true;
             this.username = 'Hi, ' + user_display_name.value.split(" ")[0]
@@ -420,7 +430,7 @@ export default {
             this.loggedin = false;
         }        
         
-        console.log('header mounted');
+        
         /* const script = document.createElement('script')
         script.src = 'https://staticw2.yotpo.com/qISoyNDMzxbhZewW638yicv9a0Q2QtUPU5p1Xr57/widget.js'
         script.async = true;        
@@ -431,6 +441,20 @@ export default {
         
     },
     methods: {
+        fetch_cart(){
+            const Kratom_cartitem = useKratom_cartStore()
+            this.Kratom_cartitem = Kratom_cartitem;
+            //return { Kratom_cartitem }
+        },
+        /* async fetch() {
+            const configs = useRuntimeConfig() //configs.public.
+            await axios.get(
+                configs.public.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
+                    this.kratom_header_data = result.data;
+                }, (error) => {
+                    console.log(error);
+                })
+        }, */
         copyToClipboard(text) {
             var sampleTextarea = document.createElement("textarea");
             document.body.appendChild(sampleTextarea);
@@ -501,7 +525,7 @@ export default {
 
         
     },
-    fetch() {
+    /* fetch() {
         const configs = useRuntimeConfig() //configs.public.
             axios.get(
                 configs.public.api_url + '/wp-json/acf/v3/header?data_type=header_section').then((result) => {
@@ -509,9 +533,10 @@ export default {
                 }, (error) => {
                     console.log(error);
                 })
-        },
+        }, */
     created() {
         //this.fetch()
+        this.fetch_cart()
     }
 };
 </script>

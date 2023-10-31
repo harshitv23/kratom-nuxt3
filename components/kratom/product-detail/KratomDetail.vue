@@ -34,8 +34,6 @@ const props = defineProps({
 });
 const { product } = props;
 const { name } = props;
-console.log('name'+name); 
-console.log('product'+product);
 
 </script>
 
@@ -193,7 +191,7 @@ console.log('product'+product);
                         <div class="product_detail_addtocart_section">
                             <label>
                                 <span class="d-none">qty</span>                                
-                                <select id="qty_no" class="product_detail_qty" v-model="product_qty">
+                                <select id="qty_no" class="product_detail_qty" v-bind:value="product_qty">
                                     <option value="1" selected="selected">1</option>
                                     <option v-for="q_no in qty_no" :value="`${q_no}`" :selected="(q_no == 1 || q_no == '1')?'selected':''">{{ q_no }}</option>
                                 </select>
@@ -203,7 +201,7 @@ console.log('product'+product);
                                 CART</button>
                             <button type="button" class="btn product_detail_addtocart_btn text-white" v-else disabled>ADD TO
                                 CART</button>
-                            <input type="hidden" id="selected_product_variation" v-model="variation_id">
+                            <input type="hidden" id="selected_product_variation" v-bind:value="variation_id">
                             <input type="hidden" id="selected_product_id" v-bind:value="product_id" />
                             <input type="hidden" id="selected_product_type" v-bind:value="product.type" />
                         </div>                        

@@ -24,10 +24,13 @@ const yotpo_reviews = ref([]);
 const checking_current_page = ref(false);
 const showall = ref(false);
 
+import { Buffer } from "buffer";
 import head_json from "../data/seo_data.json";
 //import { useAsyncData } from '@nuxt/composition-api';
 import axios from 'axios';
 import KratomDetail from "~/components/kratom/product-detail/KratomDetail.vue";
+import KratomDetail2 from "~/components/kratom/product-detail/KratomDetail2.vue";
+import KratomDetailTabs from "~/components/kratom/product-detail/KratomDetailTabs.vue";
 import KratomDetailNew from "~/components/kratom/product-detail/KratomDetailNew.vue";
 import KratomEffects from "~/components/kratom/product-detail/KratomEffects.vue";
 //import CustomRelatedProducts from "~/components/kratom/CustomRelatedProducts.vue";
@@ -45,11 +48,27 @@ import PageDetail from "~/components/kratom/page/pageDetail.vue";
 import KratomFreeShipping from "~/components/kratom/KratomFreeShipping.vue";
 import $ from "jquery";
 
-console.log(head_json[slug.value]);
+
 yoast_head_json.value = head_json[slug.value];
-console.log(yoast_head_json.value);
-content_type.value = yoast_head_json.value.type;
-console.log(yoast_head_json.value.type)
+if(yoast_head_json.value.type){            
+    content_type.value = yoast_head_json.value.type;
+        }else{
+            axios.get(
+                useRuntimeConfig().public.api_url + '/wp-json/kratom/v3/get_head',
+            {
+                params: {
+                    slug: slug
+
+                }
+            }
+        ).then(response => {
+            yoast_head_json.value = response.data;                        
+            content_type.value = response.data.type;
+        })
+        }  
+
+
+
 /* const { data: yoast_head_json } = await useAsyncData('yoast_head_json', async () => {
     console.log('----')
     console.log('----')
@@ -79,6 +98,75 @@ function replaceSizeImg(img, replacewith = 'h_400,w_400') {
   return img;
 }
 
+
+function sortby(event) {
+    const encodedCredentials = Buffer.from(`${useRuntimeConfig().public.consumer_key}:${useRuntimeConfig().public.secret_key}`).toString('base64')
+    listloading.value = true;
+    var sortby = event.target.value
+
+    var params = {
+            per_page: 100,
+            order: 'asc',
+            orderby: sortby,
+            status: 'publish',
+            search: useRoute().query.s        
+        }
+
+    if (sortby == 'price-desc') {
+        var params = {
+            per_page: 100,
+            order: 'desc',
+            orderby: 'price',
+            status: 'publish',
+            search: useRoute().query.s,
+            /* consumer_key: useRuntimeConfig().public.consumer_key,
+            consumer_secret: useRuntimeConfig().public.secret_key, */
+        }
+    } else {
+        var params = {
+            per_page: 100,
+            order: 'asc',
+            orderby: sortby,
+            status: 'publish',
+            search: useRoute().query.s,
+            /* consumer_key: useRuntimeConfig().public.consumer_key,
+            consumer_secret: useRuntimeConfig().public.secret_key, */
+        
+        }
+    }
+    if (category_id.value != undefined && category_id.value != "") {
+        params['category'] = category_id.value;
+    }
+
+   
+        
+        
+        
+            axios.get(
+                useRuntimeConfig().public.api_url + '/wp-json/wc/v3/products',
+                {
+                    params: params,
+                    headers: {
+                        authorization: 'Basic ' + encodedCredentials
+                    }
+                }
+            ).then((result) => {
+                kratom_products.value = result.data;
+            }, (error) => {
+                console.log(error);
+            }).finally(() => { 
+                listloading.value = false; 
+            })
+        
+    
+
+}
+
+function scrollToFilter() {
+    document.getElementById('filter').scrollIntoView({
+        behavior: 'smooth'
+    });
+}
 
 function yotporeviews(data) {
     const product_ids = [];
@@ -116,7 +204,7 @@ function yotporeviews(data) {
 }
 
 //import { Buffer } from "Buffer";
-import { Buffer } from "buffer";
+
 
 const load_yotpo = () => {
     const script = document.createElement('script')
@@ -263,25 +351,28 @@ const schema_scripts = []
         if (yoast_head_json.value && yoast_head_json.value.meta.schema) {
             schema_scripts.push({
                 type: 'application/ld+json',
-                json: yoast_head_json.value && yoast_head_json.value.meta.schema
+                innerHTML: JSON.stringify(yoast_head_json.value && yoast_head_json.value.meta.schema
                     ? yoast_head_json.value.meta.schema
-                    : ''
+                    : '')
+                /* json: yoast_head_json.value && yoast_head_json.value.meta.schema
+                    ? yoast_head_json.value.meta.schema
+                    : '' */
             });
         }
         if (yoast_head_json.value && yoast_head_json.value.product_schema) {
             schema_scripts.push({
                 type: 'application/ld+json',
-                json: yoast_head_json.value && yoast_head_json.value.product_schema
+                innerHTML: JSON.stringify(yoast_head_json.value && yoast_head_json.value.product_schema
                     ? yoast_head_json.value.product_schema
-                    : ''
+                    : '')
             });
         }
         if (yoast_head_json.value && yoast_head_json.value.review_schema) {
             schema_scripts.push({
                 type: 'application/ld+json',
-                json: yoast_head_json.value && yoast_head_json.value.review_schema
+                innerHTML: JSON.stringify(yoast_head_json.value && yoast_head_json.value.review_schema
                     ? yoast_head_json.value.review_schema
-                    : ''
+                    : '')
             });
         }
         var robots = 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1';
@@ -553,10 +644,10 @@ useHead({
                 :description="product.description" />
             <CustomRelatedProducts :product_related="product.related_ids"
                 v-if="loading == false && content_type == 'product' && product.related_ids != undefined" />
-            <KratomProductDetailQualityImage v-if="showall && loading == false && content_type == 'product'" />
-            <KratomReviewsProduct v-if="showall && loading == false && content_type == 'product'" :product="product"
+            <KratomProductDetailQualityImage v-if="loading == false && content_type == 'product'" />
+            <KratomReviewsProduct v-if="loading == false && content_type == 'product'" :product="product"
                 :product_id="product.id" class="mb-80" />
-            <KratomFreeShipping v-if="showall && content_type == 'product' && loading == false" />
+            <KratomFreeShipping v-if="content_type == 'product' && loading == false" />
         </div>
         <div class="product_container KratomDetail1" :class="product_loading" v-else-if="yoast_head_json && content_type && content_type == 'product'">            
             <!-- <KratomDetail :product="product" :product_id="product.id" :product_price="product.price_html" :product_laberesult="product.ACF.lab_results" :product_moreinfo="product.ACF.additional_information"
@@ -565,7 +656,7 @@ useHead({
             <KratomDetail :product="product" :product_id="product.id" :product_price="product.price_html" 
                 v-else-if="loading == false && content_type == 'product'" /> -->
             <!-- <KratomDetail :product="product" name="adfasdf" v-bind:props="{ name : 'hhhhaaaarrrssshhhiiiitttt' }" v-if="loading == false && content_type == 'product'" />                         -->            
-            <KratomDetailNew :product="product" :product_id="product.id" :price_html="product.price_html" :product_laberesult="product.ACF.lab_results" :product_moreinfo="product.ACF.additional_information"
+            <KratomDetailNew :product="product" :product_id="product.id" :price_html_1="product.price_html" :product_laberesult="product.ACF.lab_results" :product_moreinfo="product.ACF.additional_information"
                 :description="product.description" v-if="loading == false && content_type == 'product'" />                        
             <!-- <KratomDetailTabs v-if="product.ACF && loading == false && content_type == 'product'"
                 :product_laberesult="product.ACF.lab_results" :product_moreinfo="product.ACF.additional_information"
@@ -631,6 +722,7 @@ useHead({
                     </div>
                 </div>
             </div>
+            
             <Categoryreviews v-if="loading == false && content_type == 'product-category'" :yotpo_reviews="yotpo_reviews" />
             <KratomResponsiblySourced v-if="loading == false && content_type == 'product-category'"
             :description="description" />
@@ -641,7 +733,7 @@ useHead({
         <TitleBar :title="pagetitle" v-if="yoast_head_json && content_type && content_type == 'post'" />
         <TitleBar :title="pagetitle" v-else-if="loading == false && content_type == 'post'" />
         <postDetail :blog='kratom_post' v-if="kratom_post && loading == false && content_type == 'post'" />
-        <blogCTA v-if="showall && kratom_post && loading == false && content_type == 'post'"/>
+<blogCTA v-if="kratom_post && loading == false && content_type == 'post'"/>
 
         <!-- Page -->
         <TitleBar :title="pagetitle" v-if="loading == false && content_type == 'page'" />
@@ -711,7 +803,7 @@ export default {
         return {
             loading: true,
             listloading: false,
-            slug: this.$route.params.slug,
+            slug: useRoute().params.slug,
             product: "",
             content_type: '',
             kratom_products: '',
@@ -739,16 +831,16 @@ export default {
         }
     },
     /* async fetch(){
-        //console.log(head_json[this.$route.params.slug]);
-        if(head_json[this.$route.params.slug]){
-            this.yoast_head_json = head_json[this.$route.params.slug];
+        //console.log(head_json[useRoute().params.slug]);
+        if(head_json[useRoute().params.slug]){
+            this.yoast_head_json = head_json[useRoute().params.slug];
         }else{
             this.checking_current_page = true;
             await axios.get(
                 useRuntimeConfig().public.api_url + '/wp-json/kratom/v3/get_head',
                 {
                     params: {
-                        slug: this.$route.params.slug
+                        slug: useRoute().params.slug
 
                     }
                 }
@@ -792,7 +884,7 @@ export default {
                     order: 'desc',
                     orderby: 'price',
                     status: 'publish',
-                    search: this.$route.query.s,
+                    search: useRoute().query.s,
                     /* consumer_key: useRuntimeConfig().public.consumer_key,
                     consumer_secret: useRuntimeConfig().public.secret_key, */
                 }
@@ -802,7 +894,7 @@ export default {
                     order: 'asc',
                     orderby: sortby,
                     status: 'publish',
-                    search: this.$route.query.s,
+                    search: useRoute().query.s,
                     /* consumer_key: useRuntimeConfig().public.consumer_key,
                     consumer_secret: useRuntimeConfig().public.secret_key, */
                 }
